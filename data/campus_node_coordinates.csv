@@ -1,0 +1,372 @@
+node_id,name,node_type,lat,lon,source,estimate_confidence,road_segment
+BRG5,Bridge 5,circle node,30.268165,77.996861,measured,,
+BRG6,Bridge 6,circle node,30.26807,77.997113,measured,,
+CH-1,Chanakya west entrance,circle node,30.267614,77.996782,measured,,
+CH-2,Chanakya top entrance,circle node,30.267724,77.996867,measured,,
+EP-1,East Parking 1,circle node,30.268203,77.997162,measured,,
+EP-2,East Parking 2,circle node,30.268279,77.99726,measured,,
+EP-3,East Parking 3,circle node,30.268419,77.997749,measured,,
+G2,Gate 2,circle node,30.268726,77.997885,measured,,
+GAC,Garden Area C,circle node,30.267856,77.997156,measured,,
+KP-B,KP Nautiyal bottom (main),circle node,30.267922,77.996763,measured,,
+KP-L,KP Nautiyal left (Quick Bite),circle node,30.267851,77.996574,measured,,
+KP-R,KP Nautiyal right (Quick Bite),circle node,30.268096,77.996807,measured,,
+MB-2,Mechanical Blk entrance 2,circle node,30.26832,77.996672,measured,,
+TRUCK,Hocus Focus Cafe,circle node,30.26803,77.997293,measured,,
+TS2,Tuck Shop 2,circle node,30.267743,77.997017,measured,,
+UCB,Under Construction Bldg,circle node,30.267695,77.997264,measured,,
+ARY,Aryabhatta Lab,circle node,30.267579,77.995835,estimated,fair (~15-30 m),
+ASH,Azad Shekhar Hostel,circle node,30.267283,77.994593,estimated,low (30-60+ m),
+BAD,Badminton Court,circle node,30.266893,77.995386,estimated,low (30-60+ m),
+BBG,Basket Ball Ground,circle node,30.267122,77.996303,estimated,fair (~15-30 m),
+BG,Back Gate,circle node,30.268372,77.995029,estimated,low (30-60+ m),
+BRG1,Bridge 1,circle node,30.267394,77.995125,estimated,low (30-60+ m),
+BRG2,Bridge 2,circle node,30.267517,77.995284,estimated,fair (~15-30 m),
+BRG3,Bridge 3,circle node,30.267688,77.995961,estimated,fair (~15-30 m),
+BRG4,Bridge 4,circle node,30.267603,77.996269,estimated,good (~10-15 m),
+BT-1,BT-1 NW,circle node,30.267221,77.995354,estimated,fair (~15-30 m),
+BT-2,BT-2 N,circle node,30.267327,77.995423,estimated,fair (~15-30 m),
+BT-3,BT-3 NE,circle node,30.267391,77.99557,estimated,fair (~15-30 m),
+BT-4,BT-4 W,circle node,30.267052,77.995432,estimated,fair (~15-30 m),
+BT-5,BT-5 SW,circle node,30.266993,77.995508,estimated,fair (~15-30 m),
+BT-6,BT-6 E,circle node,30.267225,77.995762,estimated,fair (~15-30 m),
+BT-7,BT-7 SE,circle node,30.267139,77.995803,estimated,fair (~15-30 m),
+BTG,B.Tech Ground entrance,circle node,30.267594,77.99505,estimated,low (30-60+ m),
+BUSP,Bus Parking Area,circle node,30.268454,77.997808,estimated,good (~10-15 m),
+CC-E,CC east entrance,circle node,30.268271,77.995173,estimated,fair (~15-30 m),
+CC-S1,CC south entrance 1,circle node,30.268129,77.99508,estimated,low (30-60+ m),
+CC-S2,CC south entrance 2,circle node,30.268197,77.99517,estimated,fair (~15-30 m),
+CC-W,CC west entrance,circle node,30.268092,77.994966,estimated,low (30-60+ m),
+CG,CSIT Gate,circle node,30.26764,77.994663,estimated,low (30-60+ m),
+CK,Charkhamba (outside),circle node,30.269435,77.99705,estimated,fair (~15-30 m),
+CS-F,CSIT Block front entrance,circle node,30.267818,77.99455,estimated,low (30-60+ m),
+CS-R1,CSIT Block right entrance 1 (upper),circle node,30.268034,77.994436,estimated,low (30-60+ m),
+CS-R2,CSIT Block right entrance 2 (lower),circle node,30.267912,77.99454,estimated,low (30-60+ m),
+CV-1,Civil Blk west entrance,circle node,30.266887,77.996014,estimated,fair (~15-30 m),
+CV-2,Civil Blk north entrance,circle node,30.266981,77.996135,estimated,fair (~15-30 m),
+DISP,Dispensary,circle node,30.267922,77.995192,estimated,fair (~15-30 m),
+FLAG,Flag Area,circle node,30.267415,77.995241,estimated,fair (~15-30 m),
+FNT,Fountain,circle node,30.267365,77.995817,estimated,fair (~15-30 m),
+G1,Gate 1,circle node,30.267934,77.995073,estimated,low (30-60+ m),
+G3,Gate 3,circle node,30.266672,77.995809,estimated,fair (~15-30 m),
+GAA,Garden Area A,circle node,30.267743,77.995438,estimated,fair (~15-30 m),
+GAB,Garden Area B,circle node,30.267566,77.995543,estimated,fair (~15-30 m),
+GAD,Garden Area D,circle node,30.268081,77.994563,estimated,low (30-60+ m),
+GPE,Gate for President Estate,circle node,30.26784,77.995257,estimated,fair (~15-30 m),
+HH,Happiness Hut (cafe+gym),circle node,30.267,77.994948,estimated,low (30-60+ m),
+LBH,Laxmi Bai Hostel,circle node,30.267353,77.994493,estimated,low (30-60+ m),
+LIB,Library,circle node,30.267331,77.995988,estimated,fair (~15-30 m),
+MB-1,Mechanical Blk entrance 1,circle node,30.267715,77.996241,estimated,good (~10-15 m),
+MINI,Mini Bridge,circle node,30.267239,77.994848,estimated,low (30-60+ m),
+NCS,New CSIT Block entrance,circle node,30.267691,77.994455,estimated,low (30-60+ m),
+PA,Parking PA,circle node,30.268018,77.99503,estimated,low (30-60+ m),
+PARAM,Param Lab,circle node,30.267394,77.996146,estimated,fair (~15-30 m),
+PB,Parking PB,circle node,30.268443,77.995216,estimated,fair (~15-30 m),
+PC,Parking PC,circle node,30.268398,77.995098,estimated,low (30-60+ m),
+PK-W,Parking Area W,circle node,30.267779,77.994244,estimated,low (30-60+ m),
+PK-X,Parking Area X,circle node,30.267988,77.994661,estimated,low (30-60+ m),
+PK-Y,Parking Area Y (whole area),circle node,30.26843,77.994065,estimated,low (30-60+ m),
+PK-Z,Parking Area Z,circle node,30.267981,77.994257,estimated,low (30-60+ m),
+PM-L,Paramedical Block left front entrance,circle node,30.268167,77.994264,estimated,low (30-60+ m),
+PM-R,Paramedical Block right front entrance,circle node,30.268241,77.994343,estimated,low (30-60+ m),
+PRIY,Priyadarshini Hostel,circle node,30.267898,77.99605,estimated,good (~10-15 m),
+PT-1,Petroleum top,circle node,30.26739,77.996407,estimated,good (~10-15 m),
+PT-2,Petroleum left,circle node,30.267273,77.996407,estimated,good (~10-15 m),
+PT-3,Petroleum top-right,circle node,30.26751,77.996606,estimated,good (~10-15 m),
+PT-4,Petroleum bottom-right,circle node,30.267413,77.996702,estimated,good (~10-15 m),
+PT-5,Petroleum bottom,circle node,30.267295,77.996602,estimated,good (~10-15 m),
+RAVI,Ravi Canteen,circle node,30.267085,77.994794,estimated,low (30-60+ m),
+STAT,Statue Area,circle node,30.267199,77.995125,estimated,low (30-60+ m),
+TM,Tunnel Mouth,circle node,30.267552,77.994623,estimated,low (30-60+ m),
+TS1,Tuckshop 1,circle node,30.267765,77.995332,estimated,fair (~15-30 m),
+TS3,Tuck Shop 3,circle node,30.268153,77.994505,estimated,low (30-60+ m),
+WC,W/C,circle node,30.267053,77.99613,estimated,fair (~15-30 m),
+S001-D1,Diamond S001-D1 (1 of 2 between ARY and BRG3),diamond node,30.267615,77.995877,estimated,fair (~15-30 m),S001: ARY to BRG3
+S001-D2,Diamond S001-D2 (2 of 2 between ARY and BRG3),diamond node,30.267652,77.995919,estimated,fair (~15-30 m),S001: ARY to BRG3
+S002-D1,Diamond S002-D1 (1 of 2 between ARY and J31),diamond node,30.26755,77.995791,estimated,fair (~15-30 m),S002: ARY to J31
+S002-D2,Diamond S002-D2 (2 of 2 between ARY and J31),diamond node,30.267521,77.995747,estimated,fair (~15-30 m),S002: ARY to J31
+S003-D1,Diamond S003-D1 (1 of 3 between ASH and J08),diamond node,30.267325,77.994629,estimated,low (30-60+ m),S003: ASH to J08
+S003-D2,Diamond S003-D2 (2 of 3 between ASH and J08),diamond node,30.267367,77.994664,estimated,low (30-60+ m),S003: ASH to J08
+S003-D3,Diamond S003-D3 (3 of 3 between ASH and J08),diamond node,30.267408,77.994699,estimated,low (30-60+ m),S003: ASH to J08
+S004-D1,Diamond S004-D1 (1 of 1 between BAD and J14),diamond node,30.266924,77.995428,estimated,low (30-60+ m),S004: BAD to J14
+S005-D1,Diamond S005-D1 (1 of 2 between BBG and J34),diamond node,30.267153,77.996247,estimated,fair (~15-30 m),S005: BBG to J34
+S005-D2,Diamond S005-D2 (2 of 2 between BBG and J34),diamond node,30.267185,77.996191,estimated,fair (~15-30 m),S005: BBG to J34
+S006-D1,Diamond S006-D1 (1 of 1 between BG and PC),diamond node,30.268348,77.995079,estimated,low (30-60+ m),S006: BG to PC
+S010-D1,Diamond S010-D1 (1 of 3 between BRG2 and J26),diamond node,30.267478,77.995325,estimated,fair (~15-30 m),S010: BRG2 to J26
+S010-D2,Diamond S010-D2 (2 of 3 between BRG2 and J26),diamond node,30.267454,77.995375,estimated,fair (~15-30 m),S010: BRG2 to J26
+S010-D3,Diamond S010-D3 (3 of 3 between BRG2 and J26),diamond node,30.267449,77.995435,estimated,fair (~15-30 m),S010: BRG2 to J26
+S011-D1,Diamond S011-D1 (1 of 2 between BRG3 and J40),diamond node,30.267712,77.996015,estimated,fair (~15-30 m),S011: BRG3 to J40
+S011-D2,Diamond S011-D2 (2 of 2 between BRG3 and J40),diamond node,30.267736,77.996069,estimated,fair (~15-30 m),S011: BRG3 to J40
+S013-D1,Diamond S013-D1 (1 of 1 between BRG4 and MB-1),diamond node,30.267659,77.996255,estimated,good (~10-15 m),S013: BRG4 to MB-1
+S016-D1,Diamond S016-D1 (1 of 1 between BRG6 and J48),diamond node,30.268154,77.997146,estimated,good (~10-15 m),S016: BRG6 to J48
+S017-D1,Diamond S017-D1 (1 of 1 between BRG6 and J49),diamond node,30.268226,77.997241,estimated,good (~10-15 m),S017: BRG6 to J49
+S018-D1,Diamond S018-D1 (1 of 1 between BT-1 and J12),diamond node,30.267168,77.99531,estimated,low (30-60+ m),S018: BT-1 to J12
+S019-D1,Diamond S019-D1 (1 of 1 between BT-1 and J21),diamond node,30.267256,77.995308,estimated,low (30-60+ m),S019: BT-1 to J21
+S020-D1,Diamond S020-D1 (1 of 2 between BT-2 and J21),diamond node,30.267315,77.995369,estimated,fair (~15-30 m),S020: BT-2 to J21
+S020-D2,Diamond S020-D2 (2 of 2 between BT-2 and J21),diamond node,30.267303,77.995315,estimated,fair (~15-30 m),S020: BT-2 to J21
+S021-D1,Diamond S021-D1 (1 of 1 between BT-2 and J26),diamond node,30.267385,77.995459,estimated,fair (~15-30 m),S021: BT-2 to J26
+S023-D1,Diamond S023-D1 (1 of 2 between BT-3 and J31),diamond node,30.267425,77.995614,estimated,fair (~15-30 m),S023: BT-3 to J31
+S023-D2,Diamond S023-D2 (2 of 2 between BT-3 and J31),diamond node,30.267458,77.995659,estimated,fair (~15-30 m),S023: BT-3 to J31
+S025-D1,Diamond S025-D1 (1 of 2 between BT-4 and J12),diamond node,30.267073,77.995376,estimated,fair (~15-30 m),S025: BT-4 to J12
+S025-D2,Diamond S025-D2 (2 of 2 between BT-4 and J12),diamond node,30.267094,77.995321,estimated,low (30-60+ m),S025: BT-4 to J12
+S028-D1,Diamond S028-D1 (1 of 1 between BT-6 and J30),diamond node,30.267244,77.995815,estimated,fair (~15-30 m),S028: BT-6 to J30
+S029-D1,Diamond S029-D1 (1 of 1 between BT-7 and J29),diamond node,30.267169,77.995851,estimated,fair (~15-30 m),S029: BT-7 to J29
+S030-D1,Diamond S030-D1 (1 of 2 between BTG and J22),diamond node,30.267557,77.995086,estimated,low (30-60+ m),S030: BTG to J22
+S030-D2,Diamond S030-D2 (2 of 2 between BTG and J22),diamond node,30.267519,77.995123,estimated,low (30-60+ m),S030: BTG to J22
+S031-D1,Diamond S031-D1 (1 of 2 between BUSP and J52),diamond node,30.268492,77.997771,estimated,good (~10-15 m),S031: BUSP to J52
+S031-D2,Diamond S031-D2 (2 of 2 between BUSP and J52),diamond node,30.26853,77.997733,estimated,good (~10-15 m),S031: BUSP to J52
+S032-D1,Diamond S032-D1 (1 of 1 between CC-E and J37),diamond node,30.268305,77.995218,estimated,fair (~15-30 m),S032: CC-E to J37
+S034-D1,Diamond S034-D1 (1 of 1 between CC-S2 and J32),diamond node,30.268133,77.995153,estimated,fair (~15-30 m),S034: CC-S2 to J32
+S035-D1,Diamond S035-D1 (1 of 5 between CC-W and J25),diamond node,30.26806,77.994923,estimated,low (30-60+ m),S035: CC-W to J25
+S035-D2,Diamond S035-D2 (2 of 5 between CC-W and J25),diamond node,30.268027,77.994879,estimated,low (30-60+ m),S035: CC-W to J25
+S035-D3,Diamond S035-D3 (3 of 5 between CC-W and J25),diamond node,30.267991,77.994878,estimated,low (30-60+ m),S035: CC-W to J25
+S035-D4,Diamond S035-D4 (4 of 5 between CC-W and J25),diamond node,30.267953,77.994915,estimated,low (30-60+ m),S035: CC-W to J25
+S035-D5,Diamond S035-D5 (5 of 5 between CC-W and J25),diamond node,30.267914,77.994951,estimated,low (30-60+ m),S035: CC-W to J25
+S039-D1,Diamond S039-D1 (1 of 2 between CH-1 and PT-4),diamond node,30.267475,77.996797,estimated,good (~10-15 m),S039: CH-1 to PT-4
+S039-D2,Diamond S039-D2 (2 of 2 between CH-1 and PT-4),diamond node,30.267444,77.996749,estimated,good (~10-15 m),S039: CH-1 to PT-4
+S040-D1,Diamond S040-D1 (1 of 4 between CH-2 and J42),diamond node,30.267662,77.996822,estimated,good (~10-15 m),S040: CH-2 to J42
+S040-D2,Diamond S040-D2 (2 of 4 between CH-2 and J42),diamond node,30.26769,77.996777,estimated,good (~10-15 m),S040: CH-2 to J42
+S040-D3,Diamond S040-D3 (3 of 4 between CH-2 and J42),diamond node,30.267718,77.996731,estimated,good (~10-15 m),S040: CH-2 to J42
+S040-D4,Diamond S040-D4 (4 of 4 between CH-2 and J42),diamond node,30.267746,77.996686,estimated,good (~10-15 m),S040: CH-2 to J42
+S041-D1,Diamond S041-D1 (1 of 2 between CH-2 and TS2),diamond node,30.267678,77.996904,estimated,good (~10-15 m),S041: CH-2 to TS2
+S041-D2,Diamond S041-D2 (2 of 2 between CH-2 and TS2),diamond node,30.267722,77.996941,estimated,good (~10-15 m),S041: CH-2 to TS2
+S044-D1,Diamond S044-D1 (1 of 1 between CS-F and J10),diamond node,30.267756,77.994541,estimated,low (30-60+ m),S044: CS-F to J10
+S045-D1,Diamond S045-D1 (1 of 1 between CS-F and J15),diamond node,30.267814,77.994603,estimated,low (30-60+ m),S045: CS-F to J15
+S046-D1,Diamond S046-D1 (1 of 1 between CS-R1 and GAD),diamond node,30.268057,77.994499,estimated,low (30-60+ m),S046: CS-R1 to GAD
+S047-D1,Diamond S047-D1 (1 of 1 between CS-R1 and TS3),diamond node,30.268093,77.99447,estimated,low (30-60+ m),S047: CS-R1 to TS3
+S049-D1,Diamond S049-D1 (1 of 2 between CV-1 and J23),diamond node,30.266871,77.995957,estimated,fair (~15-30 m),S049: CV-1 to J23
+S049-D2,Diamond S049-D2 (2 of 2 between CV-1 and J23),diamond node,30.266855,77.995901,estimated,fair (~15-30 m),S049: CV-1 to J23
+S051-D1,Diamond S051-D1 (1 of 1 between DISP and G1),diamond node,30.267928,77.995133,estimated,fair (~15-30 m),S051: DISP to G1
+S052-D1,Diamond S052-D1 (1 of 1 between DISP and GPE),diamond node,30.267881,77.995225,estimated,fair (~15-30 m),S052: DISP to GPE
+S053-D1,Diamond S053-D1 (1 of 1 between EP-1 and J49),diamond node,30.268298,77.997244,estimated,good (~10-15 m),S053: EP-1 to J49
+S054-D1,Diamond S054-D1 (1 of 1 between EP-2 and J50),diamond node,30.268413,77.997397,estimated,good (~10-15 m),S054: EP-2 to J50
+S055-D1,Diamond S055-D1 (1 of 1 between EP-3 and J51),diamond node,30.268528,77.997551,estimated,good (~10-15 m),S055: EP-3 to J51
+S056-D1,Diamond S056-D1 (1 of 1 between FLAG and J18),diamond node,30.267377,77.995212,estimated,low (30-60+ m),S056: FLAG to J18
+S057-D1,Diamond S057-D1 (1 of 1 between FNT and J30),diamond node,30.267314,77.995842,estimated,fair (~15-30 m),S057: FNT to J30
+S058-D1,Diamond S058-D1 (1 of 2 between FNT and J31),diamond node,30.267407,77.995779,estimated,fair (~15-30 m),S058: FNT to J31
+S058-D2,Diamond S058-D2 (2 of 2 between FNT and J31),diamond node,30.26745,77.995741,estimated,fair (~15-30 m),S058: FNT to J31
+S059-D1,Diamond S059-D1 (1 of 2 between FNT and LIB),diamond node,30.267353,77.995874,estimated,fair (~15-30 m),S059: FNT to LIB
+S059-D2,Diamond S059-D2 (2 of 2 between FNT and LIB),diamond node,30.267342,77.995931,estimated,fair (~15-30 m),S059: FNT to LIB
+S062-D1,Diamond S062-D1 (1 of 1 between G1 and PA),diamond node,30.267975,77.995012,estimated,low (30-60+ m),S062: G1 to PA
+S063-D1,Diamond S063-D1 (1 of 2 between G2 and J52),diamond node,30.26863,77.997779,estimated,good (~10-15 m),S063: G2 to J52
+S063-D2,Diamond S063-D2 (2 of 2 between G2 and J52),diamond node,30.268599,77.997737,estimated,good (~10-15 m),S063: G2 to J52
+S064-D1,Diamond S064-D1 (1 of 2 between G3 and J23),diamond node,30.266728,77.995821,estimated,fair (~15-30 m),S064: G3 to J23
+S064-D2,Diamond S064-D2 (2 of 2 between G3 and J23),diamond node,30.266783,77.995833,estimated,fair (~15-30 m),S064: G3 to J23
+S065-D1,Diamond S065-D1 (1 of 1 between GAA and TS1),diamond node,30.267754,77.995385,estimated,fair (~15-30 m),S065: GAA to TS1
+S066-D1,Diamond S066-D1 (1 of 1 between GAB and J26),diamond node,30.267504,77.995519,estimated,fair (~15-30 m),S066: GAB to J26
+S067-D1,Diamond S067-D1 (1 of 2 between GAB and J31),diamond node,30.267541,77.995597,estimated,fair (~15-30 m),S067: GAB to J31
+S067-D2,Diamond S067-D2 (2 of 2 between GAB and J31),diamond node,30.267517,77.99565,estimated,fair (~15-30 m),S067: GAB to J31
+S068-D1,Diamond S068-D1 (1 of 2 between GAC and J45),diamond node,30.267894,77.997095,estimated,good (~10-15 m),S068: GAC to J45
+S068-D2,Diamond S068-D2 (2 of 2 between GAC and J45),diamond node,30.267864,77.997049,estimated,good (~10-15 m),S068: GAC to J45
+S069-D1,Diamond S069-D1 (1 of 3 between GAC and TRUCK),diamond node,30.267957,77.997187,estimated,good (~10-15 m),S069: GAC to TRUCK
+S069-D2,Diamond S069-D2 (2 of 3 between GAC and TRUCK),diamond node,30.26799,77.997233,estimated,good (~10-15 m),S069: GAC to TRUCK
+S069-D3,Diamond S069-D3 (3 of 3 between GAC and TRUCK),diamond node,30.268023,77.997279,estimated,good (~10-15 m),S069: GAC to TRUCK
+S070-D1,Diamond S070-D1 (1 of 2 between GAD and J17),diamond node,30.268032,77.994573,estimated,low (30-60+ m),S070: GAD to J17
+S070-D2,Diamond S070-D2 (2 of 2 between GAD and J17),diamond node,30.267983,77.994583,estimated,low (30-60+ m),S070: GAD to J17
+S071-D1,Diamond S071-D1 (1 of 1 between GPE and TS1),diamond node,30.267803,77.995295,estimated,fair (~15-30 m),S071: GPE to TS1
+S072-D1,Diamond S072-D1 (1 of 2 between HH and J06),diamond node,30.267041,77.994974,estimated,low (30-60+ m),S072: HH to J06
+S072-D2,Diamond S072-D2 (2 of 2 between HH and J06),diamond node,30.267083,77.995,estimated,low (30-60+ m),S072: HH to J06
+S075-D1,Diamond S075-D1 (1 of 1 between J05 and J06),diamond node,30.267148,77.994973,estimated,low (30-60+ m),S075: J05 to J06
+S076-D1,Diamond S076-D1 (1 of 5 between J05 and J18),diamond node,30.2672,77.994965,estimated,low (30-60+ m),S076: J05 to J18
+S076-D2,Diamond S076-D2 (2 of 5 between J05 and J18),diamond node,30.267228,77.995009,estimated,low (30-60+ m),S076: J05 to J18
+S076-D3,Diamond S076-D3 (3 of 5 between J05 and J18),diamond node,30.267255,77.995052,estimated,low (30-60+ m),S076: J05 to J18
+S076-D4,Diamond S076-D4 (4 of 5 between J05 and J18),diamond node,30.267283,77.995096,estimated,low (30-60+ m),S076: J05 to J18
+S076-D5,Diamond S076-D5 (5 of 5 between J05 and J18),diamond node,30.267311,77.99514,estimated,low (30-60+ m),S076: J05 to J18
+S077-D1,Diamond S077-D1 (1 of 1 between J05 and MINI),diamond node,30.267205,77.994885,estimated,low (30-60+ m),S077: J05 to MINI
+S078-D1,Diamond S078-D1 (1 of 2 between J05 and RAVI),diamond node,30.267143,77.994879,estimated,low (30-60+ m),S078: J05 to RAVI
+S078-D2,Diamond S078-D2 (2 of 2 between J05 and RAVI),diamond node,30.267114,77.994836,estimated,low (30-60+ m),S078: J05 to RAVI
+S079-D1,Diamond S079-D1 (1 of 3 between J06 and J12),diamond node,30.267122,77.995085,estimated,low (30-60+ m),S079: J06 to J12
+S079-D2,Diamond S079-D2 (2 of 3 between J06 and J12),diamond node,30.26712,77.995145,estimated,low (30-60+ m),S079: J06 to J12
+S079-D3,Diamond S079-D3 (3 of 3 between J06 and J12),diamond node,30.267118,77.995205,estimated,low (30-60+ m),S079: J06 to J12
+S080-D1,Diamond S080-D1 (1 of 1 between J06 and STAT),diamond node,30.267162,77.995075,estimated,low (30-60+ m),S080: J06 to STAT
+S082-D1,Diamond S082-D1 (1 of 3 between J07 and LBH),diamond node,30.267474,77.994625,estimated,low (30-60+ m),S082: J07 to LBH
+S082-D2,Diamond S082-D2 (2 of 3 between J07 and LBH),diamond node,30.267433,77.994581,estimated,low (30-60+ m),S082: J07 to LBH
+S082-D3,Diamond S082-D3 (3 of 3 between J07 and LBH),diamond node,30.267393,77.994537,estimated,low (30-60+ m),S082: J07 to LBH
+S084-D1,Diamond S084-D1 (1 of 2 between J08 and J09),diamond node,30.267418,77.994775,estimated,low (30-60+ m),S084: J08 to J09
+S084-D2,Diamond S084-D2 (2 of 2 between J08 and J09),diamond node,30.267386,77.994814,estimated,low (30-60+ m),S084: J08 to J09
+S085-D1,Diamond S085-D1 (1 of 3 between J09 and J16),diamond node,30.267372,77.994913,estimated,low (30-60+ m),S085: J09 to J16
+S085-D2,Diamond S085-D2 (2 of 3 between J09 and J16),diamond node,30.267391,77.994971,estimated,low (30-60+ m),S085: J09 to J16
+S085-D3,Diamond S085-D3 (3 of 3 between J09 and J16),diamond node,30.267413,77.995028,estimated,low (30-60+ m),S085: J09 to J16
+S086-D1,Diamond S086-D1 (1 of 2 between J09 and MINI),diamond node,30.267319,77.9948,estimated,low (30-60+ m),S086: J09 to MINI
+S086-D2,Diamond S086-D2 (2 of 2 between J09 and MINI),diamond node,30.267281,77.994802,estimated,low (30-60+ m),S086: J09 to MINI
+S089-D1,Diamond S089-D1 (1 of 2 between J10 and TM),diamond node,30.267647,77.994563,estimated,low (30-60+ m),S089: J10 to TM
+S089-D2,Diamond S089-D2 (2 of 2 between J10 and TM),diamond node,30.2676,77.994593,estimated,low (30-60+ m),S089: J10 to TM
+S090-D1,Diamond S090-D1 (1 of 1 between J11 and J15),diamond node,30.267761,77.994637,estimated,low (30-60+ m),S090: J11 to J15
+S091-D1,Diamond S091-D1 (1 of 2 between J12 and J13),diamond node,30.267081,77.995305,estimated,low (30-60+ m),S091: J12 to J13
+S091-D2,Diamond S091-D2 (2 of 2 between J12 and J13),diamond node,30.267046,77.995345,estimated,low (30-60+ m),S091: J12 to J13
+S092-D1,Diamond S092-D1 (1 of 1 between J13 and J14),diamond node,30.266984,77.995428,estimated,fair (~15-30 m),S092: J13 to J14
+S093-D1,Diamond S093-D1 (1 of 7 between J14 and J23),diamond node,30.266926,77.995511,estimated,fair (~15-30 m),S093: J14 to J23
+S093-D2,Diamond S093-D2 (2 of 7 between J14 and J23),diamond node,30.266897,77.995551,estimated,fair (~15-30 m),S093: J14 to J23
+S093-D3,Diamond S093-D3 (3 of 7 between J14 and J23),diamond node,30.266867,77.995592,estimated,fair (~15-30 m),S093: J14 to J23
+S093-D4,Diamond S093-D4 (4 of 7 between J14 and J23),diamond node,30.266838,77.995633,estimated,fair (~15-30 m),S093: J14 to J23
+S093-D5,Diamond S093-D5 (5 of 7 between J14 and J23),diamond node,30.266838,77.995686,estimated,fair (~15-30 m),S093: J14 to J23
+S093-D6,Diamond S093-D6 (6 of 7 between J14 and J23),diamond node,30.266838,77.995739,estimated,fair (~15-30 m),S093: J14 to J23
+S093-D7,Diamond S093-D7 (7 of 7 between J14 and J23),diamond node,30.266839,77.995792,estimated,fair (~15-30 m),S093: J14 to J23
+S094-D1,Diamond S094-D1 (1 of 2 between J15 and J17),diamond node,30.267851,77.994634,estimated,low (30-60+ m),S094: J15 to J17
+S094-D2,Diamond S094-D2 (2 of 2 between J15 and J17),diamond node,30.267892,77.994613,estimated,low (30-60+ m),S094: J15 to J17
+S101-D1,Diamond S101-D1 (1 of 10 between J20 and PK-Y),diamond node,30.268163,77.994435,estimated,low (30-60+ m),S101: J20 to PK-Y
+S101-D2,Diamond S101-D2 (2 of 10 between J20 and PK-Y),diamond node,30.268207,77.994422,estimated,low (30-60+ m),S101: J20 to PK-Y
+S101-D3,Diamond S101-D3 (3 of 10 between J20 and PK-Y),diamond node,30.268248,77.994394,estimated,low (30-60+ m),S101: J20 to PK-Y
+S101-D4,Diamond S101-D4 (4 of 10 between J20 and PK-Y),diamond node,30.26829,77.994365,estimated,low (30-60+ m),S101: J20 to PK-Y
+S101-D5,Diamond S101-D5 (5 of 10 between J20 and PK-Y),diamond node,30.268331,77.994336,estimated,low (30-60+ m),S101: J20 to PK-Y
+S101-D6,Diamond S101-D6 (6 of 10 between J20 and PK-Y),diamond node,30.268369,77.994302,estimated,low (30-60+ m),S101: J20 to PK-Y
+S101-D7,Diamond S101-D7 (7 of 10 between J20 and PK-Y),diamond node,30.268402,77.994261,estimated,low (30-60+ m),S101: J20 to PK-Y
+S101-D8,Diamond S101-D8 (8 of 10 between J20 and PK-Y),diamond node,30.268434,77.994219,estimated,low (30-60+ m),S101: J20 to PK-Y
+S101-D9,Diamond S101-D9 (9 of 10 between J20 and PK-Y),diamond node,30.268453,77.994173,estimated,low (30-60+ m),S101: J20 to PK-Y
+S101-D10,Diamond S101-D10 (10 of 10 between J20 and PK-Y),diamond node,30.268442,77.994119,estimated,low (30-60+ m),S101: J20 to PK-Y
+S102-D1,Diamond S102-D1 (1 of 3 between J20 and PK-Z),diamond node,30.268082,77.99438,estimated,low (30-60+ m),S102: J20 to PK-Z
+S102-D2,Diamond S102-D2 (2 of 3 between J20 and PK-Z),diamond node,30.268049,77.994339,estimated,low (30-60+ m),S102: J20 to PK-Z
+S102-D3,Diamond S102-D3 (3 of 3 between J20 and PK-Z),diamond node,30.268015,77.994298,estimated,low (30-60+ m),S102: J20 to PK-Z
+S104-D1,Diamond S104-D1 (1 of 1 between J22 and J24),diamond node,30.267515,77.995204,estimated,fair (~15-30 m),S104: J22 to J24
+S105-D1,Diamond S105-D1 (1 of 4 between J23 and J27),diamond node,30.266883,77.995867,estimated,fair (~15-30 m),S105: J23 to J27
+S105-D2,Diamond S105-D2 (2 of 4 between J23 and J27),diamond node,30.266926,77.99589,estimated,fair (~15-30 m),S105: J23 to J27
+S105-D3,Diamond S105-D3 (3 of 4 between J23 and J27),diamond node,30.26697,77.995913,estimated,fair (~15-30 m),S105: J23 to J27
+S105-D4,Diamond S105-D4 (4 of 4 between J23 and J27),diamond node,30.267014,77.995935,estimated,fair (~15-30 m),S105: J23 to J27
+S106-D1,Diamond S106-D1 (1 of 4 between J24 and TS1),diamond node,30.267589,77.995277,estimated,fair (~15-30 m),S106: J24 to TS1
+S106-D2,Diamond S106-D2 (2 of 4 between J24 and TS1),diamond node,30.267632,77.995296,estimated,fair (~15-30 m),S106: J24 to TS1
+S106-D3,Diamond S106-D3 (3 of 4 between J24 and TS1),diamond node,30.267679,77.995296,estimated,fair (~15-30 m),S106: J24 to TS1
+S106-D4,Diamond S106-D4 (4 of 4 between J24 and TS1),diamond node,30.267724,77.995306,estimated,fair (~15-30 m),S106: J24 to TS1
+S107-D1,Diamond S107-D1 (1 of 3 between J26 and J31),diamond node,30.267455,77.995547,estimated,fair (~15-30 m),S107: J26 to J31
+S107-D2,Diamond S107-D2 (2 of 3 between J26 and J31),diamond node,30.267467,77.995599,estimated,fair (~15-30 m),S107: J26 to J31
+S107-D3,Diamond S107-D3 (3 of 3 between J26 and J31),diamond node,30.26748,77.995652,estimated,fair (~15-30 m),S107: J26 to J31
+S108-D1,Diamond S108-D1 (1 of 1 between J27 and J28),diamond node,30.267036,77.996012,estimated,fair (~15-30 m),S108: J27 to J28
+S109-D1,Diamond S109-D1 (1 of 2 between J27 and J29),diamond node,30.267105,77.995938,estimated,fair (~15-30 m),S109: J27 to J29
+S109-D2,Diamond S109-D2 (2 of 2 between J27 and J29),diamond node,30.267152,77.995918,estimated,fair (~15-30 m),S109: J27 to J29
+S110-D1,Diamond S110-D1 (1 of 3 between J27 and J34),diamond node,30.267098,77.996002,estimated,fair (~15-30 m),S110: J27 to J34
+S110-D2,Diamond S110-D2 (2 of 3 between J27 and J34),diamond node,30.267137,77.996046,estimated,fair (~15-30 m),S110: J27 to J34
+S110-D3,Diamond S110-D3 (3 of 3 between J27 and J34),diamond node,30.267177,77.996091,estimated,fair (~15-30 m),S110: J27 to J34
+S113-D1,Diamond S113-D1 (1 of 3 between J31 and J35),diamond node,30.267479,77.995761,estimated,fair (~15-30 m),S113: J31 to J35
+S113-D2,Diamond S113-D2 (2 of 3 between J31 and J35),diamond node,30.267467,77.995819,estimated,fair (~15-30 m),S113: J31 to J35
+S113-D3,Diamond S113-D3 (3 of 3 between J31 and J35),diamond node,30.267454,77.995877,estimated,fair (~15-30 m),S113: J31 to J35
+S116-D1,Diamond S116-D1 (1 of 5 between J34 and J36),diamond node,30.267269,77.996129,estimated,fair (~15-30 m),S116: J34 to J36
+S116-D2,Diamond S116-D2 (2 of 5 between J34 and J36),diamond node,30.267321,77.996123,estimated,fair (~15-30 m),S116: J34 to J36
+S116-D3,Diamond S116-D3 (3 of 5 between J34 and J36),diamond node,30.267373,77.996115,estimated,fair (~15-30 m),S116: J34 to J36
+S116-D4,Diamond S116-D4 (4 of 5 between J34 and J36),diamond node,30.267421,77.996093,estimated,fair (~15-30 m),S116: J34 to J36
+S116-D5,Diamond S116-D5 (5 of 5 between J34 and J36),diamond node,30.26747,77.996071,estimated,fair (~15-30 m),S116: J34 to J36
+S117-D1,Diamond S117-D1 (1 of 9 between J34 and PT-5),diamond node,30.267245,77.996175,estimated,fair (~15-30 m),S117: J34 to PT-5
+S117-D2,Diamond S117-D2 (2 of 9 between J34 and PT-5),diamond node,30.267273,77.996216,estimated,fair (~15-30 m),S117: J34 to PT-5
+S117-D3,Diamond S117-D3 (3 of 9 between J34 and PT-5),diamond node,30.267301,77.996257,estimated,fair (~15-30 m),S117: J34 to PT-5
+S117-D4,Diamond S117-D4 (4 of 9 between J34 and PT-5),diamond node,30.267329,77.996298,estimated,good (~10-15 m),S117: J34 to PT-5
+S117-D5,Diamond S117-D5 (5 of 9 between J34 and PT-5),diamond node,30.267333,77.996346,estimated,good (~10-15 m),S117: J34 to PT-5
+S117-D6,Diamond S117-D6 (6 of 9 between J34 and PT-5),diamond node,30.267325,77.996397,estimated,good (~10-15 m),S117: J34 to PT-5
+S117-D7,Diamond S117-D7 (7 of 9 between J34 and PT-5),diamond node,30.267318,77.996448,estimated,good (~10-15 m),S117: J34 to PT-5
+S117-D8,Diamond S117-D8 (8 of 9 between J34 and PT-5),diamond node,30.26731,77.9965,estimated,good (~10-15 m),S117: J34 to PT-5
+S117-D9,Diamond S117-D9 (9 of 9 between J34 and PT-5),diamond node,30.267302,77.996551,estimated,good (~10-15 m),S117: J34 to PT-5
+S118-D1,Diamond S118-D1 (1 of 1 between J35 and J36),diamond node,30.26748,77.995992,estimated,fair (~15-30 m),S118: J35 to J36
+S119-D1,Diamond S119-D1 (1 of 1 between J35 and LIB),diamond node,30.267386,77.995961,estimated,fair (~15-30 m),S119: J35 to LIB
+S120-D1,Diamond S120-D1 (1 of 4 between J36 and J39),diamond node,30.267527,77.996101,estimated,fair (~15-30 m),S120: J36 to J39
+S120-D2,Diamond S120-D2 (2 of 4 between J36 and J39),diamond node,30.267536,77.996153,estimated,fair (~15-30 m),S120: J36 to J39
+S120-D3,Diamond S120-D3 (3 of 4 between J36 and J39),diamond node,30.267544,77.996206,estimated,fair (~15-30 m),S120: J36 to J39
+S120-D4,Diamond S120-D4 (4 of 4 between J36 and J39),diamond node,30.267553,77.996258,estimated,good (~10-15 m),S120: J36 to J39
+S121-D1,Diamond S121-D1 (1 of 2 between J36 and PARAM),diamond node,30.267477,77.996081,estimated,fair (~15-30 m),S121: J36 to PARAM
+S121-D2,Diamond S121-D2 (2 of 2 between J36 and PARAM),diamond node,30.267435,77.996113,estimated,fair (~15-30 m),S121: J36 to PARAM
+S122-D1,Diamond S122-D1 (1 of 7 between J36 and PT-2),diamond node,30.267488,77.996093,estimated,fair (~15-30 m),S122: J36 to PT-2
+S122-D2,Diamond S122-D2 (2 of 7 between J36 and PT-2),diamond node,30.267457,77.996138,estimated,fair (~15-30 m),S122: J36 to PT-2
+S122-D3,Diamond S122-D3 (3 of 7 between J36 and PT-2),diamond node,30.267426,77.996183,estimated,fair (~15-30 m),S122: J36 to PT-2
+S122-D4,Diamond S122-D4 (4 of 7 between J36 and PT-2),diamond node,30.267396,77.996228,estimated,fair (~15-30 m),S122: J36 to PT-2
+S122-D5,Diamond S122-D5 (5 of 7 between J36 and PT-2),diamond node,30.267365,77.996272,estimated,good (~10-15 m),S122: J36 to PT-2
+S122-D6,Diamond S122-D6 (6 of 7 between J36 and PT-2),diamond node,30.267334,77.996317,estimated,good (~10-15 m),S122: J36 to PT-2
+S122-D7,Diamond S122-D7 (7 of 7 between J36 and PT-2),diamond node,30.267304,77.996362,estimated,good (~10-15 m),S122: J36 to PT-2
+S123-D1,Diamond S123-D1 (1 of 3 between J37 and J38),diamond node,30.268305,77.995305,estimated,fair (~15-30 m),S123: J37 to J38
+S123-D2,Diamond S123-D2 (2 of 3 between J37 and J38),diamond node,30.268271,77.995347,estimated,fair (~15-30 m),S123: J37 to J38
+S123-D3,Diamond S123-D3 (3 of 3 between J37 and J38),diamond node,30.268237,77.995389,estimated,fair (~15-30 m),S123: J37 to J38
+S124-D1,Diamond S124-D1 (1 of 1 between J37 and PB),diamond node,30.268391,77.99524,estimated,fair (~15-30 m),S124: J37 to PB
+S125-D1,Diamond S125-D1 (1 of 3 between J39 and J41),diamond node,30.267588,77.996358,estimated,good (~10-15 m),S125: J39 to J41
+S125-D2,Diamond S125-D2 (2 of 3 between J39 and J41),diamond node,30.267615,77.996405,estimated,good (~10-15 m),S125: J39 to J41
+S125-D3,Diamond S125-D3 (3 of 3 between J39 and J41),diamond node,30.267641,77.996452,estimated,good (~10-15 m),S125: J39 to J41
+S126-D1,Diamond S126-D1 (1 of 3 between J39 and PT-1),diamond node,30.267518,77.996335,estimated,good (~10-15 m),S126: J39 to PT-1
+S126-D2,Diamond S126-D2 (2 of 3 between J39 and PT-1),diamond node,30.267476,77.996359,estimated,good (~10-15 m),S126: J39 to PT-1
+S126-D3,Diamond S126-D3 (3 of 3 between J39 and PT-1),diamond node,30.267433,77.996383,estimated,good (~10-15 m),S126: J39 to PT-1
+S127-D1,Diamond S127-D1 (1 of 1 between J40 and MB-1),diamond node,30.267738,77.996182,estimated,good (~10-15 m),S127: J40 to MB-1
+S128-D1,Diamond S128-D1 (1 of 2 between J40 and PRIY),diamond node,30.267806,77.996098,estimated,good (~10-15 m),S128: J40 to PRIY
+S128-D2,Diamond S128-D2 (2 of 2 between J40 and PRIY),diamond node,30.267852,77.996074,estimated,good (~10-15 m),S128: J40 to PRIY
+S129-D1,Diamond S129-D1 (1 of 2 between J41 and J42),diamond node,30.267703,77.996546,estimated,good (~10-15 m),S129: J41 to J42
+S129-D2,Diamond S129-D2 (2 of 2 between J41 and J42),diamond node,30.267739,77.996593,estimated,good (~10-15 m),S129: J41 to J42
+S130-D1,Diamond S130-D1 (1 of 3 between J41 and PT-3),diamond node,30.267628,77.996526,estimated,good (~10-15 m),S130: J41 to PT-3
+S130-D2,Diamond S130-D2 (2 of 3 between J41 and PT-3),diamond node,30.267589,77.996552,estimated,good (~10-15 m),S130: J41 to PT-3
+S130-D3,Diamond S130-D3 (3 of 3 between J41 and PT-3),diamond node,30.267549,77.996579,estimated,good (~10-15 m),S130: J41 to PT-3
+S131-D1,Diamond S131-D1 (1 of 2 between J42 and J43),diamond node,30.267806,77.996682,estimated,good (~10-15 m),S131: J42 to J43
+S131-D2,Diamond S131-D2 (2 of 2 between J42 and J43),diamond node,30.267837,77.996724,estimated,good (~10-15 m),S131: J42 to J43
+S132-D1,Diamond S132-D1 (1 of 1 between J43 and J44),diamond node,30.267907,77.996817,estimated,good (~10-15 m),S132: J43 to J44
+S133-D1,Diamond S133-D1 (1 of 2 between J43 and KP-L),diamond node,30.267914,77.996723,estimated,good (~10-15 m),S133: J43 to KP-L
+S133-D2,Diamond S133-D2 (2 of 2 between J43 and KP-L),diamond node,30.26796,77.996681,estimated,good (~10-15 m),S133: J43 to KP-L
+S134-D1,Diamond S134-D1 (1 of 2 between J44 and J45),diamond node,30.267909,77.996913,estimated,good (~10-15 m),S134: J44 to J45
+S134-D2,Diamond S134-D2 (2 of 2 between J44 and J45),diamond node,30.267871,77.996958,estimated,good (~10-15 m),S134: J44 to J45
+S135-D1,Diamond S135-D1 (1 of 2 between J44 and J47),diamond node,30.267979,77.996912,estimated,good (~10-15 m),S135: J44 to J47
+S135-D2,Diamond S135-D2 (2 of 2 between J44 and J47),diamond node,30.268012,77.996957,estimated,good (~10-15 m),S135: J44 to J47
+S138-D1,Diamond S138-D1 (1 of 4 between J45 and UCB),diamond node,30.267796,77.997039,estimated,good (~10-15 m),S138: J45 to UCB
+S138-D2,Diamond S138-D2 (2 of 4 between J45 and UCB),diamond node,30.267759,77.997075,estimated,good (~10-15 m),S138: J45 to UCB
+S138-D3,Diamond S138-D3 (3 of 4 between J45 and UCB),diamond node,30.267721,77.997112,estimated,good (~10-15 m),S138: J45 to UCB
+S138-D4,Diamond S138-D4 (4 of 4 between J45 and UCB),diamond node,30.267683,77.997148,estimated,good (~10-15 m),S138: J45 to UCB
+S139-D1,Diamond S139-D1 (1 of 3 between J46 and J48),diamond node,30.268146,77.996906,estimated,good (~10-15 m),S139: J46 to J48
+S139-D2,Diamond S139-D2 (2 of 3 between J46 and J48),diamond node,30.268136,77.996969,estimated,good (~10-15 m),S139: J46 to J48
+S139-D3,Diamond S139-D3 (3 of 3 between J46 and J48),diamond node,30.268126,77.997032,estimated,good (~10-15 m),S139: J46 to J48
+S140-D1,Diamond S140-D1 (1 of 2 between J46 and MB-2),diamond node,30.268184,77.996795,estimated,good (~10-15 m),S140: J46 to MB-2
+S140-D2,Diamond S140-D2 (2 of 2 between J46 and MB-2),diamond node,30.268212,77.996747,estimated,good (~10-15 m),S140: J46 to MB-2
+S141-D1,Diamond S141-D1 (1 of 1 between J47 and J48),diamond node,30.26808,77.997047,estimated,good (~10-15 m),S141: J47 to J48
+S142-D1,Diamond S142-D1 (1 of 3 between J47 and KP-R),diamond node,30.268054,77.996939,estimated,good (~10-15 m),S142: J47 to KP-R
+S142-D2,Diamond S142-D2 (2 of 3 between J47 and KP-R),diamond node,30.268064,77.996877,estimated,good (~10-15 m),S142: J47 to KP-R
+S142-D3,Diamond S142-D3 (3 of 3 between J47 and KP-R),diamond node,30.268073,77.996815,estimated,good (~10-15 m),S142: J47 to KP-R
+S143-D1,Diamond S143-D1 (1 of 2 between J49 and J50),diamond node,30.268296,77.997335,estimated,good (~10-15 m),S143: J49 to J50
+S143-D2,Diamond S143-D2 (2 of 2 between J49 and J50),diamond node,30.268335,77.997386,estimated,good (~10-15 m),S143: J49 to J50
+S144-D1,Diamond S144-D1 (1 of 2 between J50 and J51),diamond node,30.268412,77.997488,estimated,good (~10-15 m),S144: J50 to J51
+S144-D2,Diamond S144-D2 (2 of 2 between J50 and J51),diamond node,30.26845,77.997539,estimated,good (~10-15 m),S144: J50 to J51
+S145-D1,Diamond S145-D1 (1 of 1 between J51 and J52),diamond node,30.268528,77.997643,estimated,good (~10-15 m),S145: J51 to J52
+S146-D1,Diamond S146-D1 (1 of 1 between PB and PC),diamond node,30.268421,77.995157,estimated,fair (~15-30 m),S146: PB to PC
+S147-D1,Diamond S147-D1 (1 of 5 between PK-W and PK-Z),diamond node,30.267812,77.994206,estimated,low (30-60+ m),S147: PK-W to PK-Z
+S147-D2,Diamond S147-D2 (2 of 5 between PK-W and PK-Z),diamond node,30.267846,77.994169,estimated,low (30-60+ m),S147: PK-W to PK-Z
+S147-D3,Diamond S147-D3 (3 of 5 between PK-W and PK-Z),diamond node,30.267888,77.994149,estimated,low (30-60+ m),S147: PK-W to PK-Z
+S147-D4,Diamond S147-D4 (4 of 5 between PK-W and PK-Z),diamond node,30.267922,77.994175,estimated,low (30-60+ m),S147: PK-W to PK-Z
+S147-D5,Diamond S147-D5 (5 of 5 between PK-W and PK-Z),diamond node,30.267951,77.994216,estimated,low (30-60+ m),S147: PK-W to PK-Z
+J01,Junction diamond J01,diamond node,30.266044,77.995383,estimated,low (30-60+ m),road junction / bend point
+J02,Junction diamond J02,diamond node,30.266087,77.995441,estimated,low (30-60+ m),road junction / bend point
+J03,Junction diamond J03,diamond node,30.26624,77.995644,estimated,low (30-60+ m),road junction / bend point
+J04,Junction diamond J04,diamond node,30.266283,77.995701,estimated,low (30-60+ m),road junction / bend point
+J05,Junction diamond J05,diamond node,30.267172,77.994921,estimated,low (30-60+ m),road junction / bend point
+J06,Junction diamond J06,diamond node,30.267125,77.995025,estimated,low (30-60+ m),road junction / bend point
+J07,Junction diamond J07,diamond node,30.267514,77.994668,estimated,low (30-60+ m),road junction / bend point
+J08,Junction diamond J08,diamond node,30.26745,77.994735,estimated,low (30-60+ m),road junction / bend point
+J09,Junction diamond J09,diamond node,30.267354,77.994854,estimated,low (30-60+ m),road junction / bend point
+J10,Junction diamond J10,diamond node,30.267694,77.994533,estimated,low (30-60+ m),road junction / bend point
+J11,Junction diamond J11,diamond node,30.267712,77.994619,estimated,low (30-60+ m),road junction / bend point
+J12,Junction diamond J12,diamond node,30.267116,77.995265,estimated,low (30-60+ m),road junction / bend point
+J13,Junction diamond J13,diamond node,30.267011,77.995385,estimated,low (30-60+ m),road junction / bend point
+J14,Junction diamond J14,diamond node,30.266956,77.99547,estimated,fair (~15-30 m),road junction / bend point
+J15,Junction diamond J15,diamond node,30.267809,77.994655,estimated,low (30-60+ m),road junction / bend point
+J16,Junction diamond J16,diamond node,30.267434,77.995085,estimated,low (30-60+ m),road junction / bend point
+J17,Junction diamond J17,diamond node,30.267934,77.994592,estimated,low (30-60+ m),road junction / bend point
+J18,Junction diamond J18,diamond node,30.267339,77.995183,estimated,low (30-60+ m),road junction / bend point
+J19,Junction diamond J19,diamond node,30.26818,77.994351,estimated,low (30-60+ m),road junction / bend point
+J20,Junction diamond J20,diamond node,30.268116,77.994421,estimated,low (30-60+ m),road junction / bend point
+J21,Junction diamond J21,diamond node,30.267291,77.995262,estimated,low (30-60+ m),road junction / bend point
+J22,Junction diamond J22,diamond node,30.267481,77.995159,estimated,low (30-60+ m),road junction / bend point
+J23,Junction diamond J23,diamond node,30.266839,77.995845,estimated,fair (~15-30 m),road junction / bend point
+J24,Junction diamond J24,diamond node,30.267549,77.995249,estimated,fair (~15-30 m),road junction / bend point
+J25,Junction diamond J25,diamond node,30.267876,77.994988,estimated,low (30-60+ m),road junction / bend point
+J26,Junction diamond J26,diamond node,30.267443,77.995495,estimated,fair (~15-30 m),road junction / bend point
+J27,Junction diamond J27,diamond node,30.267058,77.995958,estimated,fair (~15-30 m),road junction / bend point
+J28,Junction diamond J28,diamond node,30.267014,77.996066,estimated,fair (~15-30 m),road junction / bend point
+J29,Junction diamond J29,diamond node,30.267199,77.995898,estimated,fair (~15-30 m),road junction / bend point
+J30,Junction diamond J30,diamond node,30.267263,77.995868,estimated,fair (~15-30 m),road junction / bend point
+J31,Junction diamond J31,diamond node,30.267492,77.995704,estimated,fair (~15-30 m),road junction / bend point
+J32,Junction diamond J32,diamond node,30.268069,77.995136,estimated,fair (~15-30 m),road junction / bend point
+J33,Junction diamond J33,diamond node,30.268019,77.995186,estimated,fair (~15-30 m),road junction / bend point
+J34,Junction diamond J34,diamond node,30.267217,77.996135,estimated,fair (~15-30 m),road junction / bend point
+J35,Junction diamond J35,diamond node,30.267442,77.995935,estimated,fair (~15-30 m),road junction / bend point
+J36,Junction diamond J36,diamond node,30.267519,77.996049,estimated,fair (~15-30 m),road junction / bend point
+J37,Junction diamond J37,diamond node,30.268339,77.995263,estimated,fair (~15-30 m),road junction / bend point
+J38,Junction diamond J38,diamond node,30.268204,77.995431,estimated,fair (~15-30 m),road junction / bend point
+J39,Junction diamond J39,diamond node,30.267561,77.996311,estimated,good (~10-15 m),road junction / bend point
+J40,Junction diamond J40,diamond node,30.26776,77.996123,estimated,good (~10-15 m),road junction / bend point
+J41,Junction diamond J41,diamond node,30.267668,77.996499,estimated,good (~10-15 m),road junction / bend point
+J42,Junction diamond J42,diamond node,30.267774,77.996641,estimated,good (~10-15 m),road junction / bend point
+J43,Junction diamond J43,diamond node,30.267868,77.996765,estimated,good (~10-15 m),road junction / bend point
+J44,Junction diamond J44,diamond node,30.267946,77.996868,estimated,good (~10-15 m),road junction / bend point
+J45,Junction diamond J45,diamond node,30.267834,77.997003,estimated,good (~10-15 m),road junction / bend point
+J46,Junction diamond J46,diamond node,30.268156,77.996843,estimated,good (~10-15 m),road junction / bend point
+J47,Junction diamond J47,diamond node,30.268045,77.997001,estimated,good (~10-15 m),road junction / bend point
+J48,Junction diamond J48,diamond node,30.268116,77.997094,estimated,good (~10-15 m),road junction / bend point
+J49,Junction diamond J49,diamond node,30.268258,77.997284,estimated,good (~10-15 m),road junction / bend point
+J50,Junction diamond J50,diamond node,30.268373,77.997437,estimated,good (~10-15 m),road junction / bend point
+J51,Junction diamond J51,diamond node,30.268488,77.99759,estimated,good (~10-15 m),road junction / bend point
+J52,Junction diamond J52,diamond node,30.268567,77.997696,estimated,good (~10-15 m),road junction / bend point

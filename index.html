@@ -4,12 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>STED | Campus Navigation</title>
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Edu+QLD+Hand:wght@400..700&display=swap"
-      rel="stylesheet"
-    /> -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -37,23 +31,36 @@
       </header>
 
       <main>
-        <section class="hero" id="overview">
-          <div class="hero-copy">
-            <h1>Find the fastest route to your next class.</h1>
-            <p>
-              Explore an interactive route preview, follow step-by-step campus directions, and
-              search the BTech room directory by floor.
-            </p>
-            <div class="hero-actions">
-              <button class="primary-button" type="button">Plan route</button>
-              <button class="ghost-button" type="button">Explore rooms</button>
-            </div>
-          </div>
+          <section class="hero" id="overview" tabindex="-1">
+            <div class="hero-copy">
+              <div class="hero-title-row">
+                <h1>Ready for your Next Class?</h1>
 
-          <div class="hero-copy">
+                <div class="live-clock" aria-label="Current time">
+                  <span id="liveClock">00:00:00</span>
+                  <small id="liveDate"></small>
+                </div>
+              </div>
+
+              <p>
+                Explore an interactive route preview, follow step-by-step campus
+                directions, and search the room directory by floor and buildings.
+              </p>
+
+              <div class="hero-actions">
+                <a class="primary-button" href="#route-planner">Plan route</a>
+                <a class="ghost-button" href="#building-directory">Explore rooms</a>
+              </div>
+            </div>
+          </section>
+
+
+        <section class="content-grid" id="routes" tabindex="-1">
+          <section class="card navigation-card" aria-label="Next class navigation">
             <div class="hero-meta">
               <span class="eyebrow">Navigation</span>
-              <h3>Navigating to your next class according to your timetable...</h3></div>
+              <h2>Navigating to your next class according to your timetable...</h2>
+            </div>
             <div class="hero-stats">
               <div>
                 <label>Next class</label>
@@ -68,14 +75,24 @@
                 <strong id="nextLectureDistance">180 m</strong>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section class="content-grid" id="routes">
-          <aside class="card planner-card">
+          <div class="card campus-card" id="campus-map" tabindex="-1">
+            <div class="section-head">
+              <h2>Campus map</h2>
+            </div>
+
+            <div
+              class="campus-map"
+              id="campusMap"
+              role="application"
+              aria-label="OpenStreetMap of Graphic Era University, Dehradun"
+            ></div>
+          </div>
+          
+          <aside class="card planner-card" id="route-planner" tabindex="-1">
             <div class="card-header">
               <span class="eyebrow">Plan a route</span>
-
             </div>
 
             <form class="planner-form" id="routeForm">
@@ -92,37 +109,23 @@
               <button class="primary-button route-button" type="submit">Find fastest route</button>
             </form>
           </aside>
-
-        
-          <div class="card campus-card" id="campus-map">
-            <div class="section-head">
-              <h2>Campus map</h2>
-            </div>
-
-            <div
-              class="campus-map"
-              id="campusMap"
-              role="application"
-              aria-label="OpenStreetMap of Graphic Era University, Dehradun"
-            ></div>
-          </div>
-
-          <section>
-          <aside class="card schedule-card" id="schedule">
+        </section>
+        <section class="content-grid" id="schedule" tabindex="-1">
+          <section class="card schedule-card" aria-label="Demo timetable">
             <div class="card-header">
               <span class="eyebrow">Demo timetable</span>
               <h2>Schedule</h2>
             </div>
 
             <ul class="schedule-list" id="scheduleList" aria-live="polite"></ul>
-          </aside>
           </section>
-
-          <section class="card building-directory" id="building-directory">
+        </section>
+        <section class="content-grid" id="building-directory" tabindex="-1">
+          <section class="card building-directory" id="building-directory" tabindex="-1">
             <div class="section-head">
               <div>
                 <span class="eyebrow">Campus data</span>
-                <h2>BTech building directory</h2>
+                <h2>Rooms directory</h2>
               </div>
               <span class="directory-count" id="directoryCount">Loading…</span>
             </div>
@@ -134,7 +137,7 @@
                   id="directorySearch"
                   type="search"
                   placeholder="Search rooms and facilities"
-                  autocomplete="off"
+                  autocomplete="on"
                 />
               </label>
               <label>
@@ -146,7 +149,7 @@
             </div>
             <ul class="directory-list" id="directoryList" aria-live="polite"></ul>
           </section>
-        </section>
+          </section>
       </main>
     </div>
 
@@ -156,20 +159,52 @@
     ></script>
 
     <script>
-      const campusMap = L.map("campusMap").setView([30.2680182, 77.9961185], 17);
+      const homeLocation = [30.2680182, 77.9961185];
+      const homeZoom = 17;
+      const campusMap = L.map("campusMap",{
+        maxZoom: 19,
+        minZoom: homeZoom,
+        attributionControl: false
+      }).setView(
+        homeLocation,
+        homeZoom
+      );
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19, 
+        maxZoom: 19,
+        minZoom: homeZoom, 
       }).addTo(campusMap);
+
       L.marker([30.2680182, 77.9961185])
         .addTo(campusMap)
         .bindTooltip("Our Campus");
-      //   .bindPopup("Our college campus")
-      //   .on("mouseover", function () {
-      //   this.openPopup();
-      // })
-      // .on("mouseout", function () {
-      //   this.closePopup();
-      // });
+
+      const HomeB = L.Control.extend({
+    options: {
+      position: "topleft",
+    },
+
+    onAdd: function () {
+      const container = L.DomUtil.create(
+        "div", "leaflet-bar leaflet-control"
+      );
+
+      const button = L.DomUtil.create("a", "", container);
+      button.href = "#";
+      button.title = "Return to campus";
+      button.textContent = "⌂";
+
+      L.DomEvent.disableClickPropagation(container);
+
+      L.DomEvent.on(button, "click", function (event) {
+        L.DomEvent.preventDefault(event);
+        campusMap.setView(homeLocation, homeZoom, {
+          animate: true,
+        });
+      });
+      return container;
+    },
+  });
+  campusMap.addControl(new HomeB());
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>

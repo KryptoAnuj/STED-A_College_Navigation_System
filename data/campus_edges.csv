@@ -1,0 +1,387 @@
+node_from,node_to,node_from_name,node_to_name,edge_cost_m,edge_type,segment_id
+ARY,S001-D1,Aryabhatta Lab,Diamond S001-D1 (1 of 2 between ARY and BRG3),5.68,road_chain,S001
+ARY,S002-D1,Aryabhatta Lab,Diamond S002-D1 (1 of 2 between ARY and J31),5.32,road_chain,S002
+ASH,S003-D1,Azad Shekhar Hostel,Diamond S003-D1 (1 of 3 between ASH and J08),5.81,road_chain,S003
+BAD,S004-D1,Badminton Court,Diamond S004-D1 (1 of 1 between BAD and J14),5.31,road_chain,S004
+BBG,S005-D1,Basket Ball Ground,Diamond S005-D1 (1 of 2 between BBG and J34),6.39,road_chain,S005
+BG,S006-D1,Back Gate,Diamond S006-D1 (1 of 1 between BG and PC),5.49,road_chain,S006
+BRG1,J18,Bridge 1,Junction diamond J18,8.27,direct,
+BRG2,S010-D1,Bridge 2,Diamond S010-D1 (1 of 3 between BRG2 and J26),5.86,road_chain,S010
+BRG3,S011-D1,Bridge 3,Diamond S011-D1 (1 of 2 between BRG3 and J40),5.83,road_chain,S011
+BRG4,J39,Bridge 4,Junction diamond J39,6.17,direct,
+BRG4,S013-D1,Bridge 4,Diamond S013-D1 (1 of 1 between BRG4 and MB-1),6.37,road_chain,S013
+BRG5,J46,Bridge 5,Junction diamond J46,2.0,direct,
+BRG6,S016-D1,Bridge 6,Diamond S016-D1 (1 of 1 between BRG6 and J48),9.86,road_chain,S016
+BRG6,S017-D1,Bridge 6,Diamond S017-D1 (1 of 1 between BRG6 and J49),21.26,road_chain,S017
+BT-1,S018-D1,BT-1 NW,Diamond S018-D1 (1 of 1 between BT-1 and J12),7.25,road_chain,S018
+BT-1,S019-D1,BT-1 NW,Diamond S019-D1 (1 of 1 between BT-1 and J21),5.89,road_chain,S019
+BT-2,S020-D1,BT-2 N,Diamond S020-D1 (1 of 2 between BT-2 and J21),5.35,road_chain,S020
+BT-2,S021-D1,BT-2 N,Diamond S021-D1 (1 of 1 between BT-2 and J26),7.32,road_chain,S021
+BT-3,S023-D1,BT-3 NE,Diamond S023-D1 (1 of 2 between BT-3 and J31),5.67,road_chain,S023
+BT-4,BT-5,BT-4 W,BT-5 SW,9.81,direct,
+BT-4,S025-D1,BT-4 W,Diamond S025-D1 (1 of 2 between BT-4 and J12),5.86,road_chain,S025
+BT-6,S028-D1,BT-6 E,Diamond S028-D1 (1 of 1 between BT-6 and J30),5.51,road_chain,S028
+BT-7,S029-D1,BT-7 SE,Diamond S029-D1 (1 of 1 between BT-7 and J29),5.69,road_chain,S029
+BTG,S030-D1,B.Tech Ground entrance,Diamond S030-D1 (1 of 2 between BTG and J22),5.37,road_chain,S030
+BUSP,S031-D1,Bus Parking Area,Diamond S031-D1 (1 of 2 between BUSP and J52),5.52,road_chain,S031
+CC-E,S032-D1,CC east entrance,Diamond S032-D1 (1 of 1 between CC-E and J37),5.74,road_chain,S032
+CC-S2,S034-D1,CC south entrance 2,Diamond S034-D1 (1 of 1 between CC-S2 and J32),7.3,road_chain,S034
+CC-W,S035-D1,CC west entrance,Diamond S035-D1 (1 of 5 between CC-W and J25),5.45,road_chain,S035
+CG,G3,CSIT Gate,Gate 3,232.11,outside_road,S036
+CG,J25,CSIT Gate,Junction diamond J25,40.79,outside_road,S038
+CH-1,S039-D1,Chanakya west entrance,Diamond S039-D1 (1 of 2 between CH-1 and PT-4),15.52,road_chain,S039
+CH-2,S040-D1,Chanakya top entrance,Diamond S040-D1 (1 of 4 between CH-2 and J42),8.14,road_chain,S040
+CH-2,S041-D1,Chanakya top entrance,Diamond S041-D1 (1 of 2 between CH-2 and TS2),6.23,road_chain,S041
+CK,G2,Charkhamba (outside),Gate 2,118.47,outside_road,S042
+CK,J38,Charkhamba (outside),Junction diamond J38,207.29,outside_road,S043
+CS-F,S044-D1,CSIT Block front entrance,Diamond S044-D1 (1 of 1 between CS-F and J10),6.95,road_chain,S044
+CS-F,S045-D1,CSIT Block front entrance,Diamond S045-D1 (1 of 1 between CS-F and J15),5.11,road_chain,S045
+CS-R1,S046-D1,CSIT Block right entrance 1 (upper),Diamond S046-D1 (1 of 1 between CS-R1 and GAD),6.57,road_chain,S046
+CS-R1,S047-D1,CSIT Block right entrance 1 (upper),Diamond S047-D1 (1 of 1 between CS-R1 and TS3),7.33,road_chain,S047
+CV-1,S049-D1,Civil Blk west entrance,Diamond S049-D1 (1 of 2 between CV-1 and J23),5.76,road_chain,S049
+DISP,S051-D1,Dispensary,Diamond S051-D1 (1 of 1 between DISP and G1),5.71,road_chain,S051
+DISP,S052-D1,Dispensary,Diamond S052-D1 (1 of 1 between DISP and GPE),5.55,road_chain,S052
+EP-1,S053-D1,East Parking 1,Diamond S053-D1 (1 of 1 between EP-1 and J49),13.18,road_chain,S053
+EP-2,S054-D1,East Parking 2,Diamond S054-D1 (1 of 1 between EP-2 and J50),19.88,road_chain,S054
+EP-3,S055-D1,East Parking 3,Diamond S055-D1 (1 of 1 between EP-3 and J51),22.55,road_chain,S055
+FLAG,S056-D1,Flag Area,Diamond S056-D1 (1 of 1 between FLAG and J18),5.06,road_chain,S056
+FNT,S057-D1,Fountain,Diamond S057-D1 (1 of 1 between FNT and J30),6.16,road_chain,S057
+FNT,S058-D1,Fountain,Diamond S058-D1 (1 of 2 between FNT and J31),5.93,road_chain,S058
+FNT,S059-D1,Fountain,Diamond S059-D1 (1 of 2 between FNT and LIB),5.63,road_chain,S059
+G1,J25,Gate 1,Junction diamond J25,10.40,outside_road,S060
+G1,J33,Gate 1,Junction diamond J33,14.39,outside_road,S061
+G1,S062-D1,Gate 1,Diamond S062-D1 (1 of 1 between G1 and PA),7.42,road_chain,S062
+G2,S063-D1,Gate 2,Diamond S063-D1 (1 of 2 between G2 and J52),14.75,road_chain,S063
+G3,S064-D1,Gate 3,Diamond S064-D1 (1 of 2 between G3 and J23),6.33,road_chain,S064
+GAA,S065-D1,Garden Area A,Diamond S065-D1 (1 of 1 between GAA and TS1),5.23,road_chain,S065
+GAB,S066-D1,Garden Area B,Diamond S066-D1 (1 of 1 between GAB and J26),7.27,road_chain,S066
+GAB,S067-D1,Garden Area B,Diamond S067-D1 (1 of 2 between GAB and J31),5.88,road_chain,S067
+GAC,S068-D1,Garden Area C,Diamond S068-D1 (1 of 2 between GAC and J45),7.22,road_chain,S068
+GAC,S069-D1,Garden Area C,Diamond S069-D1 (1 of 3 between GAC and TRUCK),11.62,road_chain,S069
+GAD,S070-D1,Garden Area D,Diamond S070-D1 (1 of 2 between GAD and J17),5.53,road_chain,S070
+GPE,S071-D1,Gate for President Estate,Diamond S071-D1 (1 of 1 between GPE and TS1),5.5,road_chain,S071
+HH,S072-D1,Happiness Hut (cafe+gym),Diamond S072-D1 (1 of 2 between HH and J06),5.2,road_chain,S072
+J01,J02,Junction diamond J01,Junction diamond J02,7.34,direct,
+J03,J04,Junction diamond J03,Junction diamond J04,7.27,direct,
+J05,S075-D1,Junction diamond J05,Diamond S075-D1 (1 of 1 between J05 and J06),5.66,road_chain,S075
+J05,S076-D1,Junction diamond J05,Diamond S076-D1 (1 of 5 between J05 and J18),5.25,road_chain,S076
+J05,S077-D1,Junction diamond J05,Diamond S077-D1 (1 of 1 between J05 and MINI),5.04,road_chain,S077
+J05,S078-D1,Junction diamond J05,Diamond S078-D1 (1 of 2 between J05 and RAVI),5.16,road_chain,S078
+J06,S079-D1,Junction diamond J06,Diamond S079-D1 (1 of 3 between J06 and J12),5.77,road_chain,S079
+J06,S080-D1,Junction diamond J06,Diamond S080-D1 (1 of 1 between J06 and STAT),6.32,road_chain,S080
+J07,J08,Junction diamond J07,Junction diamond J08,9.59,direct,
+J07,S082-D1,Junction diamond J07,Diamond S082-D1 (1 of 3 between J07 and LBH),6.07,road_chain,S082
+J08,S084-D1,Junction diamond J08,Diamond S084-D1 (1 of 2 between J08 and J09),5.24,road_chain,S084
+J09,S085-D1,Junction diamond J09,Diamond S085-D1 (1 of 3 between J09 and J16),6.01,road_chain,S085
+J09,S086-D1,Junction diamond J09,Diamond S086-D1 (1 of 2 between J09 and MINI),6.48,road_chain,S086
+J10,NCS,Junction diamond J10,New CSIT Block entrance,7.5,direct,
+J10,S089-D1,Junction diamond J10,Diamond S089-D1 (1 of 2 between J10 and TM),5.97,road_chain,S089
+J11,CG,Junction diamond J11,CSIT Gate,9.05,direct,
+J11,J10,Junction diamond J11,Junction diamond J10,8.5,direct,
+J11,S090-D1,Junction diamond J11,Diamond S090-D1 (1 of 1 between J11 and J15),5.72,road_chain,S090
+J12,S091-D1,Junction diamond J12,Diamond S091-D1 (1 of 2 between J12 and J13),5.47,road_chain,S091
+J13,BT-4,Junction diamond J13,BT-4 W,6.42,direct,
+J13,S092-D1,Junction diamond J13,Diamond S092-D1 (1 of 1 between J13 and J14),5.11,road_chain,S092
+J14,BT-5,Junction diamond J14,BT-5 SW,5.5,direct,
+J14,S093-D1,Junction diamond J14,Diamond S093-D1 (1 of 7 between J14 and J23),5.16,road_chain,S093
+J15,S094-D1,Junction diamond J15,Diamond S094-D1 (1 of 2 between J15 and J17),5.09,road_chain,S094
+J16,BRG1,Junction diamond J16,Bridge 1,5.88,direct,
+J16,J22,Junction diamond J16,Junction diamond J22,8.82,direct,
+J17,CS-R2,Junction diamond J17,CSIT Block right entrance 2 (lower),5.56,direct,
+J17,PK-X,Junction diamond J17,Parking Area X,8.94,direct,
+J18,J21,Junction diamond J18,Junction diamond J21,9.28,direct,
+J19,PM-L,Junction diamond J19,Paramedical Block left front entrance,8.48,direct,
+J19,PM-R,Junction diamond J19,Paramedical Block right front entrance,6.83,direct,
+J20,J19,Junction diamond J20,Junction diamond J19,9.79,direct,
+J20,S101-D1,Junction diamond J20,Diamond S101-D1 (1 of 10 between J20 and PK-Y),5.4,road_chain,S101
+J20,S102-D1,Junction diamond J20,Diamond S102-D1 (1 of 3 between J20 and PK-Z),5.46,road_chain,S102
+J22,S104-D1,Junction diamond J22,Diamond S104-D1 (1 of 1 between J22 and J24),5.74,road_chain,S104
+J23,S105-D1,Junction diamond J23,Diamond S105-D1 (1 of 4 between J23 and J27),5.33,road_chain,S105
+J24,BRG2,Junction diamond J24,Bridge 2,4.89,direct,
+J24,S106-D1,Junction diamond J24,Diamond S106-D1 (1 of 4 between J24 and TS1),5.2,road_chain,S106
+J26,BT-3,Junction diamond J26,BT-3 NE,9.24,direct,
+J26,S107-D1,Junction diamond J26,Diamond S107-D1 (1 of 3 between J26 and J31),5.17,road_chain,S107
+J27,S108-D1,Junction diamond J27,Diamond S108-D1 (1 of 1 between J27 and J28),5.73,road_chain,S108
+J27,S109-D1,Junction diamond J27,Diamond S109-D1 (1 of 2 between J27 and J29),5.57,road_chain,S109
+J27,S110-D1,Junction diamond J27,Diamond S110-D1 (1 of 3 between J27 and J34),6.14,road_chain,S110
+J28,CV-2,Junction diamond J28,Civil Blk north entrance,7.57,direct,
+J28,WC,Junction diamond J28,W/C,7.52,direct,
+J30,J29,Junction diamond J30,Junction diamond J29,7.68,direct,
+J31,S113-D1,Junction diamond J31,Diamond S113-D1 (1 of 3 between J31 and J35),5.66,road_chain,S113
+J32,CC-S1,Junction diamond J32,CC south entrance 1,8.57,direct,
+J33,J32,Junction diamond J33,Junction diamond J32,7.35,direct,
+J33,J38,Junction diamond J33,Junction diamond J38,31.24,outside_road,S115
+J34,S116-D1,Junction diamond J34,Diamond S116-D1 (1 of 5 between J34 and J36),5.81,road_chain,S116
+J34,S117-D1,Junction diamond J34,Diamond S117-D1 (1 of 9 between J34 and PT-5),4.94,road_chain,S117
+J34,S122-D6,Junction diamond J34,Diamond S122-D6 (6 of 7 between J36 and PT-2),21.79,direct,
+J35,S118-D1,Junction diamond J35,Diamond S118-D1 (1 of 1 between J35 and J36),6.92,road_chain,S118
+J35,S119-D1,Junction diamond J35,Diamond S119-D1 (1 of 1 between J35 and LIB),6.71,road_chain,S119
+J36,S120-D1,Junction diamond J36,Diamond S120-D1 (1 of 4 between J36 and J39),5.07,road_chain,S120
+J36,S121-D1,Junction diamond J36,Diamond S121-D1 (1 of 2 between J36 and PARAM),5.59,road_chain,S121
+J36,S122-D1,Junction diamond J36,Diamond S122-D1 (1 of 7 between J36 and PT-2),5.45,road_chain,S122
+J37,S123-D1,Junction diamond J37,Diamond S123-D1 (1 of 3 between J37 and J38),5.53,road_chain,S123
+J37,S124-D1,Junction diamond J37,Diamond S124-D1 (1 of 1 between J37 and PB),6.19,road_chain,S124
+J39,S125-D1,Junction diamond J39,Diamond S125-D1 (1 of 3 between J39 and J41),5.42,road_chain,S125
+J39,S126-D1,Junction diamond J39,Diamond S126-D1 (1 of 3 between J39 and PT-1),5.31,road_chain,S126
+J40,S127-D1,Junction diamond J40,Diamond S127-D1 (1 of 1 between J40 and MB-1),6.17,road_chain,S127
+J40,S128-D1,Junction diamond J40,Diamond S128-D1 (1 of 2 between J40 and PRIY),5.65,road_chain,S128
+J41,S129-D1,Junction diamond J41,Diamond S129-D1 (1 of 2 between J41 and J42),5.96,road_chain,S129
+J41,S130-D1,Junction diamond J41,Diamond S130-D1 (1 of 3 between J41 and PT-3),5.15,road_chain,S130
+J42,S131-D1,Junction diamond J42,Diamond S131-D1 (1 of 2 between J42 and J43),5.31,road_chain,S131
+J43,S132-D1,Junction diamond J43,Diamond S132-D1 (1 of 1 between J43 and J44),6.61,road_chain,S132
+J43,S133-D1,Junction diamond J43,Diamond S133-D1 (1 of 2 between J43 and KP-L),6.51,road_chain,S133
+J44,KP-B,Junction diamond J44,KP Nautiyal bottom (main),10.43,direct,
+J44,S134-D1,Junction diamond J44,Diamond S134-D1 (1 of 2 between J44 and J45),5.97,road_chain,S134
+J44,S135-D1,Junction diamond J44,Diamond S135-D1 (1 of 2 between J44 and J47),5.6,road_chain,S135
+J45,S138-D1,Junction diamond J45,Diamond S138-D1 (1 of 4 between J45 and UCB),5.46,road_chain,S138
+J46,S139-D1,Junction diamond J46,Diamond S139-D1 (1 of 3 between J46 and J48),6.15,road_chain,S139
+J46,S140-D1,Junction diamond J46,Diamond S140-D1 (1 of 2 between J46 and MB-2),5.56,road_chain,S140
+J47,S141-D1,Junction diamond J47,Diamond S141-D1 (1 of 1 between J47 and J48),5.89,road_chain,S141
+J47,S142-D1,Junction diamond J47,Diamond S142-D1 (1 of 3 between J47 and KP-R),6.04,road_chain,S142
+J49,S143-D1,Junction diamond J49,Diamond S143-D1 (1 of 2 between J49 and J50),6.47,road_chain,S143
+J50,S144-D1,Junction diamond J50,Diamond S144-D1 (1 of 2 between J50 and J51),6.54,road_chain,S144
+J51,S145-D1,Junction diamond J51,Diamond S145-D1 (1 of 1 between J51 and J52),6.76,road_chain,S145
+KP-R,BRG5,KP Nautiyal right (Quick Bite),Bridge 5,9.26,direct,
+PB,S146-D1,Parking PB,Diamond S146-D1 (1 of 1 between PB and PC),6.17,road_chain,S146
+PK-W,S147-D1,Parking Area W,Diamond S147-D1 (1 of 5 between PK-W and PK-Z),5.18,road_chain,S147
+S001-D1,S001-D2,Diamond S001-D1 (1 of 2 between ARY and BRG3),Diamond S001-D2 (2 of 2 between ARY and BRG3),5.76,road_chain,S001
+S001-D2,BRG3,Diamond S001-D2 (2 of 2 between ARY and BRG3),Bridge 3,5.68,road_chain,S001
+S002-D1,S002-D2,Diamond S002-D1 (1 of 2 between ARY and J31),Diamond S002-D2 (2 of 2 between ARY and J31),5.32,road_chain,S002
+S002-D2,J31,Diamond S002-D2 (2 of 2 between ARY and J31),Junction diamond J31,5.24,road_chain,S002
+S003-D1,S003-D2,Diamond S003-D1 (1 of 3 between ASH and J08),Diamond S003-D2 (2 of 3 between ASH and J08),5.75,road_chain,S003
+S003-D2,S003-D3,Diamond S003-D2 (2 of 3 between ASH and J08),Diamond S003-D3 (3 of 3 between ASH and J08),5.66,road_chain,S003
+S003-D3,J08,Diamond S003-D3 (3 of 3 between ASH and J08),Junction diamond J08,5.81,road_chain,S003
+S004-D1,J14,Diamond S004-D1 (1 of 1 between BAD and J14),Junction diamond J14,5.38,road_chain,S004
+S005-D1,S005-D2,Diamond S005-D1 (1 of 2 between BBG and J34),Diamond S005-D2 (2 of 2 between BBG and J34),6.45,road_chain,S005
+S005-D2,J34,Diamond S005-D2 (2 of 2 between BBG and J34),Junction diamond J34,6.45,road_chain,S005
+S006-D1,PC,Diamond S006-D1 (1 of 1 between BG and PC),Parking PC,5.85,road_chain,S006
+S010-D1,S010-D2,Diamond S010-D1 (1 of 3 between BRG2 and J26),Diamond S010-D2 (2 of 3 between BRG2 and J26),5.49,road_chain,S010
+S010-D2,S010-D3,Diamond S010-D2 (2 of 3 between BRG2 and J26),Diamond S010-D3 (3 of 3 between BRG2 and J26),5.79,road_chain,S010
+S010-D3,J26,Diamond S010-D3 (3 of 3 between BRG2 and J26),Junction diamond J26,5.8,road_chain,S010
+S011-D1,S011-D2,Diamond S011-D1 (1 of 2 between BRG3 and J40),Diamond S011-D2 (2 of 2 between BRG3 and J40),5.83,road_chain,S011
+S011-D2,J40,Diamond S011-D2 (2 of 2 between BRG3 and J40),Junction diamond J40,5.83,road_chain,S011
+S013-D1,MB-1,Diamond S013-D1 (1 of 1 between BRG4 and MB-1),Mechanical Blk entrance 1,6.37,road_chain,S013
+S016-D1,J48,Diamond S016-D1 (1 of 1 between BRG6 and J48),Junction diamond J48,6.54,road_chain,S016
+S017-D1,J49,Diamond S017-D1 (1 of 1 between BRG6 and J49),Junction diamond J49,5.45,road_chain,S017
+S018-D1,J12,Diamond S018-D1 (1 of 1 between BT-1 and J12),Junction diamond J12,7.22,road_chain,S018
+S019-D1,J21,Diamond S019-D1 (1 of 1 between BT-1 and J21),Junction diamond J21,5.89,road_chain,S019
+S020-D1,S020-D2,Diamond S020-D1 (1 of 2 between BT-2 and J21),Diamond S020-D2 (2 of 2 between BT-2 and J21),5.35,road_chain,S020
+S020-D2,J21,Diamond S020-D2 (2 of 2 between BT-2 and J21),Junction diamond J21,5.26,road_chain,S020
+S021-D1,J26,Diamond S021-D1 (1 of 1 between BT-2 and J26),Junction diamond J26,7.32,road_chain,S021
+S023-D1,S023-D2,Diamond S023-D1 (1 of 2 between BT-3 and J31),Diamond S023-D2 (2 of 2 between BT-3 and J31),5.67,road_chain,S023
+S023-D2,J31,Diamond S023-D2 (2 of 2 between BT-3 and J31),Junction diamond J31,5.74,road_chain,S023
+S025-D1,S025-D2,Diamond S025-D1 (1 of 2 between BT-4 and J12),Diamond S025-D2 (2 of 2 between BT-4 and J12),5.78,road_chain,S025
+S025-D2,J12,Diamond S025-D2 (2 of 2 between BT-4 and J12),Junction diamond J12,5.91,road_chain,S025
+S028-D1,J30,Diamond S028-D1 (1 of 1 between BT-6 and J30),Junction diamond J30,5.51,road_chain,S028
+S029-D1,J29,Diamond S029-D1 (1 of 1 between BT-7 and J29),Junction diamond J29,5.61,road_chain,S029
+S030-D1,S030-D2,Diamond S030-D1 (1 of 2 between BTG and J22),Diamond S030-D2 (2 of 2 between BTG and J22),5.52,road_chain,S030
+S030-D2,J22,Diamond S030-D2 (2 of 2 between BTG and J22),Junction diamond J22,5.46,road_chain,S030
+S031-D1,S031-D2,Diamond S031-D1 (1 of 2 between BUSP and J52),Diamond S031-D2 (2 of 2 between BUSP and J52),5.58,road_chain,S031
+S031-D2,J52,Diamond S031-D2 (2 of 2 between BUSP and J52),Junction diamond J52,5.44,road_chain,S031
+S032-D1,J37,Diamond S032-D1 (1 of 1 between CC-E and J37),Junction diamond J37,5.74,road_chain,S032
+S034-D1,J32,Diamond S034-D1 (1 of 1 between CC-S2 and J32),Junction diamond J32,7.3,road_chain,S034
+S035-D1,S035-D2,Diamond S035-D1 (1 of 5 between CC-W and J25),Diamond S035-D2 (2 of 5 between CC-W and J25),5.6,road_chain,S035
+S035-D2,S035-D3,Diamond S035-D2 (2 of 5 between CC-W and J25),Diamond S035-D3 (3 of 5 between CC-W and J25),4.0,road_chain,S035
+S035-D3,S035-D4,Diamond S035-D3 (3 of 5 between CC-W and J25),Diamond S035-D4 (4 of 5 between CC-W and J25),5.52,road_chain,S035
+S035-D4,S035-D5,Diamond S035-D4 (4 of 5 between CC-W and J25),Diamond S035-D5 (5 of 5 between CC-W and J25),5.55,road_chain,S035
+S035-D5,J25,Diamond S035-D5 (5 of 5 between CC-W and J25),Junction diamond J25,5.52,road_chain,S035
+S039-D1,S039-D2,Diamond S039-D1 (1 of 2 between CH-1 and PT-4),Diamond S039-D2 (2 of 2 between CH-1 and PT-4),5.76,road_chain,S039
+S039-D2,PT-4,Diamond S039-D2 (2 of 2 between CH-1 and PT-4),Petroleum bottom-right,5.68,road_chain,S039
+S040-D1,S040-D2,Diamond S040-D1 (1 of 4 between CH-2 and J42),Diamond S040-D2 (2 of 4 between CH-2 and J42),5.33,road_chain,S040
+S040-D2,S040-D3,Diamond S040-D2 (2 of 4 between CH-2 and J42),Diamond S040-D3 (3 of 4 between CH-2 and J42),5.4,road_chain,S040
+S040-D3,S040-D4,Diamond S040-D3 (3 of 4 between CH-2 and J42),Diamond S040-D4 (4 of 4 between CH-2 and J42),5.33,road_chain,S040
+S040-D4,J42,Diamond S040-D4 (4 of 4 between CH-2 and J42),Junction diamond J42,5.33,road_chain,S040
+S041-D1,S041-D2,Diamond S041-D1 (1 of 2 between CH-2 and TS2),Diamond S041-D2 (2 of 2 between CH-2 and TS2),6.05,road_chain,S041
+S041-D2,TS2,Diamond S041-D2 (2 of 2 between CH-2 and TS2),Tuck Shop 2,7.66,road_chain,S041
+S044-D1,J10,Diamond S044-D1 (1 of 1 between CS-F and J10),Junction diamond J10,6.94,road_chain,S044
+S045-D1,J15,Diamond S045-D1 (1 of 1 between CS-F and J15),Junction diamond J15,5.02,road_chain,S045
+S046-D1,GAD,Diamond S046-D1 (1 of 1 between CS-R1 and GAD),Garden Area D,6.7,road_chain,S046
+S047-D1,TS3,Diamond S047-D1 (1 of 1 between CS-R1 and TS3),Tuck Shop 3,7.47,road_chain,S047
+S049-D1,S049-D2,Diamond S049-D1 (1 of 2 between CV-1 and J23),Diamond S049-D2 (2 of 2 between CV-1 and J23),5.66,road_chain,S049
+S049-D2,J23,Diamond S049-D2 (2 of 2 between CV-1 and J23),Junction diamond J23,5.66,road_chain,S049
+S051-D1,G1,Diamond S051-D1 (1 of 1 between DISP and G1),Gate 1,5.8,road_chain,S051
+S052-D1,GPE,Diamond S052-D1 (1 of 1 between DISP and GPE),Gate for President Estate,5.5,road_chain,S052
+S053-D1,J49,Diamond S053-D1 (1 of 1 between EP-1 and J49),Junction diamond J49,5.88,road_chain,S053
+S054-D1,J50,Diamond S054-D1 (1 of 1 between EP-2 and J50),Junction diamond J50,5.88,road_chain,S054
+S055-D1,J51,Diamond S055-D1 (1 of 1 between EP-3 and J51),Junction diamond J51,5.81,road_chain,S055
+S056-D1,J18,Diamond S056-D1 (1 of 1 between FLAG and J18),Junction diamond J18,5.06,road_chain,S056
+S057-D1,J30,Diamond S057-D1 (1 of 1 between FNT and J30),Junction diamond J30,6.2,road_chain,S057
+S058-D1,S058-D2,Diamond S058-D1 (1 of 2 between FNT and J31),Diamond S058-D2 (2 of 2 between FNT and J31),6.01,road_chain,S058
+S058-D2,J31,Diamond S058-D2 (2 of 2 between FNT and J31),Junction diamond J31,5.87,road_chain,S058
+S059-D1,S059-D2,Diamond S059-D1 (1 of 2 between FNT and LIB),Diamond S059-D2 (2 of 2 between FNT and LIB),5.61,road_chain,S059
+S059-D2,LIB,Diamond S059-D2 (2 of 2 between FNT and LIB),Library,5.61,road_chain,S059
+S062-D1,PA,Diamond S062-D1 (1 of 1 between G1 and PA),Parking PA,5.08,road_chain,S062
+S063-D1,S063-D2,Diamond S063-D1 (1 of 2 between G2 and J52),Diamond S063-D2 (2 of 2 between G2 and J52),5.31,road_chain,S063
+S063-D2,J52,Diamond S063-D2 (2 of 2 between G2 and J52),Junction diamond J52,5.31,road_chain,S063
+S064-D1,S064-D2,Diamond S064-D1 (1 of 2 between G3 and J23),Diamond S064-D2 (2 of 2 between G3 and J23),6.22,road_chain,S064
+S064-D2,J23,Diamond S064-D2 (2 of 2 between G3 and J23),Junction diamond J23,6.33,road_chain,S064
+S065-D1,TS1,Diamond S065-D1 (1 of 1 between GAA and TS1),Tuckshop 1,5.23,road_chain,S065
+S066-D1,J26,Diamond S066-D1 (1 of 1 between GAB and J26),Junction diamond J26,7.16,road_chain,S066
+S067-D1,S067-D2,Diamond S067-D1 (1 of 2 between GAB and J31),Diamond S067-D2 (2 of 2 between GAB and J31),5.75,road_chain,S067
+S067-D2,J31,Diamond S067-D2 (2 of 2 between GAB and J31),Junction diamond J31,5.88,road_chain,S067
+S068-D1,S068-D2,Diamond S068-D1 (1 of 2 between GAC and J45),Diamond S068-D2 (2 of 2 between GAC and J45),5.54,road_chain,S068
+S068-D2,J45,Diamond S068-D2 (2 of 2 between GAC and J45),Junction diamond J45,5.54,road_chain,S068
+S069-D1,S069-D2,Diamond S069-D1 (1 of 3 between GAC and TRUCK),Diamond S069-D2 (2 of 3 between GAC and TRUCK),5.74,road_chain,S069
+S069-D2,S069-D3,Diamond S069-D2 (2 of 3 between GAC and TRUCK),Diamond S069-D3 (3 of 3 between GAC and TRUCK),5.74,road_chain,S069
+S069-D3,TRUCK,Diamond S069-D3 (3 of 3 between GAC and TRUCK),Hocus Focus Cafe,1.55,road_chain,S069
+S070-D1,S070-D2,Diamond S070-D1 (1 of 2 between GAD and J17),Diamond S070-D2 (2 of 2 between GAD and J17),5.53,road_chain,S070
+S070-D2,J17,Diamond S070-D2 (2 of 2 between GAD and J17),Junction diamond J17,5.52,road_chain,S070
+S071-D1,TS1,Diamond S071-D1 (1 of 1 between GPE and TS1),Tuckshop 1,5.52,road_chain,S071
+S072-D1,S072-D2,Diamond S072-D1 (1 of 2 between HH and J06),Diamond S072-D2 (2 of 2 between HH and J06),5.3,road_chain,S072
+S072-D2,J06,Diamond S072-D2 (2 of 2 between HH and J06),Junction diamond J06,5.25,road_chain,S072
+S075-D1,J06,Diamond S075-D1 (1 of 1 between J05 and J06),Junction diamond J06,5.61,road_chain,S075
+S076-D1,S076-D2,Diamond S076-D1 (1 of 5 between J05 and J18),Diamond S076-D2 (2 of 5 between J05 and J18),5.25,road_chain,S076
+S076-D2,S076-D3,Diamond S076-D2 (2 of 5 between J05 and J18),Diamond S076-D3 (3 of 5 between J05 and J18),5.11,road_chain,S076
+S076-D3,S076-D4,Diamond S076-D3 (3 of 5 between J05 and J18),Diamond S076-D4 (4 of 5 between J05 and J18),5.25,road_chain,S076
+S076-D4,S076-D5,Diamond S076-D4 (4 of 5 between J05 and J18),Diamond S076-D5 (5 of 5 between J05 and J18),5.25,road_chain,S076
+S076-D5,J18,Diamond S076-D5 (5 of 5 between J05 and J18),Junction diamond J18,5.17,road_chain,S076
+S077-D1,MINI,Diamond S077-D1 (1 of 1 between J05 and MINI),Mini Bridge,5.19,road_chain,S077
+S078-D1,S078-D2,Diamond S078-D1 (1 of 2 between J05 and RAVI),Diamond S078-D2 (2 of 2 between J05 and RAVI),5.24,road_chain,S078
+S078-D2,RAVI,Diamond S078-D2 (2 of 2 between J05 and RAVI),Ravi Canteen,5.16,road_chain,S078
+S079-D1,S079-D2,Diamond S079-D1 (1 of 3 between J06 and J12),Diamond S079-D2 (2 of 3 between J06 and J12),5.77,road_chain,S079
+S079-D2,S079-D3,Diamond S079-D2 (2 of 3 between J06 and J12),Diamond S079-D3 (3 of 3 between J06 and J12),5.77,road_chain,S079
+S079-D3,J12,Diamond S079-D3 (3 of 3 between J06 and J12),Junction diamond J12,5.77,road_chain,S079
+S080-D1,STAT,Diamond S080-D1 (1 of 1 between J06 and STAT),Statue Area,6.32,road_chain,S080
+S082-D1,S082-D2,Diamond S082-D1 (1 of 3 between J07 and LBH),Diamond S082-D2 (2 of 3 between J07 and LBH),6.22,road_chain,S082
+S082-D2,S082-D3,Diamond S082-D2 (2 of 3 between J07 and LBH),Diamond S082-D3 (3 of 3 between J07 and LBH),6.14,road_chain,S082
+S082-D3,LBH,Diamond S082-D3 (3 of 3 between J07 and LBH),Laxmi Bai Hostel,6.14,road_chain,S082
+S084-D1,S084-D2,Diamond S084-D1 (1 of 2 between J08 and J09),Diamond S084-D2 (2 of 2 between J08 and J09),5.17,road_chain,S084
+S084-D2,J09,Diamond S084-D2 (2 of 2 between J08 and J09),Junction diamond J09,5.24,road_chain,S084
+S085-D1,S085-D2,Diamond S085-D1 (1 of 3 between J09 and J16),Diamond S085-D2 (2 of 3 between J09 and J16),5.96,road_chain,S085
+S085-D2,S085-D3,Diamond S085-D2 (2 of 3 between J09 and J16),Diamond S085-D3 (3 of 3 between J09 and J16),6.0,road_chain,S085
+S085-D3,J16,Diamond S085-D3 (3 of 3 between J09 and J16),Junction diamond J16,5.95,road_chain,S085
+S086-D1,S086-D2,Diamond S086-D1 (1 of 2 between J09 and MINI),Diamond S086-D2 (2 of 2 between J09 and MINI),4.23,road_chain,S086
+S086-D2,MINI,Diamond S086-D2 (2 of 2 between J09 and MINI),Mini Bridge,6.43,road_chain,S086
+S089-D1,S089-D2,Diamond S089-D1 (1 of 2 between J10 and TM),Diamond S089-D2 (2 of 2 between J10 and TM),5.97,road_chain,S089
+S089-D2,TM,Diamond S089-D2 (2 of 2 between J10 and TM),Tunnel Mouth,6.07,road_chain,S089
+S090-D1,J15,Diamond S090-D1 (1 of 1 between J11 and J15),Junction diamond J15,5.61,road_chain,S090
+S091-D1,S091-D2,Diamond S091-D1 (1 of 2 between J12 and J13),Diamond S091-D2 (2 of 2 between J12 and J13),5.47,road_chain,S091
+S091-D2,J13,Diamond S091-D2 (2 of 2 between J12 and J13),Junction diamond J13,5.47,road_chain,S091
+S092-D1,J14,Diamond S092-D1 (1 of 1 between J13 and J14),Junction diamond J14,5.1,road_chain,S092
+S093-D1,S093-D2,Diamond S093-D1 (1 of 7 between J14 and J23),Diamond S093-D2 (2 of 7 between J14 and J23),5.02,road_chain,S093
+S093-D2,S093-D3,Diamond S093-D2 (2 of 7 between J14 and J23),Diamond S093-D3 (3 of 7 between J14 and J23),5.16,road_chain,S093
+S093-D3,S093-D4,Diamond S093-D3 (3 of 7 between J14 and J23),Diamond S093-D4 (4 of 7 between J14 and J23),5.09,road_chain,S093
+S093-D4,S093-D5,Diamond S093-D4 (4 of 7 between J14 and J23),Diamond S093-D5 (5 of 7 between J14 and J23),5.09,road_chain,S093
+S093-D5,S093-D6,Diamond S093-D5 (5 of 7 between J14 and J23),Diamond S093-D6 (6 of 7 between J14 and J23),5.09,road_chain,S093
+S093-D6,S093-D7,Diamond S093-D6 (6 of 7 between J14 and J23),Diamond S093-D7 (7 of 7 between J14 and J23),5.09,road_chain,S093
+S093-D7,J23,Diamond S093-D7 (7 of 7 between J14 and J23),Junction diamond J23,5.09,road_chain,S093
+S094-D1,S094-D2,Diamond S094-D1 (1 of 2 between J15 and J17),Diamond S094-D2 (2 of 2 between J15 and J17),4.99,road_chain,S094
+S094-D2,J17,Diamond S094-D2 (2 of 2 between J15 and J17),Junction diamond J17,5.09,road_chain,S094
+S101-D1,S101-D2,Diamond S101-D1 (1 of 10 between J20 and PK-Y),Diamond S101-D2 (2 of 10 between J20 and PK-Y),5.05,road_chain,S101
+S101-D10,PK-Y,Diamond S101-D10 (10 of 10 between J20 and PK-Y),Parking Area Y (whole area),5.35,road_chain,S101
+S101-D2,S101-D3,Diamond S101-D2 (2 of 10 between J20 and PK-Y),Diamond S101-D3 (3 of 10 between J20 and PK-Y),5.29,road_chain,S101
+S101-D3,S101-D4,Diamond S101-D3 (3 of 10 between J20 and PK-Y),Diamond S101-D4 (4 of 10 between J20 and PK-Y),5.44,road_chain,S101
+S101-D4,S101-D5,Diamond S101-D4 (4 of 10 between J20 and PK-Y),Diamond S101-D5 (5 of 10 between J20 and PK-Y),5.34,road_chain,S101
+S101-D5,S101-D6,Diamond S101-D5 (5 of 10 between J20 and PK-Y),Diamond S101-D6 (6 of 10 between J20 and PK-Y),5.34,road_chain,S101
+S101-D6,S101-D7,Diamond S101-D6 (6 of 10 between J20 and PK-Y),Diamond S101-D7 (7 of 10 between J20 and PK-Y),5.38,road_chain,S101
+S101-D7,S101-D8,Diamond S101-D7 (7 of 10 between J20 and PK-Y),Diamond S101-D8 (8 of 10 between J20 and PK-Y),5.38,road_chain,S101
+S101-D8,S101-D9,Diamond S101-D8 (8 of 10 between J20 and PK-Y),Diamond S101-D9 (9 of 10 between J20 and PK-Y),4.9,road_chain,S101
+S101-D9,S101-D10,Diamond S101-D9 (9 of 10 between J20 and PK-Y),Diamond S101-D10 (10 of 10 between J20 and PK-Y),5.33,road_chain,S101
+S102-D1,S102-D2,Diamond S102-D1 (1 of 3 between J20 and PK-Z),Diamond S102-D2 (2 of 3 between J20 and PK-Z),5.38,road_chain,S102
+S102-D2,S102-D3,Diamond S102-D2 (2 of 3 between J20 and PK-Z),Diamond S102-D3 (3 of 3 between J20 and PK-Z),5.46,road_chain,S102
+S102-D3,PK-Z,Diamond S102-D3 (3 of 3 between J20 and PK-Z),Parking Area Z,5.46,road_chain,S102
+S104-D1,J24,Diamond S104-D1 (1 of 1 between J22 and J24),Junction diamond J24,5.74,road_chain,S104
+S105-D1,S105-D2,Diamond S105-D1 (1 of 4 between J23 and J27),Diamond S105-D2 (2 of 4 between J23 and J27),5.27,road_chain,S105
+S105-D2,S105-D3,Diamond S105-D2 (2 of 4 between J23 and J27),Diamond S105-D3 (3 of 4 between J23 and J27),5.37,road_chain,S105
+S105-D3,S105-D4,Diamond S105-D3 (3 of 4 between J23 and J27),Diamond S105-D4 (4 of 4 between J23 and J27),5.33,road_chain,S105
+S105-D4,J27,Diamond S105-D4 (4 of 4 between J23 and J27),Junction diamond J27,5.37,road_chain,S105
+S106-D1,S106-D2,Diamond S106-D1 (1 of 4 between J24 and TS1),Diamond S106-D2 (2 of 4 between J24 and TS1),5.12,road_chain,S106
+S106-D2,S106-D3,Diamond S106-D2 (2 of 4 between J24 and TS1),Diamond S106-D3 (3 of 4 between J24 and TS1),5.23,road_chain,S106
+S106-D3,S106-D4,Diamond S106-D3 (3 of 4 between J24 and TS1),Diamond S106-D4 (4 of 4 between J24 and TS1),5.1,road_chain,S106
+S106-D4,TS1,Diamond S106-D4 (4 of 4 between J24 and TS1),Tuckshop 1,5.2,road_chain,S106
+S107-D1,S107-D2,Diamond S107-D1 (1 of 3 between J26 and J31),Diamond S107-D2 (2 of 3 between J26 and J31),5.17,road_chain,S107
+S107-D2,S107-D3,Diamond S107-D2 (2 of 3 between J26 and J31),Diamond S107-D3 (3 of 3 between J26 and J31),5.29,road_chain,S107
+S107-D3,J31,Diamond S107-D3 (3 of 3 between J26 and J31),Junction diamond J31,5.17,road_chain,S107
+S108-D1,J28,Diamond S108-D1 (1 of 1 between J27 and J28),Junction diamond J28,5.73,road_chain,S108
+S109-D1,S109-D2,Diamond S109-D1 (1 of 2 between J27 and J29),Diamond S109-D2 (2 of 2 between J27 and J29),5.57,road_chain,S109
+S109-D2,J29,Diamond S109-D2 (2 of 2 between J27 and J29),Junction diamond J29,5.57,road_chain,S109
+S110-D1,S110-D2,Diamond S110-D1 (1 of 3 between J27 and J34),Diamond S110-D2 (2 of 3 between J27 and J34),6.05,road_chain,S110
+S110-D2,S110-D3,Diamond S110-D2 (2 of 3 between J27 and J34),Diamond S110-D3 (3 of 3 between J27 and J34),6.2,road_chain,S110
+S110-D3,J34,Diamond S110-D3 (3 of 3 between J27 and J34),Junction diamond J34,6.14,road_chain,S110
+S113-D1,S113-D2,Diamond S113-D1 (1 of 3 between J31 and J35),Diamond S113-D2 (2 of 3 between J31 and J35),5.73,road_chain,S113
+S113-D2,S113-D3,Diamond S113-D2 (2 of 3 between J31 and J35),Diamond S113-D3 (3 of 3 between J31 and J35),5.75,road_chain,S113
+S113-D3,J35,Diamond S113-D3 (3 of 3 between J31 and J35),Junction diamond J35,5.73,road_chain,S113
+S116-D1,S116-D2,Diamond S116-D1 (1 of 5 between J34 and J36),Diamond S116-D2 (2 of 5 between J34 and J36),5.81,road_chain,S116
+S116-D2,S116-D3,Diamond S116-D2 (2 of 5 between J34 and J36),Diamond S116-D3 (3 of 5 between J34 and J36),5.83,road_chain,S116
+S116-D3,S116-D4,Diamond S116-D3 (3 of 5 between J34 and J36),Diamond S116-D4 (4 of 5 between J34 and J36),5.74,road_chain,S116
+S116-D4,S116-D5,Diamond S116-D4 (4 of 5 between J34 and J36),Diamond S116-D5 (5 of 5 between J34 and J36),5.84,road_chain,S116
+S116-D5,J36,Diamond S116-D5 (5 of 5 between J34 and J36),Junction diamond J36,5.84,road_chain,S116
+S117-D1,S117-D2,Diamond S117-D1 (1 of 9 between J34 and PT-5),Diamond S117-D2 (2 of 9 between J34 and PT-5),5.02,road_chain,S117
+S117-D2,S117-D3,Diamond S117-D2 (2 of 9 between J34 and PT-5),Diamond S117-D3 (3 of 9 between J34 and PT-5),5.02,road_chain,S117
+S117-D3,S117-D4,Diamond S117-D3 (3 of 9 between J34 and PT-5),Diamond S117-D4 (4 of 9 between J34 and PT-5),5.02,road_chain,S117
+S117-D4,S117-D5,Diamond S117-D4 (4 of 9 between J34 and PT-5),Diamond S117-D5 (5 of 9 between J34 and PT-5),4.63,road_chain,S117
+S117-D5,S117-D6,Diamond S117-D5 (5 of 9 between J34 and PT-5),Diamond S117-D6 (6 of 9 between J34 and PT-5),4.98,road_chain,S117
+S117-D6,S117-D7,Diamond S117-D6 (6 of 9 between J34 and PT-5),Diamond S117-D7 (7 of 9 between J34 and PT-5),4.96,road_chain,S117
+S117-D7,S117-D8,Diamond S117-D7 (7 of 9 between J34 and PT-5),Diamond S117-D8 (8 of 9 between J34 and PT-5),5.07,road_chain,S117
+S117-D8,S117-D9,Diamond S117-D8 (8 of 9 between J34 and PT-5),Diamond S117-D9 (9 of 9 between J34 and PT-5),4.98,road_chain,S117
+S117-D9,PT-5,Diamond S117-D9 (9 of 9 between J34 and PT-5),Petroleum bottom,4.96,road_chain,S117
+S118-D1,J36,Diamond S118-D1 (1 of 1 between J35 and J36),Junction diamond J36,6.98,road_chain,S118
+S119-D1,LIB,Diamond S119-D1 (1 of 1 between J35 and LIB),Library,6.64,road_chain,S119
+S120-D1,S120-D2,Diamond S120-D1 (1 of 4 between J36 and J39),Diamond S120-D2 (2 of 4 between J36 and J39),5.09,road_chain,S120
+S120-D2,S120-D3,Diamond S120-D2 (2 of 4 between J36 and J39),Diamond S120-D3 (3 of 4 between J36 and J39),5.17,road_chain,S120
+S120-D3,S120-D4,Diamond S120-D3 (3 of 4 between J36 and J39),Diamond S120-D4 (4 of 4 between J36 and J39),5.09,road_chain,S120
+S120-D4,J39,Diamond S120-D4 (4 of 4 between J36 and J39),Junction diamond J39,5.17,road_chain,S120
+S121-D1,S121-D2,Diamond S121-D1 (1 of 2 between J36 and PARAM),Diamond S121-D2 (2 of 2 between J36 and PARAM),5.59,road_chain,S121
+S121-D2,PARAM,Diamond S121-D2 (2 of 2 between J36 and PARAM),Param Lab,5.55,road_chain,S121
+S122-D1,S122-D2,Diamond S122-D1 (1 of 7 between J36 and PT-2),Diamond S122-D2 (2 of 7 between J36 and PT-2),5.53,road_chain,S122
+S122-D2,S122-D3,Diamond S122-D2 (2 of 7 between J36 and PT-2),Diamond S122-D3 (3 of 7 between J36 and PT-2),5.53,road_chain,S122
+S122-D3,S122-D4,Diamond S122-D3 (3 of 7 between J36 and PT-2),Diamond S122-D4 (4 of 7 between J36 and PT-2),5.46,road_chain,S122
+S122-D4,S122-D5,Diamond S122-D4 (4 of 7 between J36 and PT-2),Diamond S122-D5 (5 of 7 between J36 and PT-2),5.45,road_chain,S122
+S122-D5,S122-D6,Diamond S122-D5 (5 of 7 between J36 and PT-2),Diamond S122-D6 (6 of 7 between J36 and PT-2),5.53,road_chain,S122
+S122-D6,PT-5,Diamond S122-D6 (6 of 7 between J36 and PT-2),Petroleum bottom,27.71,direct,
+S122-D6,S122-D7,Diamond S122-D6 (6 of 7 between J36 and PT-2),Diamond S122-D7 (7 of 7 between J36 and PT-2),5.46,road_chain,S122
+S122-D7,PT-2,Diamond S122-D7 (7 of 7 between J36 and PT-2),Petroleum left,5.53,road_chain,S122
+S123-D1,S123-D2,Diamond S123-D1 (1 of 3 between J37 and J38),Diamond S123-D2 (2 of 3 between J37 and J38),5.53,road_chain,S123
+S123-D2,S123-D3,Diamond S123-D2 (2 of 3 between J37 and J38),Diamond S123-D3 (3 of 3 between J37 and J38),5.53,road_chain,S123
+S123-D3,J38,Diamond S123-D3 (3 of 3 between J37 and J38),Junction diamond J38,5.45,road_chain,S123
+S124-D1,PB,Diamond S124-D1 (1 of 1 between J37 and PB),Parking PB,6.22,road_chain,S124
+S125-D1,S125-D2,Diamond S125-D1 (1 of 3 between J39 and J41),Diamond S125-D2 (2 of 3 between J39 and J41),5.42,road_chain,S125
+S125-D2,S125-D3,Diamond S125-D2 (2 of 3 between J39 and J41),Diamond S125-D3 (3 of 3 between J39 and J41),5.36,road_chain,S125
+S125-D3,J41,Diamond S125-D3 (3 of 3 between J39 and J41),Junction diamond J41,5.42,road_chain,S125
+S126-D1,S126-D2,Diamond S126-D1 (1 of 3 between J39 and PT-1),Diamond S126-D2 (2 of 3 between J39 and PT-1),5.21,road_chain,S126
+S126-D2,S126-D3,Diamond S126-D2 (2 of 3 between J39 and PT-1),Diamond S126-D3 (3 of 3 between J39 and PT-1),5.31,road_chain,S126
+S126-D3,PT-1,Diamond S126-D3 (3 of 3 between J39 and PT-1),Petroleum top,5.31,road_chain,S126
+S127-D1,MB-1,Diamond S127-D1 (1 of 1 between J40 and MB-1),Mechanical Blk entrance 1,6.22,road_chain,S127
+S128-D1,S128-D2,Diamond S128-D1 (1 of 2 between J40 and PRIY),Diamond S128-D2 (2 of 2 between J40 and PRIY),5.61,road_chain,S128
+S128-D2,PRIY,Diamond S128-D2 (2 of 2 between J40 and PRIY),Priyadarshini Hostel,5.61,road_chain,S128
+S129-D1,S129-D2,Diamond S129-D1 (1 of 2 between J41 and J42),Diamond S129-D2 (2 of 2 between J41 and J42),6.03,road_chain,S129
+S129-D2,J42,Diamond S129-D2 (2 of 2 between J41 and J42),Junction diamond J42,6.03,road_chain,S129
+S130-D1,S130-D2,Diamond S130-D1 (1 of 3 between J41 and PT-3),Diamond S130-D2 (2 of 3 between J41 and PT-3),5.0,road_chain,S130
+S130-D2,S130-D3,Diamond S130-D2 (2 of 3 between J41 and PT-3),Diamond S130-D3 (3 of 3 between J41 and PT-3),5.15,road_chain,S130
+S130-D3,PT-3,Diamond S130-D3 (3 of 3 between J41 and PT-3),Petroleum top-right,5.05,road_chain,S130
+S131-D1,S131-D2,Diamond S131-D1 (1 of 2 between J42 and J43),Diamond S131-D2 (2 of 2 between J42 and J43),5.31,road_chain,S131
+S131-D2,J43,Diamond S131-D2 (2 of 2 between J42 and J43),Junction diamond J43,5.23,road_chain,S131
+S132-D1,J44,Diamond S132-D1 (1 of 1 between J43 and J44),Junction diamond J44,6.54,road_chain,S132
+S133-D1,S133-D2,Diamond S133-D1 (1 of 2 between J43 and KP-L),Diamond S133-D2 (2 of 2 between J43 and KP-L),6.51,road_chain,S133
+S133-D2,KP-L,Diamond S133-D2 (2 of 2 between J43 and KP-L),KP Nautiyal left (Quick Bite),15.89,road_chain,S133
+S134-D1,S134-D2,Diamond S134-D1 (1 of 2 between J44 and J45),Diamond S134-D2 (2 of 2 between J44 and J45),6.04,road_chain,S134
+S134-D2,J45,Diamond S134-D2 (2 of 2 between J44 and J45),Junction diamond J45,5.97,road_chain,S134
+S135-D1,S135-D2,Diamond S135-D1 (1 of 2 between J44 and J47),Diamond S135-D2 (2 of 2 between J44 and J47),5.67,road_chain,S135
+S135-D2,J47,Diamond S135-D2 (2 of 2 between J44 and J47),Junction diamond J47,5.6,road_chain,S135
+S138-D1,S138-D2,Diamond S138-D1 (1 of 4 between J45 and UCB),Diamond S138-D2 (2 of 4 between J45 and UCB),5.37,road_chain,S138
+S138-D2,S138-D3,Diamond S138-D2 (2 of 4 between J45 and UCB),Diamond S138-D3 (3 of 4 between J45 and UCB),5.52,road_chain,S138
+S138-D3,S138-D4,Diamond S138-D3 (3 of 4 between J45 and UCB),Diamond S138-D4 (4 of 4 between J45 and UCB),5.46,road_chain,S138
+S138-D4,UCB,Diamond S138-D4 (4 of 4 between J45 and UCB),Under Construction Bldg,11.22,road_chain,S138
+S139-D1,S139-D2,Diamond S139-D1 (1 of 3 between J46 and J48),Diamond S139-D2 (2 of 3 between J46 and J48),6.15,road_chain,S139
+S139-D2,S139-D3,Diamond S139-D2 (2 of 3 between J46 and J48),Diamond S139-D3 (3 of 3 between J46 and J48),6.15,road_chain,S139
+S139-D3,J48,Diamond S139-D3 (3 of 3 between J46 and J48),Junction diamond J48,6.06,road_chain,S139
+S140-D1,S140-D2,Diamond S140-D1 (1 of 2 between J46 and MB-2),Diamond S140-D2 (2 of 2 between J46 and MB-2),5.56,road_chain,S140
+S140-D2,MB-2,Diamond S140-D2 (2 of 2 between J46 and MB-2),Mechanical Blk entrance 2,14.0,road_chain,S140
+S141-D1,J48,Diamond S141-D1 (1 of 1 between J47 and J48),Junction diamond J48,6.03,road_chain,S141
+S142-D1,S142-D2,Diamond S142-D1 (1 of 3 between J47 and KP-R),Diamond S142-D2 (2 of 3 between J47 and KP-R),6.06,road_chain,S142
+S142-D2,S142-D3,Diamond S142-D2 (2 of 3 between J47 and KP-R),Diamond S142-D3 (3 of 3 between J47 and KP-R),6.04,road_chain,S142
+S142-D3,KP-R,Diamond S142-D3 (3 of 3 between J47 and KP-R),KP Nautiyal right (Quick Bite),2.67,road_chain,S142
+S143-D1,S143-D2,Diamond S143-D1 (1 of 2 between J49 and J50),Diamond S143-D2 (2 of 2 between J49 and J50),6.54,road_chain,S143
+S143-D2,J50,Diamond S143-D2 (2 of 2 between J49 and J50),Junction diamond J50,6.47,road_chain,S143
+S144-D1,S144-D2,Diamond S144-D1 (1 of 2 between J50 and J51),Diamond S144-D2 (2 of 2 between J50 and J51),6.47,road_chain,S144
+S144-D2,J51,Diamond S144-D2 (2 of 2 between J50 and J51),Junction diamond J51,6.47,road_chain,S144
+S145-D1,J52,Diamond S145-D1 (1 of 1 between J51 and J52),Junction diamond J52,6.69,road_chain,S145
+S146-D1,PC,Diamond S146-D1 (1 of 1 between PB and PC),Parking PC,6.22,road_chain,S146
+S147-D1,S147-D2,Diamond S147-D1 (1 of 5 between PK-W and PK-Z),Diamond S147-D2 (2 of 5 between PK-W and PK-Z),5.19,road_chain,S147
+S147-D2,S147-D3,Diamond S147-D2 (2 of 5 between PK-W and PK-Z),Diamond S147-D3 (3 of 5 between PK-W and PK-Z),5.05,road_chain,S147
+S147-D3,S147-D4,Diamond S147-D3 (3 of 5 between PK-W and PK-Z),Diamond S147-D4 (4 of 5 between PK-W and PK-Z),4.53,road_chain,S147
+S147-D4,S147-D5,Diamond S147-D4 (4 of 5 between PK-W and PK-Z),Diamond S147-D5 (5 of 5 between PK-W and PK-Z),5.09,road_chain,S147
+S147-D5,PK-Z,Diamond S147-D5 (5 of 5 between PK-W and PK-Z),Parking Area Z,5.16,road_chain,S147
+TM,J07,Tunnel Mouth,Junction diamond J07,6.04,direct,
+TS2,J45,Tuck Shop 2,Junction diamond J45,10.21,direct,
+TS3,J20,Tuck Shop 3,Junction diamond J20,9.06,direct,

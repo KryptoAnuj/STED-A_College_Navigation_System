@@ -1,3 +1,182 @@
+let scrollFrame = null;
+let restoreScrollBehavior = null;
+let completeActiveScroll = null;
+let sectionHighlightTimer = null;
+let highlightedSection = null;
+let returnHomeTimer;
+
+function resetHomeTimer() {
+  clearTimeout(returnHomeTimer);
+
+  returnHomeTimer = setTimeout(() => {
+    campusMap.setView(homeLocation, homeZoom, {
+      animate: true,
+    });
+  }, 10000);
+}
+
+campusMap.on("dragstart zoomstart", resetHomeTimer);
+
+resetHomeTimer();
+
+document.addEventListener("copy", (e) => e.preventDefault());
+document.addEventListener("cut", (e) => e.preventDefault());
+document.addEventListener("paste", (e) => e.preventDefault());
+document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+function highlightSection(target) {
+  clearTimeout(sectionHighlightTimer);
+  highlightedSection?.classList.remove("section-blink");
+  target.classList.remove("section-blink");
+  void target.offsetWidth;
+  target.classList.add("section-blink");
+  highlightedSection = target;
+
+  sectionHighlightTimer = setTimeout(() => {
+    target.classList.remove("section-blink");
+    highlightedSection = null;
+  }, 800);
+}
+
+function scrollToSection(hash) {
+  const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+
+  if (!target) {
+    return;
+  }
+
+  target.focus({ preventScroll: true });
+  highlightSection(target);
+
+  if (scrollFrame !== null) {
+    cancelAnimationFrame(scrollFrame);
+    scrollFrame = null;
+    completeActiveScroll = null;
+    restoreScrollBehavior?.();
+  }
+
+  const targetPosition = Math.max(
+    0,
+    Math.min(
+      target.getBoundingClientRect().top +
+        window.scrollY -
+        parseFloat(getComputedStyle(target).scrollMarginTop || "0"),
+      document.documentElement.scrollHeight - window.innerHeight
+    )
+  );
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (prefersReducedMotion) {
+    window.scrollTo({ top: targetPosition, behavior: "instant" });
+    return;
+  }
+
+  const startPosition = window.scrollY;
+  const startTime = performance.now();
+  const duration = 700;
+  const root = document.documentElement;
+  const previousScrollBehavior = root.style.scrollBehavior;
+  root.style.scrollBehavior = "auto";
+  restoreScrollBehavior = () => {
+    root.style.scrollBehavior = previousScrollBehavior;
+    restoreScrollBehavior = null;
+  };
+  completeActiveScroll = () => {
+    window.scrollTo(0, targetPosition);
+    restoreScrollBehavior?.();
+    completeActiveScroll = null;
+    scrollFrame = null;
+  };
+
+  function animateScroll(currentTime) {
+    const progress = Math.min((currentTime - startTime) / duration, 1);
+    const easedProgress =
+      progress < 0.5
+        ? 4 * progress ** 3
+        : 1 - (-2 * progress + 2) ** 3 / 2;
+
+    window.scrollTo(0, startPosition + (targetPosition - startPosition) * easedProgress);
+
+    if (progress < 1) {
+      scrollFrame = requestAnimationFrame(animateScroll);
+      return;
+    }
+
+    completeActiveScroll();
+  }
+
+  scrollFrame = requestAnimationFrame(animateScroll);
+}
+
+function updateClock() {
+  const now = new Date();
+
+  document.getElementById("liveClock").textContent =
+    now.toLocaleTimeString("en-IN", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+      timeZone: "Asia/Kolkata"
+    });
+
+  document.getElementById("liveDate").textContent =
+    now.toLocaleDateString("en-IN", {
+      weekday: "short",
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      timeZone: "Asia/Kolkata"
+    });
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden && scrollFrame !== null) {
+    cancelAnimationFrame(scrollFrame);
+    completeActiveScroll?.();
+  }
+});
+
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener("click", (event) => {
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    const target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (window.location.hash !== link.hash) {
+      window.history.pushState(null, "", link.hash);
+    }
+
+    scrollToSection(link.hash);
+  });
+});
+
+window.addEventListener("popstate", () => {
+  if (window.location.hash) {
+    scrollToSection(window.location.hash);
+  }
+});
+
 const campusNodes = {
   "Reception": { x: 16, y: 56 },
   "CR-15": { x: 30, y: 46 },
@@ -341,14 +520,6 @@ travelMode.addEventListener("change", updateRoute);
 directorySearch.addEventListener("input", renderBuildingDirectory);
 floorFilter.addEventListener("change", renderBuildingDirectory);
 
-document.querySelector(".hero-actions .primary-button").addEventListener("click", () => {
-  document.getElementById("routes").scrollIntoView({ behavior: "smooth" });
-  startSelect.focus({ preventScroll: true });
-});
-document.querySelector(".hero-actions .ghost-button").addEventListener("click", () => {
-  document.getElementById("building-directory").scrollIntoView({ behavior: "smooth" });
-  directorySearch.focus({ preventScroll: true });
-});
 document.getElementById("showRouteButton").addEventListener("click", () => {
   document.getElementById("routes").scrollIntoView({ behavior: "smooth" });
 });
