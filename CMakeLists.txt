@@ -16,3 +16,4 @@ add_library(sted_timetable
   TimeTable/User.cpp
 )
 target_include_directories(sted_timetable PUBLIC TimeTable)
+target_link_libraries(sted_graph PRIVATE sted_timetable)

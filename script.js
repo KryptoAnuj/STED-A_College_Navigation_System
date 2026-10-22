@@ -102,6 +102,67 @@ function scrollToSection(hash) {
   scrollFrame = requestAnimationFrame(animateScroll);
 }
 
+// const compassDial = document.getElementById("compassDial");
+// const compassHeading = document.getElementById("compassHeading");
+// const compassDirection = document.getElementById("compassDirection");
+// const startCompassButton = document.getElementById("startCompassButton");
+
+// const compassDirections = [
+//   "North", "North-East", "East", "South-East",
+//   "South", "South-West", "West", "North-West"
+// ];
+
+// function updateCompass(heading) {
+//   if (!Number.isFinite(heading)) return;
+
+//   heading = ((heading % 360) + 360) % 360;
+
+//   compassDial.style.transform = `rotate(${-heading}deg)`;
+//   compassHeading.textContent = `${Math.round(heading)}°`;
+//   compassDirection.textContent =
+//     compassDirections[Math.round(heading / 45) % 8];
+// }
+
+// function handleCompass(event) {
+//   if (Number.isFinite(event.webkitCompassHeading)) {
+//     updateCompass(event.webkitCompassHeading);
+//   } else if (Number.isFinite(event.alpha)) {
+//     updateCompass(360 - event.alpha);
+//   }
+// }
+
+// startCompassButton.addEventListener("click", async () => {
+//   if (!window.isSecureContext) {
+//     compassDirection.textContent = "HTTPS required";
+//     return;
+//   }
+
+//   if (!("DeviceOrientationEvent" in window)) {
+//     compassDirection.textContent = "Not supported";
+//     return;
+//   }
+
+//   try {
+//     if (typeof DeviceOrientationEvent.requestPermission === "function") {
+//       const permission =
+//         await DeviceOrientationEvent.requestPermission();
+
+//       if (permission !== "granted") {
+//         compassDirection.textContent = "Permission denied";
+//         return;
+//       }
+//     }
+
+//     window.addEventListener("deviceorientation", handleCompass);
+//     window.addEventListener("deviceorientationabsolute", handleCompass);
+
+//     startCompassButton.textContent = "Compass active";
+//   } catch (error) {
+//     compassDirection.textContent = "Sensor unavailable";
+//   }
+// });
+
+
 function updateClock() {
   const now = new Date();
   document.getElementById("liveClock").textContent = now.toLocaleTimeString(
@@ -475,7 +536,7 @@ async function updateRoute() {
     routeDistance.textContent = "--";
     nextStop.textContent = "--";
     document.getElementById("navigationDestination").textContent =
-      "Choose a destination";
+      "Choose one!";
     document.getElementById("navigationEta").textContent = "--";
     document.getElementById("navigationDistance").textContent = "--";
     pathList.replaceChildren();

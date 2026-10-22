@@ -1,7 +1,7 @@
 
 :root {
-  --bg: #07131f;
-  --bg-soft: #0d1b2a;
+  --bg: #000000;
+  --bg-soft: #000000;
   --primary: #60d8ff;
   --ghost: #60d7ff0c;
   --primary-strong: #32b7f9;
@@ -399,6 +399,11 @@ button:disabled {
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.03);
   color: var(--text);
+}
+
+.planner-form select option {
+  background-color: #1a1a1a;
+  color: #ffffff; 
 }
 
 .route-button {

@@ -18,8 +18,7 @@ Students and faculty often struggle to reach their next lecture on time when cla
 different campus blocks or are reassigned at short notice. Existing timetable systems tell users what class
 and room they're scheduled for, but they don't help with actually navigating there. <strong>Sted</strong> closes
 that gap by combining timetable management with shortest-path campus navigation — given a user's current
-location, it identifies their next lecture, computes the shortest route to that classroom, estimates travel
-time with a buffer, and automatically recalculates and notifies affected users whenever a classroom is changed.
+location, it identifies their next lecture, computes the shortest route to that classroom, and automatically recalculates and notifies affected users whenever a classroom is changed.
 
 How to run:
 

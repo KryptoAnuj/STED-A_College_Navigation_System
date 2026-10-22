@@ -1,0 +1,5 @@
+record_type,section,semester,day,start_time,end_time,course_code,subject_name,faculty_name,subject_type,venue,group_scope,date,cancelled,reason,is_example
+class,DEMO,1,MON,09:00,10:00,EX101,Example Mathematics,Example Faculty A,THEORY,LT-12,BOTH,,,,true
+class,DEMO,1,MON,10:15,11:15,EX102,Example Computing,Example Faculty B,PRACTICAL,EC Lab-1,G1,,,,true
+class,DEMO,1,TUE,11:30,12:30,EX103,Example Physics,Example Faculty C,THEORY,CR-15,G2,,,,true
+class,DEMO,1,THU,13:00,14:00,EX104,Example Design,Example Faculty D,PRACTICAL,CR-16,BOTH,,,,true
