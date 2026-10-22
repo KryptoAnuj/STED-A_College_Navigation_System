@@ -203,8 +203,36 @@ main {
   text-transform: uppercase;
 }
 
+#status,
+#latitude,
+#longitude,
+#accuracy {
+  margin: 4px 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+#status {
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+#accuracy {
+  margin-bottom: 16px;
+}
+
+.gps-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .hero-copy > p {
-  margin: 24px 0 0;
+  margin: 5px 0 0;
   max-width: 62ch;
   color: var(--muted);
   font-size: 1.02rem;
@@ -378,6 +406,42 @@ main {
   margin-top: 8px;
 }
 
+.routing-notice {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.route-summary {
+  display: grid;
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.route-summary-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.route-summary-heading h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+#routeStatus,
+#scheduleStatus {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+#navigationDestination {
+  overflow-wrap: anywhere;
+}
+
 /* Route preview: retain for the route-rendering feature */
 .route-card {
   display: flex;
@@ -461,7 +525,6 @@ main {
   height: 10px;
   border-radius: 50%;
   background: var(--primary);
-  box-shadow: 0 0 12px rgba(96, 216, 255, 0.8);
   content: "";
 }
 

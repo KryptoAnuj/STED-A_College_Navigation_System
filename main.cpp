@@ -1,246 +1,307 @@
-#include <iostream>
+#include <algorithm>
+#include <cmath>
 #include <fstream>
-#include <sstream>
-#include <string>
-#include <vector>
+#include <iomanip>
+#include <iostream>
+#include <limits>
+#include <queue>
 #include <stdexcept>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
-using namespace std;
+namespace {
 
-const int MAX_LOCATIONS = 200;
-const int MAX_BUILDINGS = 20;
-
-enum LocationType {
-    ROOM, CORRIDOR, STAIRCASE, LIFT, ENTRANCE
+struct CampusNode {
+    std::string id;
+    std::string name;
+    std::string type;
+    double latitude;
+    double longitude;
 };
 
-string locationTypeToString(LocationType type) {
-    switch (type) {
-        case ROOM: return "Room";
-        case CORRIDOR: return "Corridor";
-        case STAIRCASE: return "Staircase";
-        case LIFT: return "Lift";
-        case ENTRANCE: return "Entrance";
-        default: return "Unknown";
-    }
+struct CampusEdge {
+    std::size_t destination;
+    double distance;
+};
+
+struct Route {
+    std::vector<std::size_t> nodeIndexes;
+    double distance;
+};
+
+std::string trim(const std::string& value) {
+    const std::size_t first = value.find_first_not_of(" \t\r\n");
+    if (first == std::string::npos) return "";
+    const std::size_t last = value.find_last_not_of(" \t\r\n");
+    return value.substr(first, last - first + 1);
 }
 
-LocationType stringToLocationType(const string& type) {
-    if (type == "ROOM") return ROOM;
-    if (type == "CORRIDOR") return CORRIDOR;
-    if (type == "STAIRCASE") return STAIRCASE;
-    if (type == "LIFT") return LIFT;
-    if (type == "ENTRANCE") return ENTRANCE;
-    throw runtime_error("Unknown location type: " + type);
-}
+std::vector<std::string> parseCsvRow(const std::string& line) {
+    std::vector<std::string> fields;
+    std::string field;
+    bool quoted = false;
 
-struct Edge {
-    int destination;
-    int distance;
-};
-
-struct Building {
-    int id;
-    string name;
-};
-
-struct Location {
-    int id;
-    string name;
-    int buildingID;
-    float x, y, z;  // z represents the floor
-    LocationType type;
-};
-
-class Graph {
-private:
-    vector<Building> buildings;
-    vector<Location> locations;
-    vector<vector<Edge>> adjList;
-
-public:
-    void addBuilding(int id, const string& name) {
-        if (id < 0 || id >= MAX_BUILDINGS)
-            throw runtime_error("Building ID is outside the supported range.");
-        if (id != static_cast<int>(buildings.size()))
-            throw runtime_error("Building IDs must be entered in order starting from 0.");
-        buildings.push_back({id, name});
-    }
-
-    void addLocation(int id, const string& name, int buildingID,
-                     LocationType type, float x, float y, float z) {
-        if (id < 0 || id >= MAX_LOCATIONS)
-            throw runtime_error("Location ID is outside the supported range.");
-        if (id != static_cast<int>(locations.size()))
-            throw runtime_error("Location IDs must be entered in order starting from 0.");
-        if (buildingID < 0 || buildingID >= static_cast<int>(buildings.size()))
-            throw runtime_error("Location refers to a building that has not been added.");
-        locations.push_back({id, name, buildingID, x, y, z, type});
-        adjList.emplace_back();
-    }
-
-    void addPath(int source, int destination, int distance) {
-        if (source < 0 || destination < 0 ||
-            source >= static_cast<int>(locations.size()) ||
-            destination >= static_cast<int>(locations.size())) {
-            throw runtime_error("Path refers to a location ID that does not exist.");
-        }
-        if (distance < 0)
-            throw runtime_error("Distance cannot be negative.");
-
-        // Add both directions because the path is assumed to be two-way.
-        adjList[source].push_back({destination, distance});
-        adjList[destination].push_back({source, distance});
-    }
-
-    void displayBuildings() const {
-        cout << "\n              BUILDINGS\n";
-        for (const auto& building : buildings) {
-            cout << "\nID   : " << building.id
-                 << "\nName : " << building.name << "\n";
-        }
-    }
-
-    void displayLocations() const {
-        cout << "\nCAMPUS LOCATIONS\n";
-        for (const auto& location : locations) {
-            cout << "\n----------------------------------------"
-                 << "\nID       : " << location.id
-                 << "\nName     : " << location.name
-                 << "\nBuilding : " << buildings[location.buildingID].name
-                 << "\nType     : " << locationTypeToString(location.type)
-                 << "\nCoordinates : (" << location.x << ", "
-                 << location.y << ", " << location.z << ")\n";
-        }
-    }
-
-    void displayGraph() const {
-        cout << "\nADJACENCY LIST\n";
-        for (size_t i = 0; i < locations.size(); ++i) {
-            cout << "\n" << locations[i].name;
-            for (const auto& edge : adjList[i]) {
-                cout << " -> " << locations[edge.destination].name
-                     << " (" << edge.distance << "m)";
+    for (std::size_t i = 0; i < line.size(); ++i) {
+        const char character = line[i];
+        if (character == '"') {
+            if (quoted && i + 1 < line.size() && line[i + 1] == '"') {
+                field += '"';
+                ++i;
+            } else {
+                quoted = !quoted;
             }
-            cout << "\n";
+        } else if (character == ',' && !quoted) {
+            fields.push_back(trim(field));
+            field.clear();
+        } else {
+            field += character;
         }
     }
-};
 
-vector<string> splitCSVLine(const string& line) {
-    // This simple CSV reader expects fields without commas inside them.
-    vector<string> fields;
-    string field;
-    stringstream ss(line);
-    while (getline(ss, field, ',')) {
-        fields.push_back(field);
-    }
+    if (quoted) throw std::runtime_error("CSV row contains an unclosed quote.");
+    fields.push_back(trim(field));
     return fields;
 }
 
-void loadBuildings(Graph& graph, const string& filename) {
-    ifstream file(filename);
-    if (!file) throw runtime_error("Could not open " + filename);
-
-    string line;
-    getline(file, line); // Skip header
-    while (getline(file, line)) {
-        if (line.empty()) continue;
-        auto fields = splitCSVLine(line);
-        if (fields.size() != 2) throw runtime_error("Invalid row in " + filename);
-        graph.addBuilding(stoi(fields[0]), fields[1]);
+std::size_t findColumn(
+    const std::vector<std::string>& headers,
+    const std::string& name,
+    const std::string& filename
+) {
+    const auto found = std::find(headers.begin(), headers.end(), name);
+    if (found == headers.end()) {
+        throw std::runtime_error(filename + " is missing the " + name + " column.");
     }
+    return static_cast<std::size_t>(found - headers.begin());
 }
 
-void loadLocations(Graph& graph, const string& filename) {
-    ifstream file(filename);
-    if (!file) throw runtime_error("Could not open " + filename);
-
-    string line;
-    getline(file, line); // Skip header
-    while (getline(file, line)) {
-        if (line.empty()) continue;
-        auto fields = splitCSVLine(line);
-        if (fields.size() != 7) throw runtime_error("Invalid row in " + filename);
-        graph.addLocation(
-            stoi(fields[0]), fields[1], stoi(fields[2]),
-            stringToLocationType(fields[3]),
-            stof(fields[4]), stof(fields[5]), stof(fields[6])
+const std::string& fieldAt(
+    const std::vector<std::string>& fields,
+    std::size_t index,
+    const std::string& filename,
+    std::size_t lineNumber
+) {
+    if (index >= fields.size()) {
+        throw std::runtime_error(
+            filename + " has an incomplete row at line " + std::to_string(lineNumber) + "."
         );
     }
+    return fields[index];
 }
 
-void loadPaths(Graph& graph, const string& filename) {
-    ifstream file(filename);
-    if (!file) throw runtime_error("Could not open " + filename);
-
-    string line;
-    getline(file, line); // Skip header
-    while (getline(file, line)) {
-        if (line.empty()) continue;
-        auto fields = splitCSVLine(line);
-        if (fields.size() != 3) throw runtime_error("Invalid row in " + filename);
-        graph.addPath(stoi(fields[0]), stoi(fields[1]), stoi(fields[2]));
-    }
-}
-
-void loadFromCSV(Graph& graph) {
-    // Load in this order: buildings, locations, then paths.
-    loadBuildings(graph, "buildings.csv");
-    loadLocations(graph, "locations.csv");
-    loadPaths(graph, "paths.csv");
-}
-
-void loadDemoData(Graph& graph) {
-    // Demo data matching the original C program.
-    graph.addBuilding(0, "CSE Building");
-    graph.addBuilding(1, "Main Academic Block");
-    graph.addBuilding(2, "Library");
-    graph.addBuilding(3, "Administrative Block");
-
-    graph.addLocation(0, "CSE Entrance", 0, ENTRANCE, 0.0, 0.0, 0.0);
-    graph.addLocation(1, "CR15", 0, ROOM, 0.0, 0.0, 0.0);
-    graph.addLocation(2, "CR16", 0, ROOM, 0.0, 0.0, 0.0);
-    graph.addLocation(3, "Staircase", 0, STAIRCASE, 0.0, 0.0, 0.0);
-    graph.addLocation(4, "LT12", 0, ROOM, 0.0, 0.0, 0.0);
-    graph.addLocation(5, "LT13", 0, ROOM, 0.0, 0.0, 0.0);
-    graph.addLocation(6, "Academic Entrance", 1, ENTRANCE, 0.0, 0.0, 0.0);
-    graph.addLocation(7, "CR20", 1, ROOM, 0.0, 0.0, 0.0);
-    graph.addLocation(8, "Library Entrance", 2, ENTRANCE, 0.0, 0.0, 0.0);
-    graph.addLocation(9, "Admin Entrance", 3, ENTRANCE, 0.0, 0.0, 0.0);
-
-    graph.addPath(0, 1, 10);
-    graph.addPath(1, 3, 15);
-    graph.addPath(3, 2, 10);
-    graph.addPath(3, 4, 12);
-    graph.addPath(4, 5, 10);
-    graph.addPath(0, 6, 150);
-    graph.addPath(6, 7, 20);
-    graph.addPath(6, 8, 100);
-    graph.addPath(6, 9, 200);
-}
-
-int main(int argc, char* argv[]) {
-    Graph campus;
-
+double parseNumber(
+    const std::string& value,
+    const std::string& filename,
+    std::size_t lineNumber
+) {
+    std::size_t parsedLength = 0;
+    double number;
     try {
-        if (argc > 1 && string(argv[1]) == "--demo") {
-            loadDemoData(campus);
-            cout << "Loaded built-in demo data.\n";
-        } else {
-            loadFromCSV(campus);
-            cout << "Loaded campus data from CSV files.\n";
+        number = std::stod(value, &parsedLength);
+    } catch (const std::exception&) {
+        throw std::runtime_error(
+            filename + " has an invalid number at line " + std::to_string(lineNumber) + "."
+        );
+    }
+    if (parsedLength != value.size() || !std::isfinite(number)) {
+        throw std::runtime_error(
+            filename + " has an invalid number at line " + std::to_string(lineNumber) + "."
+        );
+    }
+    return number;
+}
+
+class CampusGraph {
+private:
+    std::vector<CampusNode> nodes;
+    std::vector<std::vector<CampusEdge>> adjacency;
+    std::unordered_map<std::string, std::size_t> nodeIndexes;
+
+    std::size_t findNode(const std::string& id) const {
+        const auto found = nodeIndexes.find(id);
+        if (found == nodeIndexes.end()) {
+            throw std::runtime_error("Unknown campus location ID: " + id);
+        }
+        return found->second;
+    }
+
+public:
+    void loadNodes(const std::string& filename) {
+        std::ifstream file(filename);
+        if (!file) throw std::runtime_error("Could not open " + filename + ".");
+
+        std::string line;
+        if (!std::getline(file, line)) {
+            throw std::runtime_error(filename + " is empty.");
+        }
+        const auto headers = parseCsvRow(line);
+        const std::size_t idColumn = findColumn(headers, "node_id", filename);
+        const std::size_t nameColumn = findColumn(headers, "name", filename);
+        const std::size_t typeColumn = findColumn(headers, "node_type", filename);
+        const std::size_t latColumn = findColumn(headers, "lat", filename);
+        const std::size_t lonColumn = findColumn(headers, "lon", filename);
+
+        std::size_t lineNumber = 1;
+        while (std::getline(file, line)) {
+            ++lineNumber;
+            if (trim(line).empty()) continue;
+            const auto fields = parseCsvRow(line);
+            CampusNode node{
+                fieldAt(fields, idColumn, filename, lineNumber),
+                fieldAt(fields, nameColumn, filename, lineNumber),
+                fieldAt(fields, typeColumn, filename, lineNumber),
+                parseNumber(fieldAt(fields, latColumn, filename, lineNumber), filename, lineNumber),
+                parseNumber(fieldAt(fields, lonColumn, filename, lineNumber), filename, lineNumber)
+            };
+            if (node.id.empty() || node.name.empty()) {
+                throw std::runtime_error(
+                    filename + " has a location without an ID or name at line " +
+                    std::to_string(lineNumber) + "."
+                );
+            }
+            const std::size_t index = nodes.size();
+            if (!nodeIndexes.emplace(node.id, index).second) {
+                throw std::runtime_error(filename + " has a duplicate node ID: " + node.id);
+            }
+            nodes.push_back(node);
+        }
+        if (nodes.empty()) throw std::runtime_error(filename + " contains no locations.");
+        adjacency.resize(nodes.size());
+    }
+
+    void loadEdges(const std::string& filename) {
+        std::ifstream file(filename);
+        if (!file) throw std::runtime_error("Could not open " + filename + ".");
+
+        std::string line;
+        if (!std::getline(file, line)) {
+            throw std::runtime_error(filename + " is empty.");
+        }
+        const auto headers = parseCsvRow(line);
+        const std::size_t fromColumn = findColumn(headers, "node_from", filename);
+        const std::size_t toColumn = findColumn(headers, "node_to", filename);
+        const std::size_t distanceColumn = findColumn(headers, "edge_cost_m", filename);
+
+        std::size_t lineNumber = 1;
+        while (std::getline(file, line)) {
+            ++lineNumber;
+            if (trim(line).empty()) continue;
+            const auto fields = parseCsvRow(line);
+            const std::string& fromId = fieldAt(fields, fromColumn, filename, lineNumber);
+            const std::string& toId = fieldAt(fields, toColumn, filename, lineNumber);
+            const double distance = parseNumber(
+                fieldAt(fields, distanceColumn, filename, lineNumber), filename, lineNumber
+            );
+            if (distance < 0) {
+                throw std::runtime_error(
+                    filename + " has a negative edge distance at line " +
+                    std::to_string(lineNumber) + "."
+                );
+            }
+            const std::size_t from = findNode(fromId);
+            const std::size_t to = findNode(toId);
+            adjacency[from].push_back({to, distance});
+            adjacency[to].push_back({from, distance});
+        }
+    }
+
+    std::size_t nodeCount() const { return nodes.size(); }
+
+    void listPlaces() const {
+        for (const CampusNode& node : nodes) {
+            if (node.type == "circle node") {
+                std::cout << node.id << "\t" << node.name << '\n';
+            }
+        }
+    }
+
+    bool shortestRoute(const std::string& fromId, const std::string& toId, Route& route) const {
+        const std::size_t start = findNode(fromId);
+        const std::size_t destination = findNode(toId);
+        const double infinity = std::numeric_limits<double>::infinity();
+        std::vector<double> distances(nodes.size(), infinity);
+        std::vector<std::size_t> previous(nodes.size(), nodes.size());
+        using QueueEntry = std::pair<double, std::size_t>;
+        std::priority_queue<
+            QueueEntry,
+            std::vector<QueueEntry>,
+            std::greater<QueueEntry>
+        > queue;
+
+        distances[start] = 0;
+        queue.push({0, start});
+        while (!queue.empty()) {
+            const QueueEntry current = queue.top();
+            queue.pop();
+            if (current.first != distances[current.second]) continue;
+            if (current.second == destination) break;
+
+            for (const CampusEdge& edge : adjacency[current.second]) {
+                const double candidate = current.first + edge.distance;
+                if (candidate < distances[edge.destination]) {
+                    distances[edge.destination] = candidate;
+                    previous[edge.destination] = current.second;
+                    queue.push({candidate, edge.destination});
+                }
+            }
         }
 
-        campus.displayBuildings();
-        campus.displayLocations();
-        campus.displayGraph();
-    } catch (const exception& error) {
-        cerr << "\nError: " << error.what() << "\n";
-        cerr << "Put buildings.csv, locations.csv, and paths.csv beside the program, "
-                "or run with --demo.\n";
-        return 1;
+        if (!std::isfinite(distances[destination])) return false;
+        route.distance = distances[destination];
+        route.nodeIndexes.clear();
+        for (std::size_t node = destination; node != nodes.size(); node = previous[node]) {
+            route.nodeIndexes.push_back(node);
+            if (node == start) break;
+        }
+        if (route.nodeIndexes.back() != start) return false;
+        std::reverse(route.nodeIndexes.begin(), route.nodeIndexes.end());
+        return true;
     }
 
+    const CampusNode& getNode(std::size_t index) const { return nodes.at(index); }
+};
+
+}  // namespace
+
+int main(int argc, char* argv[]) {
+    try {
+        CampusGraph campus;
+        campus.loadNodes("data/campus_node_coordinates.csv");
+        campus.loadEdges("data/campus_edges.csv");
+        std::cout << "Loaded " << campus.nodeCount()
+                  << " campus locations from CSV data.\n";
+
+        if (argc == 1 || (argc == 2 && std::string(argv[1]) == "--places")) {
+            std::cout << "Usage: graph.exe --route <start-id> <destination-id>\n"
+                      << "Mapped campus places:\n";
+            campus.listPlaces();
+            return 0;
+        }
+        if (argc != 4 || std::string(argv[1]) != "--route") {
+            std::cerr << "Usage: graph.exe --route <start-id> <destination-id>\n"
+                      << "       graph.exe --places\n";
+            return 2;
+        }
+
+        Route route;
+        if (!campus.shortestRoute(argv[2], argv[3], route)) {
+            std::cout << "No route is available between those locations.\n";
+            return 1;
+        }
+        std::cout << std::fixed << std::setprecision(1)
+                  << "Shortest walking route (" << route.distance << " m, "
+                  << static_cast<int>(std::ceil(route.distance / 75.0)) << " min):\n";
+        for (std::size_t i = 0; i < route.nodeIndexes.size(); ++i) {
+            const CampusNode& node = campus.getNode(route.nodeIndexes[i]);
+            if (i != 0) std::cout << " -> ";
+            std::cout << node.name;
+        }
+        std::cout << '\n';
+    } catch (const std::exception& error) {
+        std::cerr << "Error: " << error.what() << '\n';
+        return 1;
+    }
     return 0;
 }

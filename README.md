@@ -20,6 +20,16 @@ and room they're scheduled for, but they don't help with actually navigating the
 that gap by combining timetable management with shortest-path campus navigation — given a user's current
 location, it identifies their next lecture, computes the shortest route to that classroom, estimates travel
 time with a buffer, and automatically recalculates and notifies affected users whenever a classroom is changed.
+
+How to run:
+
+cmake -S . -B build
+
+cmake --build build --config Release
+
+python -m http.server 8000 --bind 0.0.0.0
+
+goto http://127.0.0.1:8000 on your browser.
 </p>
 
 <!-- 3. Credits -->
