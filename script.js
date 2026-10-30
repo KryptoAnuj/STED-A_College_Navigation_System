@@ -337,7 +337,7 @@ async function fetchWalkingRoute(start, destination) {
 
 async function loadCampusData() {
   const [nodeRows, directoryRows] = await Promise.all([
-    fetchCsv("data/campus_node_coordinates.csv", true),
+    fetchCsv("data/node_coordinates.csv", true),
     fetchCsv("data/BTECH.csv", false)
   ]);
 
@@ -350,7 +350,7 @@ async function loadCampusData() {
     return {
       id: row.node_id,
       name: row.name,
-      type: row.node_type,
+      // type: row.node_type,
       lat,
       lon
     };
@@ -393,7 +393,7 @@ function populateRouteLocations() {
 function renderPlaces() {
   placeLayer.clearLayers();
   campusNodes
-    .filter((node) => node.type === "circle node")
+    // .filter((node) => node.type === "circle node")
     .forEach((node) => {
       L.circleMarker([node.lat, node.lon], {
         radius: 6,
