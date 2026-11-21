@@ -350,7 +350,6 @@ async function loadCampusData() {
     return {
       id: row.node_id,
       name: row.name,
-      // type: row.node_type,
       lat,
       lon
     };
@@ -371,7 +370,6 @@ async function loadCampusData() {
 
 function populateRouteLocations() {
   const places = campusNodes
-    .filter((node) => node.type === "circle node")
     .sort((a, b) => a.name.localeCompare(b.name));
   [startSelect, destinationSelect].forEach((select) => {
     select.replaceChildren();

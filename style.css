@@ -2,14 +2,14 @@
 :root {
   --bg: #000000;
   --bg-soft: #000000;
-  --primary: #60d8ff;
-  --ghost: #60d7ff0c;
-  --primary-strong: #32b7f9;
-  --accent: #a5f3b0;
-  --text: #edf6ff;
-  --muted: #b9d0df;
-  --line: rgba(144, 190, 221, 0.24);
-  --shadow: 0 24px 50px rgba(5, 12, 21, 0.45);
+  --primary: #ffffff;
+  --ghost: rgba(255, 255, 255, 0.06);
+  --primary-strong: #d9d9d9;
+  --accent: #ffffff;
+  --text: #ffffff;
+  --muted: #b0b0b0;
+  --line: rgba(255, 255, 255, 0.2);
+  --shadow: 0 24px 50px rgba(0, 0, 0, 0.65);
 }
 
 /* Section navigation and highlighting */
@@ -57,12 +57,12 @@ body {
   background:
     radial-gradient(
       circle at top left,
-      rgba(56, 140, 255, 0.22),
+      rgba(255, 255, 255, 0.22),
       transparent 25%
     ),
     radial-gradient(
       circle at bottom right,
-      rgba(57, 214, 177, 0.18),
+      rgba(255, 255, 255, 0.18),
       transparent 20%
     ),
     var(--bg);
@@ -96,7 +96,7 @@ main {
   justify-content: space-between;
   gap: 20px;
   padding: 18px 20px;
-  background: rgba(11, 22, 30, 0.68);
+  background: rgba(0, 0, 0, 0.85);
   border: 1px solid var(--line);
   border-radius: 18px;
   box-shadow: var(--shadow);
@@ -133,7 +133,7 @@ main {
     var(--primary),
     var(--primary-strong)
   );
-  color: #072236;
+  color: #000000;
   padding: 0.8rem 1.2rem;
   font-weight: 700;
 }
@@ -164,8 +164,8 @@ main {
 .card {
   background: linear-gradient(
     180deg,
-    rgba(17, 36, 49, 0.94),
-    rgba(10, 20, 29, 0.94)
+    rgba(17, 17, 17, 0.98),
+  rgba(5, 5, 5, 0.98)
   );
   border: 1px solid var(--line);
   border-radius: 20px;
@@ -264,11 +264,11 @@ button:disabled {
   height: 170px;
   min-width: 170px;
   padding: 16px;
-  border: 1px solid rgba(96, 216, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 20px;
   background: linear-gradient(
     145deg,
-    rgba(96, 216, 255, 0.15),
+    rgba(255, 255, 255, 0.12),
     rgba(255, 255, 255, 0.035)
   );
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
@@ -475,8 +475,8 @@ button:disabled {
   min-height: 34px;
   padding: 0.55rem 0.8rem;
   border-radius: 999px;
-  background: rgba(96, 216, 255, 0.12);
-  color: var(--primary);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   font-weight: 700;
 }
 
@@ -564,7 +564,7 @@ button:disabled {
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: #dbeafe;
+  background: #111111;
 }
 
 .campus-map .leaflet-bar.leaflet-control {
@@ -602,8 +602,8 @@ button:disabled {
 }
 
 .campus-map .leaflet-control a:hover {
-  background: #1b3b52;
-  color: #a5f3b0;
+  background: #333333;
+  color: #ffffff;
 }
 
 /* Route line and map nodes */
@@ -618,11 +618,11 @@ button:disabled {
 
 .connections path {
   fill: none;
-  stroke: rgba(96, 216, 255, 0.9);
+  stroke: rgba(255, 255, 255, 0.9);
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
   stroke-width: 1.2;
   stroke-linecap: round;
   stroke-dasharray: 4 5;
-  filter: drop-shadow(0 0 8px rgba(96, 216, 255, 0.7));
   opacity: 0.75;
 }
 
@@ -634,7 +634,7 @@ button:disabled {
   min-width: 72px;
   padding: 0.42rem 0.6rem;
   transform: translate(-50%, -50%);
-  border: 1px solid rgba(96, 216, 255, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.38);
   border-radius: 999px;
   background: rgba(5, 15, 23, 0.9);
   color: var(--text);
@@ -645,9 +645,9 @@ button:disabled {
 }
 
 .map-node.active {
-  border-color: rgba(96, 216, 255, 0.8);
-  background: rgba(96, 216, 255, 0.2);
-  box-shadow: 0 0 18px rgba(96, 216, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.2);
 }
 
 /* Timetable */
@@ -679,7 +679,7 @@ button:disabled {
   min-height: 48px;
   padding: 0.5rem 0.7rem;
   border-radius: 10px;
-  background: rgba(165, 243, 176, 0.08);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--accent);
   font-weight: 700;
 }
