@@ -4,12 +4,21 @@ let completeActiveScroll = null;
 let sectionHighlightTimer = null;
 let highlightedSection = null;
 let returnHomeTimer;
+let mapManuallyExploring = false;
+let activeRouteKey = "";
+let activeRouteBounds = null;
 
-// Return the map to the full-campus view after the user explores it.
+// Only restore the campus view when no route or manual map exploration is active.
 function resetHomeTimer() {
   clearTimeout(returnHomeTimer);
   returnHomeTimer = setTimeout(() => {
-    if (campusBounds) {
+    if (
+      campusBounds &&
+      !activeRouteBounds &&
+      !mapManuallyExploring &&
+      !navigationMode &&
+      !usingCurrentLocation
+    ) {
       campusMap.fitBounds(campusBounds, {
         padding: [20, 20],
         maxZoom: homeZoom,
@@ -20,6 +29,12 @@ function resetHomeTimer() {
 }
 
 campusMap.on("dragstart zoomstart", resetHomeTimer);
+const mapContainer = campusMap.getContainer();
+["pointerdown", "touchstart", "wheel", "keydown"].forEach((eventName) => {
+  mapContainer.addEventListener(eventName, () => {
+    mapManuallyExploring = true;
+  }, { passive: true });
+});
 resetHomeTimer();
 
 document.addEventListener("copy", (event) => event.preventDefault());
@@ -172,9 +187,12 @@ const routeForm = document.getElementById("routeForm");
 const routeTitle = document.getElementById("routeTitle");
 const routeDuration = document.getElementById("routeDuration");
 const routeDistance = document.getElementById("routeDistance");
+const directionsDistance = document.getElementById("directionsDistance");
+const directionsDuration = document.getElementById("directionsDuration");
 const routeStatus = document.getElementById("routeStatus");
 const nextStop = document.getElementById("nextStop");
 const pathList = document.getElementById("pathList");
+const routeOverviewButton = document.getElementById("routeOverviewButton");
 const directorySearch = document.getElementById("directorySearch");
 const buildingFilter = document.getElementById("buildingFilter");
 const floorFilter = document.getElementById("floorFilter");
@@ -183,6 +201,8 @@ const directoryCount = document.getElementById("directoryCount");
 const gpsStatus = document.getElementById("status");
 const gpsStartButton = document.getElementById("startGPSButton");
 const gpsStopButton = document.getElementById("stopGPSButton");
+const nextClassRouteButton = document.getElementById("nextClassRouteButton");
+const nextClassStatus = document.getElementById("nextClassStatus");
 const scheduleDayFilter = document.getElementById("scheduleDayFilter");
 const scheduleStatus = document.getElementById("scheduleStatus");
 const scheduleList = document.getElementById("scheduleList");
@@ -194,14 +214,29 @@ let campusNodes = [];
 let campusNodeById = new Map();
 let campusLocations = [];
 let timetableEntries = [];
+let timetableVenueNodes = new Map();
+let timetableVenueMappingError = null;
+let pendingNextClassRoute = false;
 let gpsWatchId = null;
 let currentPosition = null;
+let pendingGpsCenter = false;
+// Heading-up navigation state.
+let navigationMode = false;
+let lastValidHeading = null;
+let lastHeadingUpdate = 0;
+
+const HEADING_UPDATE_INTERVAL = 150;
+const MIN_MOVING_SPEED = 0.8; // metres per second
+const TURN_ALERT_DISTANCE_METRES = 25;
 let usingCurrentLocation = false;
 let currentPositionMarker = null;
 let gpsFallbackStartId = "";
 let gpsStartOption = null;
 let routeRequestController = null;
 let lastRoutedPosition = null;
+let routeTurnManeuvers = [];
+let alertedTurnManeuverIds = new Set();
+let turnAlertRouteKey = "";
 const walkingRouteEndpoint =
   "https://routing.openstreetmap.de/routed-foot/route/v1/foot";
 const timetableDays = {
@@ -227,9 +262,6 @@ const buildingEntranceIds = {
   "KP NAUTIYAL (College of Law)": "KP-B",
   "Mechanical (Vishwakarma)": "MB-1",
   Paramedical: "PM-L"
-};
-const campusAmenityNames = {
-  "Cafe between CSIT and Paramedical": "Tuck Shop 3"
 };
 
 function formatScheduleTime(value) {
@@ -332,6 +364,116 @@ async function loadTimetable() {
     scheduleDayFilter.value = today;
   }
   renderTimetable();
+}
+
+async function loadTimetableVenueNodes() {
+  const rows = await fetchCsv("data/timetable_venue_nodes.csv", true);
+  const venueNodes = new Map();
+  rows.forEach((row, index) => {
+    const venue = row.venue?.trim() || "";
+    const nodeId = row.node_id?.trim() || "";
+    if (!venue || !nodeId || !campusNodeById.has(nodeId) || venueNodes.has(venue)) {
+      throw new Error(`Timetable venue mapping ${index + 2} is invalid.`);
+    }
+    venueNodes.set(venue, {
+      nodeId,
+      routeNote: row.route_note?.trim() || ""
+    });
+  });
+  timetableVenueNodes = venueNodes;
+  timetableVenueMappingError = null;
+}
+
+function findUpcomingClass(now = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Kolkata",
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23"
+  }).formatToParts(now);
+  const campusTime = Object.fromEntries(
+    parts.map(({ type, value }) => [type, value])
+  );
+  const today = campusTime.weekday.toUpperCase();
+  const currentMinutes =
+    Number(campusTime.hour) * 60 + Number(campusTime.minute);
+  return timetableEntries.find(
+    (entry) =>
+      entry.day === today &&
+      scheduleTimeInMinutes(entry.start_time) >= currentMinutes
+  ) || null;
+}
+
+function scheduleTimeInMinutes(value) {
+  const [hours, minutes] = value.split(":").map(Number);
+  return hours * 60 + minutes;
+}
+
+function setNextClassStatus(message) {
+  nextClassStatus.textContent = message;
+  nextClassStatus.hidden = !message;
+}
+
+function routeToNextClass(now = new Date()) {
+  if (!timetableEntries.length) {
+    setNextClassStatus("The class schedule is unavailable right now.");
+    return;
+  }
+  if (timetableVenueMappingError) {
+    setNextClassStatus(
+      `Next-class routing is unavailable: ${timetableVenueMappingError.message}`
+    );
+    return;
+  }
+
+  const nextClass = findUpcomingClass(now);
+  if (!nextClass) {
+    setNextClassStatus("No upcoming classes today.");
+    return;
+  }
+
+  if (nextClass.venue.toLocaleLowerCase() === "online") {
+    setNextClassStatus(
+      `Your next class, ${nextClass.subject_name}, is online; no campus route is needed.`
+    );
+    return;
+  }
+
+  const venueRoute = timetableVenueNodes.get(nextClass.venue);
+  const destination = venueRoute
+    ? campusNodeById.get(venueRoute.nodeId)
+    : null;
+  if (!destination) {
+    setNextClassStatus(
+      `Your next class is ${nextClass.subject_name} at ${nextClass.venue}, but no walking route is mapped for that venue.`
+    );
+    return;
+  }
+
+  destinationSelect.value = destination.id;
+  setNextClassStatus(
+    `Next class: ${nextClass.subject_name} in ${nextClass.venue} at ${formatScheduleTime(nextClass.start_time)}. ${venueRoute.routeNote}`
+  );
+
+  if (!usingCurrentLocation && !startSelect.value) {
+    if (gpsWatchId !== null) {
+      usingCurrentLocation = true;
+      startSelect.value = "__gps__";
+      void updateRoute();
+    } else if (navigator.geolocation) {
+      pendingNextClassRoute = true;
+      startGPS();
+    } else {
+      setNextClassStatus(
+        "Choose a starting point to get directions; this browser does not support location services."
+      );
+      void updateRoute();
+    }
+  } else {
+    void updateRoute();
+  }
+  document.getElementById("route-planner").scrollIntoView({ behavior: "smooth" });
 }
 
 // Parse CSV responses with Papa Parse and report malformed source files.
@@ -449,28 +591,40 @@ async function loadCampusData() {
           room: row["Room Number"]?.trim() || "",
           description: row["Room Name"]?.trim() || "",
           side: "",
-          notes: row.Notes?.trim() || ""
+          notes: row.Notes?.trim() || "",
+          navigationNodeId: ""
         };
-        if (
-          !location.building &&
-          Object.prototype.hasOwnProperty.call(campusAmenityNames, location.notes)
-        ) {
-          location.building = "Campus amenities";
-          location.room = campusAmenityNames[location.notes];
-        }
         if (!location.building) {
           throw new Error(
             `${source.path} has no building name at row ${rowIndex + 2}.`
           );
         }
       } else {
-        if (row.length !== 5) {
+        if (row.length !== 5 && row.length !== 6) {
           throw new Error(
-            `${source.path} row ${rowIndex + 1} must have five columns.`
+            `${source.path} row ${rowIndex + 1} must have five or six columns.`
           );
         }
-        const [building, floor, room, description, side] = row;
-        location = { building, floor, room, description, side, notes: "" };
+        const [building, floor, room, description, side, navigationNodeId = ""] =
+          row;
+        location = {
+          building,
+          floor,
+          room,
+          description,
+          side,
+          notes: "",
+          navigationNodeId
+        };
+      }
+      if (
+        location.navigationNodeId &&
+        !campusNodeById.has(location.navigationNodeId)
+      ) {
+        const rowNumber = rowIndex + (source.hasHeader ? 2 : 1);
+        throw new Error(
+          `${source.path} has an unknown navigation node ID at row ${rowNumber}: ${location.navigationNodeId}.`
+        );
       }
       return location;
     });
@@ -526,23 +680,56 @@ function renderPlaces() {
 
 function renderPath(route, destination) {
   routeLayer.clearLayers();
+  routeTurnManeuvers = [];
+  // Make campus nodes nearly transparent while a route is active.
+  placeLayer.eachLayer((layer) => {
+    if (layer.setStyle) {
+      layer.setStyle({
+        opacity: 0.15,
+        fillOpacity: 0.15
+      });
+    }
+  });
   const routeCoordinates = route.geometry.coordinates.map(([lon, lat]) => [lat, lon]);
+  activeRouteBounds = L.latLngBounds([
+    ...routeCoordinates,
+    [destination.lat, destination.lon],
+    ...(usingCurrentLocation && currentPosition
+      ? [[currentPosition.lat, currentPosition.lon]]
+      : [])
+  ]);
+  const routeKey = `${usingCurrentLocation ? "__gps__" : startSelect.value}->${destination.id}`;
+  if (routeKey !== activeRouteKey) {
+    mapManuallyExploring = false;
+    campusMap.fitBounds(activeRouteBounds, {
+      padding: [36, 36],
+      maxZoom: 18,
+      animate: true
+    });
+    activeRouteKey = routeKey;
+  }
+  routeOverviewButton.disabled = false;
   L.polyline(routeCoordinates, {
     color: "#168bd2",
     weight: 6,
     opacity: 0.85
   }).addTo(routeLayer);
   if (routeCoordinates.length > 1) {
-    campusMap.fitBounds(L.latLngBounds(routeCoordinates), {
-      padding: [30, 30],
-      maxZoom: 18
-    });
+    navigationMode = usingCurrentLocation;
   }
 
   pathList.replaceChildren();
   if (route.distance === 0) {
     const item = document.createElement("li");
+    item.classList.add("is-active");
+    item.setAttribute("aria-current", "step");
+    const icon = createManeuverIcon({ type: "arrive" }, true);
+    const details = document.createElement("div");
+    const instruction = document.createElement("strong");
     item.textContent = "You are already at this destination.";
+    instruction.textContent = item.textContent;
+    item.replaceChildren(icon, details);
+    details.appendChild(instruction);
     pathList.appendChild(item);
     nextStop.textContent = destination.name;
     return;
@@ -551,33 +738,85 @@ function renderPath(route, destination) {
   const steps = route.legs.flatMap((leg) => leg.steps || []);
   if (!steps.length) {
     const item = document.createElement("li");
-    item.textContent = `Follow the mapped walking route to ${destination.name}.`;
+    const icon = createManeuverIcon({ type: "continue" });
+    const details = document.createElement("div");
+    const instruction = document.createElement("strong");
+    item.classList.add("is-active");
+    item.setAttribute("aria-current", "step");
+    instruction.textContent = `Follow the mapped walking route to ${destination.name}.`;
+    item.append(icon, details);
+    details.appendChild(instruction);
     pathList.appendChild(item);
     nextStop.textContent = destination.name;
     return;
   }
+  if (usingCurrentLocation) {
+    routeTurnManeuvers = getTurnManeuvers(steps);
+  }
   steps.forEach((stepData, index) => {
     if (stepData.distance < 1 && index !== steps.length - 1) return;
     const item = document.createElement("li");
+    const isFinalStep = index === steps.length - 1;
+    const isActiveStep = !pathList.querySelector(".is-active");
     const details = document.createElement("div");
     const text = document.createElement("strong");
-    const stepLabel = document.createElement("small");
     const distance = document.createElement("span");
     const maneuver = stepData.maneuver || { type: "continue" };
+    const icon = createManeuverIcon(maneuver, isFinalStep);
+    if (isActiveStep) {
+      item.classList.add("is-active");
+      item.setAttribute("aria-current", "step");
+    }
     text.textContent = describeManeuver(
       maneuver,
-      stepData.name,
-      index === steps.length - 1
+      "",
+      isFinalStep
     );
-    stepLabel.textContent = stepData.name || `Walking direction ${index + 1}`;
     distance.className = "distance-tag";
     distance.textContent = formatDistance(stepData.distance);
-    details.append(text, stepLabel);
-    item.append(details, distance);
+    details.appendChild(text);
+    if (stepData.name?.trim()) {
+      const stepLabel = document.createElement("small");
+      stepLabel.textContent = stepData.name.trim();
+      details.appendChild(stepLabel);
+    }
+    item.append(icon, details, distance);
     pathList.appendChild(item);
   });
   const nextStep = steps.find((step) => step.name);
   nextStop.textContent = nextStep?.name || destination.name;
+  if (usingCurrentLocation && currentPosition) {
+    checkUpcomingTurn(currentPosition);
+  }
+}
+
+function createManeuverIcon(maneuver, isFinalStep = false) {
+  const icon = document.createElement("span");
+  const modifier = maneuver.modifier?.toLocaleLowerCase() || "";
+  const icons = {
+    left: "↰",
+    "sharp left": "↶",
+    "slight left": "↖",
+    right: "↱",
+    "sharp right": "↷",
+    "slight right": "↗",
+    straight: "↑"
+  };
+  icon.className = "maneuver-icon";
+  icon.setAttribute("aria-hidden", "true");
+  if (isFinalStep || maneuver.type === "arrive") {
+    icon.classList.add("destination-icon");
+    icon.textContent = "📍";
+  } else if (maneuver.type === "uturn") {
+    icon.textContent = modifier.includes("left") ? "↶" : "↷";
+  } else if (maneuver.type === "roundabout" || maneuver.type === "rotary") {
+    icon.textContent = "⟳";
+  } else if (maneuver.type === "merge" || maneuver.type === "off ramp") {
+    icon.textContent = icons[modifier] || "↗";
+  } else {
+    icon.textContent = icons[modifier] || "↑";
+  }
+  return icon;
 }
 
 function describeManeuver(maneuver, roadName, isFinalStep) {
@@ -621,6 +860,71 @@ function formatDistance(distance) {
     : `${Math.round(distance)} m`;
 }
 
+function getTurnManeuvers(steps) {
+  return steps.flatMap((step) => {
+    const maneuver = step.maneuver;
+    const location = maneuver?.location;
+    if (
+      !isTurnManeuver(maneuver) ||
+      !Array.isArray(location) ||
+      location.length < 2 ||
+      !Number.isFinite(location[0]) ||
+      !Number.isFinite(location[1])
+    ) {
+      return [];
+    }
+
+    const [lon, lat] = location;
+    return [{
+      id: `${maneuver.type}:${maneuver.modifier || ""}:${lon.toFixed(5)}:${lat.toFixed(5)}`,
+      lat,
+      lon,
+      instruction: describeManeuver(maneuver, step.name, false)
+    }];
+  });
+}
+
+function isTurnManeuver(maneuver) {
+  return [
+    "turn",
+    "uturn",
+    "fork",
+    "roundabout",
+    "rotary",
+    "merge",
+    "end of road",
+    "off ramp"
+  ].includes(maneuver?.type);
+}
+
+function checkUpcomingTurn(position) {
+  const nextTurn = routeTurnManeuvers.find(
+    (maneuver) => !alertedTurnManeuverIds.has(maneuver.id)
+  );
+  if (!nextTurn) return;
+
+  const distance = getDistanceInMetres(
+    position.lat,
+    position.lon,
+    nextTurn.lat,
+    nextTurn.lon
+  );
+  if (distance > TURN_ALERT_DISTANCE_METRES) return;
+
+  alertedTurnManeuverIds.add(nextTurn.id);
+  routeStatus.textContent =
+    `${nextTurn.instruction} in ${formatDistance(distance)}.`;
+  if (typeof navigator.vibrate === "function") {
+    navigator.vibrate([140, 80, 140]);
+  }
+}
+
+function clearTurnAlerts() {
+  routeTurnManeuvers = [];
+  alertedTurnManeuverIds.clear();
+  turnAlertRouteKey = "";
+}
+
 function renderGpsMarker(position, label) {
   const latLng = [position.lat, position.lon];
   if (currentPositionMarker) {
@@ -641,6 +945,7 @@ async function updateRoute() {
   const selectedStart = campusNodeById.get(startSelect.value);
   const destination = campusNodeById.get(destinationSelect.value);
   if ((!selectedStart && !usingCurrentLocation) || !destination) {
+    clearTurnAlerts();
     routeTitle.textContent = "Choose a route";
     routeStatus.textContent = !selectedStart && !usingCurrentLocation
       ? destination
@@ -651,6 +956,8 @@ async function updateRoute() {
         }. Select a destination.`;
     routeDuration.textContent = "--";
     routeDistance.textContent = "--";
+    directionsDistance.textContent = "--";
+    directionsDuration.textContent = "--";
     nextStop.textContent = "--";
     document.getElementById("navigationDestination").textContent =
       "Choose one!";
@@ -658,6 +965,19 @@ async function updateRoute() {
     document.getElementById("navigationDistance").textContent = "--";
     pathList.replaceChildren();
     routeLayer.clearLayers();
+    activeRouteKey = "";
+    activeRouteBounds = null;
+    routeOverviewButton.disabled = true;
+    navigationMode = false;
+    // Restore normal campus node visibility.
+    placeLayer.eachLayer((layer) => {
+      if (layer.setStyle) {
+        layer.setStyle({
+          opacity: 1,
+          fillOpacity: 0.95
+        });
+      }
+    });
     routeRequestController?.abort();
     return;
   }
@@ -669,6 +989,13 @@ async function updateRoute() {
     return;
   }
 
+  const turnRouteKey =
+    `${usingCurrentLocation ? "__gps__" : selectedStart.id}->${destination.id}`;
+  if (turnRouteKey !== turnAlertRouteKey) {
+    alertedTurnManeuverIds.clear();
+    turnAlertRouteKey = turnRouteKey;
+  }
+  routeTurnManeuvers = [];
   routeRequestController?.abort();
   routeRequestController = new AbortController();
   const requestController = routeRequestController;
@@ -680,10 +1007,13 @@ async function updateRoute() {
     const route = await fetchWalkingRoute(start, destination);
     if (requestController !== routeRequestController) return;
     if (!route) {
+      clearTurnAlerts();
       routeStatus.textContent =
         "No walking route is available for these locations.";
       routeDuration.textContent = "--";
       routeDistance.textContent = "--";
+      directionsDistance.textContent = "--";
+      directionsDuration.textContent = "--";
       nextStop.textContent = "--";
       document.getElementById("navigationDestination").textContent =
         destination.name;
@@ -691,6 +1021,10 @@ async function updateRoute() {
       document.getElementById("navigationDistance").textContent = "--";
       pathList.replaceChildren();
       routeLayer.clearLayers();
+      activeRouteKey = "";
+      activeRouteBounds = null;
+      routeOverviewButton.disabled = true;
+      navigationMode = false;
       return;
     }
 
@@ -713,6 +1047,8 @@ async function updateRoute() {
       `Walking route follows mapped paths; start snapped ${Math.round(startOffset)} m and destination ${Math.round(destinationOffset)} m to a path.`;
     routeDuration.textContent = `${duration} min`;
     routeDistance.textContent = formatDistance(route.distance);
+    directionsDistance.textContent = formatDistance(route.distance);
+    directionsDuration.textContent = `${duration} min`;
     document.getElementById("navigationDestination").textContent =
       destination.name;
     document.getElementById("navigationEta").textContent = `${duration} min`;
@@ -726,7 +1062,6 @@ async function updateRoute() {
         snappedPosition,
         "Your location · snapped to walking route"
       );
-      campusMap.panTo([snappedLat, snappedLon]);
       lastRoutedPosition = start;
       gpsStatus.textContent =
         `Walking route starts at the nearest mapped path (${Math.round(
@@ -742,15 +1077,22 @@ async function updateRoute() {
       return;
     }
     console.error("Could not calculate walking route:", error);
+    clearTurnAlerts();
     routeStatus.textContent =
       "Could not load a road route. Check your internet connection and try again.";
     routeDuration.textContent = "--";
     routeDistance.textContent = "--";
+    directionsDistance.textContent = "--";
+    directionsDuration.textContent = "--";
     nextStop.textContent = "--";
     document.getElementById("navigationEta").textContent = "--";
     document.getElementById("navigationDistance").textContent = "--";
     pathList.replaceChildren();
     routeLayer.clearLayers();
+    activeRouteKey = "";
+    activeRouteBounds = null;
+    routeOverviewButton.disabled = true;
+    navigationMode = false;
   }
 }
 
@@ -765,6 +1107,25 @@ function getDistanceInMetres(lat1, lon1, lat2, lon2) {
       Math.cos(radians(lat2)) *
       Math.sin(longitudeDifference / 2) ** 2;
   return 6371000 * 2 * Math.atan2(Math.sqrt(value), Math.sqrt(1 - value));
+}
+
+function updateMapHeading(heading) {
+  if (!Number.isFinite(heading)) return;
+
+  const now = performance.now();
+
+  if (now - lastHeadingUpdate < HEADING_UPDATE_INTERVAL) {
+    return;
+  }
+
+  lastHeadingUpdate = now;
+  lastValidHeading = heading;
+
+  // The direction of travel will always point toward the top.
+  campusMap.setHeading(heading, {
+    ease: 0.2,
+    deadzone: 1
+  });
 }
 
 function startGPS() {
@@ -789,10 +1150,30 @@ function startGPS() {
   gpsStartButton.disabled = true;
   gpsWatchId = navigator.geolocation.watchPosition(
     (position) => {
+      pendingNextClassRoute = false;
       currentPosition = {
         lat: position.coords.latitude,
         lon: position.coords.longitude
       };
+      gpsStatus.textContent = "Location tracking is active.";
+      if (pendingGpsCenter) {
+        pendingGpsCenter = false;
+        centerMapOnCurrentPosition();
+      }
+
+      // Rotate the map according to GPS movement direction.
+      const heading = position.coords.heading;
+      const speed = position.coords.speed;
+
+      if (
+        heading !== null &&
+        Number.isFinite(heading) &&
+        speed !== null &&
+        Number.isFinite(speed) &&
+        speed >= MIN_MOVING_SPEED
+      ) {
+        updateMapHeading(heading);
+      }
 
       document.getElementById("latitude").textContent =
         `Latitude: ${currentPosition.lat.toFixed(6)}`;
@@ -813,17 +1194,33 @@ function startGPS() {
       }
       if (usingCurrentLocation && movedDistance >= 15) {
         void updateRoute();
+      } else if (usingCurrentLocation) {
+        checkUpcomingTurn(currentPosition);
       }
-      campusMap.panTo([currentPosition.lat, currentPosition.lon]);
     },
     (error) => {
       gpsStatus.textContent = `Location error: ${error.message}`;
+      if (pendingNextClassRoute) {
+        pendingNextClassRoute = false;
+        setNextClassStatus(
+          "Could not get your location. Choose a starting point or check location permissions."
+        );
+      }
       if (gpsWatchId !== null) {
         navigator.geolocation.clearWatch(gpsWatchId);
       }
       gpsWatchId = null;
       usingCurrentLocation = false;
       lastRoutedPosition = null;
+      pendingGpsCenter = false;
+      navigationMode = false;
+
+      // Stop heading-up mode and restore north.
+      campusMap.stopHeadingUp();
+      campusMap.setBearing(0);
+
+      lastValidHeading = null;
+      lastHeadingUpdate = 0;
       gpsStartOption?.remove();
       gpsStartOption = null;
       startSelect.value = gpsFallbackStartId;
@@ -836,12 +1233,61 @@ function startGPS() {
   gpsStopButton.disabled = false;
 }
 
+function centerMapOnCurrentPosition() {
+  if (!currentPosition) return;
+  campusMap.setView(
+    [currentPosition.lat, currentPosition.lon],
+    Math.max(campusMap.getZoom(), 18),
+    { animate: true }
+  );
+}
+
+function showRouteOverview() {
+  if (!activeRouteBounds) return;
+  mapManuallyExploring = false;
+  campusMap.stopHeadingUp();
+  campusMap.setBearing(0);
+  campusMap.fitBounds(activeRouteBounds, {
+    padding: [36, 36],
+    maxZoom: 18,
+    animate: true
+  });
+}
+
+function goToGPSLocation() {
+  if (gpsWatchId !== null && currentPosition) {
+    centerMapOnCurrentPosition();
+    return;
+  }
+  if (!navigator.geolocation) {
+    startGPS();
+    return;
+  }
+  pendingGpsCenter = true;
+  startGPS();
+}
+
 function stopGPS() {
   if (gpsWatchId === null) return;
   navigator.geolocation.clearWatch(gpsWatchId);
   gpsWatchId = null;
+  if (pendingNextClassRoute) {
+    pendingNextClassRoute = false;
+    setNextClassStatus(
+      "Location tracking stopped. Choose a starting point to route to your next class."
+    );
+  }
   usingCurrentLocation = false;
   lastRoutedPosition = null;
+  pendingGpsCenter = false;
+  navigationMode = false;
+
+  // Stop heading-up mode and restore north.
+  campusMap.stopHeadingUp();
+  campusMap.setBearing(0);
+
+  lastValidHeading = null;
+  lastHeadingUpdate = 0;
   gpsStartOption?.remove();
   gpsStartOption = null;
   startSelect.value = gpsFallbackStartId;
@@ -858,6 +1304,11 @@ function normalizeLocationName(value) {
 
 // Match a directory record to a map node or its building entrance.
 function findDirectoryDestination(location) {
+  const mappedNode = location.navigationNodeId
+    ? campusNodeById.get(location.navigationNodeId)
+    : null;
+  if (mappedNode) return { node: mappedNode, isBuildingEntrance: false };
+
   const candidateNames = [
     location.room,
     location.description,
@@ -889,7 +1340,8 @@ function renderBuildingDirectory() {
       location.room,
       location.description,
       location.side,
-      location.notes
+      location.notes,
+      location.navigationNodeId
     ]
       .join(" ")
       .toLocaleLowerCase();
@@ -914,33 +1366,46 @@ function renderBuildingDirectory() {
     const item = document.createElement("li");
     const name = document.createElement("strong");
     const details = document.createElement("span");
+    const heading = document.createElement("div");
+    heading.className = "directory-item-heading";
     const destination = findDirectoryDestination(location);
     name.textContent =
       location.room || location.description || location.building;
+    heading.appendChild(name);
     details.textContent = [
       location.building,
       location.floor,
       location.side,
+      location.building === "BTech" &&
+      location.floor.startsWith("Ground") &&
+      location.navigationNodeId
+        ? `Access via ${location.navigationNodeId}`
+        : "",
       location.room && location.description ? location.description : "",
       location.notes
     ]
       .filter(Boolean)
       .join(" · ");
-    item.append(name, details);
     if (destination) {
       const routeButton = document.createElement("button");
-      routeButton.className = "ghost-button small directory-route-button";
+      routeButton.className = "directory-route-button";
       routeButton.type = "button";
-      routeButton.textContent = destination.isBuildingEntrance
-        ? `Route to ${location.building} entrance`
-        : `Route to ${destination.node.name}`;
+      const routeLabel = location.navigationNodeId
+        ? `Route via ${location.navigationNodeId}`
+        : destination.isBuildingEntrance
+          ? `Route to ${location.building} entrance`
+          : `Route to ${destination.node.name}`;
+      routeButton.textContent = "↗";
+      routeButton.setAttribute("aria-label", routeLabel);
+      routeButton.title = routeLabel;
       routeButton.addEventListener("click", () => {
         destinationSelect.value = destination.node.id;
         updateRoute();
         document.getElementById("routes").scrollIntoView({ behavior: "smooth" });
       });
-      item.appendChild(routeButton);
+      heading.appendChild(routeButton);
     }
+    item.append(heading, details);
     directoryList.appendChild(item);
   });
 }
@@ -975,6 +1440,12 @@ async function initializeCampusApp() {
       scheduleStatus.textContent = `Could not load the timetable: ${error.message}`;
       scheduleList.replaceChildren();
     }
+    try {
+      await loadTimetableVenueNodes();
+    } catch (error) {
+      console.error("Could not load timetable venue mappings:", error);
+      timetableVenueMappingError = error;
+    }
     populateRouteLocations();
     populateDirectoryFilters();
     renderPlaces();
@@ -1001,17 +1472,22 @@ routeForm.addEventListener("submit", (event) => {
 });
 startSelect.addEventListener("change", () => {
   usingCurrentLocation = startSelect.value === "__gps__";
+  if (pendingNextClassRoute && !usingCurrentLocation) {
+    pendingNextClassRoute = false;
+  }
   if (!usingCurrentLocation) {
     gpsFallbackStartId = startSelect.value;
   }
   void updateRoute();
 });
 destinationSelect.addEventListener("change", () => void updateRoute());
+routeOverviewButton.addEventListener("click", showRouteOverview);
 directorySearch.addEventListener("input", renderBuildingDirectory);
 buildingFilter.addEventListener("change", renderBuildingDirectory);
 floorFilter.addEventListener("change", renderBuildingDirectory);
 scheduleDayFilter.addEventListener("change", renderTimetable);
 gpsStartButton.addEventListener("click", startGPS);
 gpsStopButton.addEventListener("click", stopGPS);
+nextClassRouteButton.addEventListener("click", () => routeToNextClass());
 
 initializeCampusApp();

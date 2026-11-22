@@ -23,7 +23,7 @@
         </div>
 
         <nav class="topnav" aria-label="Main navigation">
-          <a href="#overview">Overview</a>
+          <a href="#overview" aria-current="page">Overview</a>
           <a href="#routes">Routes</a>
           <a href="#campus-map">Campus Map</a>
           <a href="#schedule">Schedule</a>
@@ -46,8 +46,17 @@
 
               <div class="hero-actions">
                 <a class="primary-button" href="#route-planner">Plan route</a>
-                <a class="ghost-button" href="#building-directory">Explore rooms</a>
+                <button class="ghost-button" id="nextClassRouteButton" type="button">
+                  Next Class Route
+                </button>
               </div>
+              <p
+                class="next-class-status"
+                id="nextClassStatus"
+                role="status"
+                aria-live="polite"
+                hidden
+              ></p>
             </div>
 
             <div class="live-clock" aria-label="Current time in India">
@@ -61,7 +70,7 @@
           <section class="card navigation-card" aria-label="Campus navigation">
             <div class="hero-meta">
               <span class="eyebrow">Navigation</span>
-              <h2>Find your way around campus</h2>
+              <h2>Quick Route</h2>
             </div>
             <div class="hero-stats">
               <div>
@@ -77,21 +86,28 @@
                 <strong id="navigationDistance">--</strong>
               </div>
             </div>
-
-
             <p id="status" role="status" aria-live="polite">Campus data is loading…</p>
+            <p id="latitude">Latitude: --</p>
+            <p id="longitude">Longitude: --</p>
             <p id="accuracy">Accuracy of GPS: --</p>
 
             <div class="gps-actions">
               <button class="primary-button" id="startGPSButton" type="button">Use my location</button>
               <button class="ghost-button" id="stopGPSButton" type="button" disabled>Stop GPS</button>
             </div>
-
           </section>
 
           <div class="card campus-card" id="campus-map" tabindex="-1">
             <div class="section-head">
               <h2>Campus map</h2>
+              <button
+                class="ghost-button small"
+                id="routeOverviewButton"
+                type="button"
+                disabled
+              >
+                Route overview
+              </button>
             </div>
             <div
               class="campus-map"
@@ -100,7 +116,7 @@
               aria-label="OpenStreetMap of Graphic Era University, Dehradun"
             ></div>
           </div>
-          
+
           <aside class="card planner-card" id="route-planner" tabindex="-1">
             <div class="card-header">
               <span class="eyebrow">Plan a route</span>
@@ -137,6 +153,14 @@
                   <label>Next stop</label>
                   <strong id="nextStop">--</strong>
                 </div>
+              </div>
+              <div class="directions-summary" aria-label="Route summary">
+                <span>Walking directions</span>
+                <strong>
+                  <span id="directionsDistance">--</span>
+                  <span aria-hidden="true">·</span>
+                  <span id="directionsDuration">--</span>
+                </strong>
               </div>
               <ol class="route-steps" id="pathList"></ol>
             </section>
@@ -208,18 +232,24 @@
       crossorigin="anonymous"
     ></script>
 
+    <script src="https://unpkg.com/@tomickigrzegorz/leaflet-rotate/dist/leaflet-rotate.umd.min.js"></script>
+
     <!-- Configure the campus map and its custom home-view control. -->
     <script>
       const homeZoom = 17;
       let campusBounds = null;
       const campusMap = L.map("campusMap", {
+        rotate: true,
+        bearing: 0,
+        touchRotate: true,
         maxZoom: 19,
-        minZoom: 17,
+        minZoom: 3,
         attributionControl: false,
       });
+
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
-        minZoom: 17,
+        minZoom: 3,
       }).addTo(campusMap);
 
       const HomeB = L.Control.extend({
@@ -241,6 +271,8 @@
           L.DomEvent.on(button, "click", function (event) {
             L.DomEvent.preventDefault(event);
             if (campusBounds) {
+              campusMap.stopHeadingUp();
+              campusMap.setBearing(0);
               campusMap.fitBounds(campusBounds, {
                 padding: [20, 20],
                 maxZoom: homeZoom,
@@ -252,6 +284,64 @@
         },
       });
       campusMap.addControl(new HomeB());
+
+      const ResetB = L.Control.extend({
+        options: {
+          position: "topleft",
+        },
+
+        onAdd: function () {
+          const container = L.DomUtil.create(
+            "div",
+            "leaflet-bar leaflet-control"
+          );
+
+          const button = L.DomUtil.create("a", "", container);
+          button.href = "#";
+          button.title = "Reset destination";
+          button.textContent = "↺";
+
+          L.DomEvent.disableClickPropagation(container);
+
+          L.DomEvent.on(button, "click", function (event) {
+            L.DomEvent.preventDefault(event);
+            destinationSelect.value = "";
+            updateRoute();
+          });
+
+          return container;
+        },
+      });
+
+      campusMap.addControl(new ResetB());
+
+      const LocateB = L.Control.extend({
+        options: {
+          position: "topleft",
+        },
+
+        onAdd: function () {
+          const container = L.DomUtil.create(
+            "div",
+            "leaflet-bar leaflet-control"
+          );
+          const button = L.DomUtil.create("a", "", container);
+          button.href = "#";
+          button.title = "Go to my location";
+          button.setAttribute("aria-label", "Go to my location");
+          button.textContent = "◎";
+
+          L.DomEvent.disableClickPropagation(container);
+          L.DomEvent.on(button, "click", function (event) {
+            L.DomEvent.preventDefault(event);
+            goToGPSLocation();
+          });
+
+          return container;
+        },
+      });
+
+      campusMap.addControl(new LocateB());
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>

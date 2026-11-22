@@ -120,6 +120,15 @@ main {
   color: var(--text);
 }
 
+.topnav a[aria-current="page"] {
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--primary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
 /* Buttons */
 .primary-button,
 .ghost-button {
@@ -253,10 +262,20 @@ button:disabled {
   margin-top: 24px;
 }
 
-.hero-actions a {
+.hero-actions a,
+.hero-actions button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
+}
+
+.hero-message > .next-class-status {
+  max-width: none;
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
 }
 
 /* Live clock */
@@ -477,28 +496,59 @@ button:disabled {
 }
 
 .route-steps {
+  position: relative;
   display: grid;
-  gap: 10px;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
 }
 
 .route-steps li {
   display: grid;
-  grid-template-columns: 14px 1fr auto;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 12px;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px;
+  padding: 14px;
   border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.025);
   list-style: none;
 }
 
-.route-steps li::before {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--primary);
+.route-steps::before {
+  position: absolute;
+  top: 34px;
+  bottom: 34px;
+  left: 34px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.18);
   content: "";
+  pointer-events: none;
+}
+
+.route-steps li.is-active {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 3px 0 0 #ffffff;
+}
+
+.maneuver-icon {
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  background: #101820;
+  color: #ffffff;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.destination-icon {
+  font-size: 1.05rem;
 }
 
 .route-steps strong {
@@ -507,14 +557,45 @@ button:disabled {
 }
 
 .route-steps small {
+  display: block;
+  margin-top: 4px;
   color: var(--muted);
-  font-size: 0.66rem;
+  font-size: 0.78rem;
 }
 
 .route-steps .distance-tag {
+  align-self: center;
   color: var(--accent);
   font-size: 0.8rem;
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.directions-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.directions-summary > span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.directions-summary strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 /* Campus map */
@@ -533,13 +614,27 @@ button:disabled {
   margin-bottom: 16px;
 }
 
+/* Campus map and navigation */
 .campus-map {
+  position: relative;
   width: 100%;
   height: clamp(300px, 35vw, 400px);
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 18px;
   background: #111111;
+  isolation: isolate;
+}
+
+/* Leaflet rotation support */
+.campus-map .leaflet-map-pane {
+  transform-origin: center center;
+}
+
+/* Keep map controls above rotated map layers */
+.campus-map .leaflet-control-container {
+  position: relative;
+  z-index: 1000;
 }
 
 .campus-map .leaflet-bar.leaflet-control {
@@ -695,9 +790,22 @@ button:disabled {
   background: rgba(255, 255, 255, 0.025);
 }
 
+.directory-item-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
 .directory-list strong,
 .directory-list span {
   display: block;
+}
+
+.directory-item-heading strong {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-bottom: 0;
 }
 
 .directory-list strong {
@@ -711,7 +819,31 @@ button:disabled {
 }
 
 .directory-route-button {
-  margin-top: 10px;
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  margin-top: 0;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.18s ease, background-color 0.18s ease;
+}
+
+.directory-route-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+}
+
+.directory-route-button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 /* Accessibility */
@@ -809,11 +941,17 @@ button:disabled {
   }
 
   .campus-map {
-    height: 280px;
+    height: 380px;
   }
 
   .hero-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .hero-stats > div:first-child {
+    grid-column: 1 / -1;
   }
 
   .directory-filters {
@@ -876,4 +1014,160 @@ button:disabled {
   #liveDate {
     font-size: 0.6rem;
   }
+}
+
+@media (max-width: 767px) {
+  .topbar {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: stretch;
+    gap: 12px;
+  }
+
+  .brand {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .brand-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .brand-copy span {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    line-height: 1;
+    padding-left: 0.22em;
+    text-shadow: 0 0 18px rgba(255, 255, 255, 0.22);
+  }
+
+  .brand-copy small {
+    display: none;
+  }
+
+  .topnav {
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+    overflow: visible;
+    padding: 2px 0 4px;
+    font-size: 0.75rem;
+  }
+
+  .topnav a {
+    flex: 0 0 auto;
+  }
+
+  .hero-copy {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .hero-message {
+    grid-row: 2;
+  }
+
+  .live-clock {
+    display: flex;
+    flex-direction: row;
+    grid-row: 1;
+    align-items: center;
+    justify-content: flex-start;
+    width: auto;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    gap: 8px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    color: var(--muted);
+    text-align: left;
+  }
+
+  #liveClock {
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-align: left;
+  }
+
+  #liveDate {
+    color: var(--muted);
+    font-size: 0.7rem;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  #liveDate::before {
+    margin-right: 8px;
+    color: rgba(255, 255, 255, 0.35);
+    content: "·";
+  }
+
+  .hero-message > p {
+    margin-top: 10px;
+  }
+
+  .hero-actions {
+    flex-direction: row;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .hero-actions a,
+  .hero-actions button {
+    justify-content: center;
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0.58rem 0.45rem;
+    font-size: 0.78rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .hero-actions .primary-button,
+  .hero-actions .ghost-button {
+    padding-inline: 0.45rem;
+  }
+}
+
+/* gps live location */
+/* GPS marker remains visible */
+.user-location-marker {
+  z-index: 1000;
+}
+
+/* Navigation direction indicator */
+.navigation-arrow {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+  background: #ffffff;
+  border: 3px solid #000000;
+  color: #000000;
+}
+
+/* Smooth map rotation */
+.campus-map .leaflet-map-pane {
+  transition: transform 0.2s ease-out;
+}
+
+/* Keep navigation controls clickable */
+.campus-map .leaflet-control {
+  z-index: 1000;
 }

@@ -19,6 +19,7 @@ different campus blocks or are reassigned at short notice. Existing timetable sy
 and room they're scheduled for, but they don't help with actually navigating there. <strong>Sted</strong> closes
 that gap by combining timetable management with shortest-path campus navigation — given a user's current
 location, it identifies their next lecture, computes the shortest route to that classroom, and automatically recalculates and notifies affected users whenever a classroom is changed.
+</p>
 
 <h2>Run the terminal program</h2>
 <p>Build from the repository root with CMake and a C++ compiler. CMake compiles all C++ modules into one executable and embeds the graph and timetable CSV data, so the built executable runs without the repository or a separate data folder.</p>
@@ -30,7 +31,6 @@ cmake --build build/cpp --config Release</code></pre>
 <p>The website loads its own static files and building directories from the repository. From the repository root, run:</p>
 <pre><code>python -m http.server 8000 --bind 127.0.0.1</code></pre>
 <p>Open <a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a>. The website and terminal program remain separate and do not call each other.</p>
-</p>
 
 <!-- 3. Credits -->
 <h2 id="credits">🙏 Credits</h2>
@@ -62,7 +62,7 @@ cmake --build build/cpp --config Release</code></pre>
   </tr>
 </table>
 
-<h2 id="credits">📑 References</h2>
+<h2 id="references">📑 References</h2>
 <ul>
   <li><a href="https://ieeexplore.ieee.org/document/10001791">IEEE Xplore — related navigation systems research</a></li>
   <li><a href="https://blog.evelity.com/en/students-getting-lost-on-campus-2025-survey">Evelity Blog — Students Getting Lost on Campus (2025 Survey)</a></li>
