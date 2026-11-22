@@ -32,31 +32,30 @@
       </header>
 
       <main>
-          <section class="hero" id="overview" tabindex="-1">
-            <div class="hero-copy">
-              <div class="hero-message">
-                <div class="hero-title-row">
-                  <h1>Find your way around campus</h1>
-                </div>
-
-                <p>
-                  Plan a route from the mapped campus data, follow step-by-step
-                  directions, and search the room and facility directory.
-                </p>
-
-                <div class="hero-actions">
-                  <a class="primary-button" href="#route-planner">Plan route</a>
-                  <a class="ghost-button" href="#building-directory">Explore rooms</a>
-                </div>
+        <section class="hero" id="overview" tabindex="-1">
+          <div class="hero-copy">
+            <div class="hero-message">
+              <div class="hero-title-row">
+                <h1>Find your way around campus</h1>
               </div>
 
-              <div class="live-clock" aria-label="Current time in India">
-                <span id="liveClock">00:00:00 AM</span>
-                <small id="liveDate"></small>
+              <p>
+                Plan a route from the mapped campus data, follow step-by-step
+                directions, and search the room and facility directory.
+              </p>
+
+              <div class="hero-actions">
+                <a class="primary-button" href="#route-planner">Plan route</a>
+                <a class="ghost-button" href="#building-directory">Explore rooms</a>
               </div>
             </div>
-          </section>
 
+            <div class="live-clock" aria-label="Current time in India">
+              <span id="liveClock">00:00:00 AM</span>
+              <small id="liveDate"></small>
+            </div>
+          </div>
+        </section>
 
         <section class="content-grid" id="routes" tabindex="-1">
           <section class="card navigation-card" aria-label="Campus navigation">
@@ -81,9 +80,7 @@
 
 
             <p id="status" role="status" aria-live="polite">Campus data is loading…</p>
-            <p id="latitude">Latitude: --</p>
-            <p id="longitude">Longitude: --</p>
-            <p id="accuracy">Accuracy: --</p>
+            <p id="accuracy">Accuracy of GPS: --</p>
 
             <div class="gps-actions">
               <button class="primary-button" id="startGPSButton" type="button">Use my location</button>
@@ -96,12 +93,6 @@
             <div class="section-head">
               <h2>Campus map</h2>
             </div>
-            <p class="map-hint">
-              Tap a map node to set your starting point, then tap another for
-              your destination. If a start is already selected, a tap updates
-              the destination.
-            </p>
-
             <div
               class="campus-map"
               id="campusMap"
@@ -160,10 +151,6 @@
               </div>
             </div>
 
-            <p class="schedule-source">
-              Academic year 2026-27 · effective 13 July 2026. Lunch, library,
-              and optional activity periods are not listed as classes.
-            </p>
             <div class="schedule-controls">
               <label for="scheduleDayFilter">Show day</label>
               <select id="scheduleDayFilter">
@@ -176,7 +163,7 @@
             <ul class="schedule-list" id="scheduleList" aria-live="polite"></ul>
           </section>
         </section>
-        <section class="content-grid" id="directory" tabindex="-1">
+        <section class="content-grid">
           <section class="card building-directory" id="building-directory" tabindex="-1">
             <div class="section-head">
               <div>
@@ -211,7 +198,7 @@
             </div>
             <ul class="directory-list" id="directoryList" aria-live="polite"></ul>
           </section>
-          </section>
+        </section>
       </main>
     </div>
 
@@ -221,6 +208,7 @@
       crossorigin="anonymous"
     ></script>
 
+    <!-- Configure the campus map and its custom home-view control. -->
     <script>
       const homeZoom = 17;
       let campusBounds = null;
@@ -235,38 +223,37 @@
       }).addTo(campusMap);
 
       const HomeB = L.Control.extend({
-    options: {
-      position: "topleft",
-    },
+        options: {
+          position: "topleft",
+        },
 
-    onAdd: function () {
-      const container = L.DomUtil.create(
-        "div", "leaflet-bar leaflet-control"
-      );
+        onAdd: function () {
+          const container = L.DomUtil.create(
+            "div",
+            "leaflet-bar leaflet-control"
+          );
+          const button = L.DomUtil.create("a", "", container);
+          button.href = "#";
+          button.title = "Return to campus";
+          button.textContent = "⌂";
 
-      const button = L.DomUtil.create("a", "", container);
-      button.href = "#";
-      button.title = "Return to campus";
-      button.textContent = "⌂";
-
-      L.DomEvent.disableClickPropagation(container);
-
-      L.DomEvent.on(button, "click", function (event) {
-        L.DomEvent.preventDefault(event);
-        if (campusBounds) {
-          campusMap.fitBounds(campusBounds, {
-            padding: [20, 20],
-            maxZoom: homeZoom,
-            animate: true
+          L.DomEvent.disableClickPropagation(container);
+          L.DomEvent.on(button, "click", function (event) {
+            L.DomEvent.preventDefault(event);
+            if (campusBounds) {
+              campusMap.fitBounds(campusBounds, {
+                padding: [20, 20],
+                maxZoom: homeZoom,
+                animate: true,
+              });
+            }
           });
-        }
+          return container;
+        },
       });
-      return container;
-    },
-  });
-  campusMap.addControl(new HomeB());
+      campusMap.addControl(new HomeB());
     </script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     <script src="script.js"></script>
 

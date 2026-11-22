@@ -19,6 +19,7 @@
 
 namespace {
 
+// Convert the campus CSV resources into validated graph and timetable data.
 struct CampusNode {
     std::string id;
     std::string name;
@@ -44,6 +45,7 @@ std::string trim(const std::string& value) {
     return value.substr(first, last - first + 1);
 }
 
+// Split a CSV row without treating quoted commas as column separators.
 std::vector<std::string> parseCsvRow(const std::string& line) {
     std::vector<std::string> fields;
     std::string field;
@@ -119,6 +121,7 @@ double parseNumber(
     return number;
 }
 
+// Store the bidirectional campus graph and find minimum-distance routes.
 class CampusGraph {
 private:
     std::vector<CampusNode> nodes;
@@ -469,6 +472,7 @@ TimetableColumns findTimetableColumns(
     };
 }
 
+// Load and validate schedule records for one section and semester.
 bool loadTimetable(
     const std::string& filename,
     const std::string& sectionName,
@@ -689,6 +693,7 @@ void printRoute(const CampusGraph& campus, const Route& route) {
     std::cout << '\n';
 }
 
+// Resolve a student's class, map its venue, and route to that destination.
 int routeToScheduledClass(
     CampusGraph& campus,
     const std::string& sectionName,
@@ -926,6 +931,7 @@ void printMainMenu() {
               << "Choose an option: ";
 }
 
+// Run the interactive terminal workflow for campus and timetable routes.
 int runMenu(CampusGraph& campus) {
     for (;;) {
         printMainMenu();

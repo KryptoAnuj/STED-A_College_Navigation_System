@@ -5,6 +5,7 @@ let sectionHighlightTimer = null;
 let highlightedSection = null;
 let returnHomeTimer;
 
+// Return the map to the full-campus view after the user explores it.
 function resetHomeTimer() {
   clearTimeout(returnHomeTimer);
   returnHomeTimer = setTimeout(() => {
@@ -26,6 +27,7 @@ document.addEventListener("cut", (event) => event.preventDefault());
 document.addEventListener("paste", (event) => event.preventDefault());
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
+// Keep in-page navigation animated and visibly mark the selected section.
 function highlightSection(target) {
   clearTimeout(sectionHighlightTimer);
   highlightedSection?.classList.remove("section-blink");
@@ -102,67 +104,7 @@ function scrollToSection(hash) {
   scrollFrame = requestAnimationFrame(animateScroll);
 }
 
-// const compassDial = document.getElementById("compassDial");
-// const compassHeading = document.getElementById("compassHeading");
-// const compassDirection = document.getElementById("compassDirection");
-// const startCompassButton = document.getElementById("startCompassButton");
-
-// const compassDirections = [
-//   "North", "North-East", "East", "South-East",
-//   "South", "South-West", "West", "North-West"
-// ];
-
-// function updateCompass(heading) {
-//   if (!Number.isFinite(heading)) return;
-
-//   heading = ((heading % 360) + 360) % 360;
-
-//   compassDial.style.transform = `rotate(${-heading}deg)`;
-//   compassHeading.textContent = `${Math.round(heading)}°`;
-//   compassDirection.textContent =
-//     compassDirections[Math.round(heading / 45) % 8];
-// }
-
-// function handleCompass(event) {
-//   if (Number.isFinite(event.webkitCompassHeading)) {
-//     updateCompass(event.webkitCompassHeading);
-//   } else if (Number.isFinite(event.alpha)) {
-//     updateCompass(360 - event.alpha);
-//   }
-// }
-
-// startCompassButton.addEventListener("click", async () => {
-//   if (!window.isSecureContext) {
-//     compassDirection.textContent = "HTTPS required";
-//     return;
-//   }
-
-//   if (!("DeviceOrientationEvent" in window)) {
-//     compassDirection.textContent = "Not supported";
-//     return;
-//   }
-
-//   try {
-//     if (typeof DeviceOrientationEvent.requestPermission === "function") {
-//       const permission =
-//         await DeviceOrientationEvent.requestPermission();
-
-//       if (permission !== "granted") {
-//         compassDirection.textContent = "Permission denied";
-//         return;
-//       }
-//     }
-
-//     window.addEventListener("deviceorientation", handleCompass);
-//     window.addEventListener("deviceorientationabsolute", handleCompass);
-
-//     startCompassButton.textContent = "Compass active";
-//   } catch (error) {
-//     compassDirection.textContent = "Sensor unavailable";
-//   }
-// });
-
-
+// Update the live clock and date using the campus time zone.
 function updateClock() {
   const now = new Date();
   document.getElementById("liveClock").textContent = now.toLocaleTimeString(
@@ -245,6 +187,7 @@ const scheduleDayFilter = document.getElementById("scheduleDayFilter");
 const scheduleStatus = document.getElementById("scheduleStatus");
 const scheduleList = document.getElementById("scheduleList");
 
+// Shared map layers and state used by routing, GPS, the directory, and timetable.
 const routeLayer = L.layerGroup().addTo(campusMap);
 const placeLayer = L.layerGroup().addTo(campusMap);
 let campusNodes = [];
@@ -260,7 +203,7 @@ let gpsStartOption = null;
 let routeRequestController = null;
 let lastRoutedPosition = null;
 const walkingRouteEndpoint =
-  "https://routing.openstreetmap.de/routed-foot/route/v1/driving";
+  "https://routing.openstreetmap.de/routed-foot/route/v1/foot";
 const timetableDays = {
   MON: "Monday",
   TUE: "Tuesday",
@@ -295,6 +238,7 @@ function formatScheduleTime(value) {
   return `${hour % 12 || 12}:${String(minute).padStart(2, "0")} ${period}`;
 }
 
+// Render the verified Group 1 and shared Section A timetable records.
 function renderTimetable() {
   const selectedDay = scheduleDayFilter.value;
   const visibleEntries = timetableEntries.filter(
@@ -374,14 +318,23 @@ async function loadTimetable() {
     throw new Error("No verified Section A, Semester III, Group 1 classes were found.");
   }
 
-  const availableDays = [...new Set(timetableEntries.map((entry) => entry.day))];
+  const availableDays = timetableDayOrder;
   scheduleDayFilter.replaceChildren(new Option("All days", ""));
   availableDays.forEach((day) => {
     scheduleDayFilter.appendChild(new Option(timetableDays[day], day));
   });
+  const today = new Date().toLocaleDateString("en-US", {
+    weekday: "short",
+    timeZone: "Asia/Kolkata"
+  }).toUpperCase();
+
+  if (timetableDays[today] && availableDays.includes(today)) {
+    scheduleDayFilter.value = today;
+  }
   renderTimetable();
 }
 
+// Parse CSV responses with Papa Parse and report malformed source files.
 function parseCsv(text, source, header) {
   const result = Papa.parse(text, {
     header,
@@ -460,6 +413,7 @@ async function fetchWalkingRoute(start, destination) {
   return { ...route, waypoints: result.waypoints || [] };
 }
 
+// Load map coordinates and normalize the building-specific directory formats.
 async function loadCampusData() {
   const [nodeRows, ...directoryRowSets] = await Promise.all([
     fetchCsv("data/node_coordinates.csv", true),
@@ -543,29 +497,28 @@ function populateRouteLocations() {
   });
 }
 
+// Draw campus locations and route geometry on their Leaflet layers.
 function renderPlaces() {
   placeLayer.clearLayers();
-  campusNodes
-    // .filter((node) => node.type === "circle node")
-    .forEach((node) => {
-      L.circleMarker([node.lat, node.lon], {
-        radius: 6,
-        color: "#07131f",
-        weight: 2,
-        fillColor: "#60d8ff",
-        fillOpacity: 0.95
+  campusNodes.forEach((node) => {
+    L.circleMarker([node.lat, node.lon], {
+      radius: 6,
+      color: "#07131f",
+      weight: 2,
+      fillColor: "#60d8ff",
+      fillOpacity: 0.95
+    })
+      .bindTooltip(node.name)
+      .on("click", () => {
+        if (!startSelect.value && !usingCurrentLocation) {
+          startSelect.value = node.id;
+          gpsFallbackStartId = node.id;
+        } else {
+          destinationSelect.value = node.id;
+        }
+        updateRoute();
       })
-        .bindTooltip(node.name)
-        .on("click", () => {
-          if (!startSelect.value && !usingCurrentLocation) {
-            startSelect.value = node.id;
-            gpsFallbackStartId = node.id;
-          } else {
-            destinationSelect.value = node.id;
-          }
-          updateRoute();
-        })
-        .addTo(placeLayer);
+      .addTo(placeLayer);
     });
   campusBounds = L.latLngBounds(campusNodes.map((node) => [node.lat, node.lon]));
   campusMap.fitBounds(campusBounds, { padding: [20, 20], maxZoom: homeZoom });
@@ -801,6 +754,7 @@ async function updateRoute() {
   }
 }
 
+// Measure the distance between two GPS coordinates in metres.
 function getDistanceInMetres(lat1, lon1, lat2, lon2) {
   const radians = (degrees) => (degrees * Math.PI) / 180;
   const latitudeDifference = radians(lat2 - lat1);
@@ -902,6 +856,7 @@ function normalizeLocationName(value) {
   return value.toLocaleLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
+// Match a directory record to a map node or its building entrance.
 function findDirectoryDestination(location) {
   const candidateNames = [
     location.room,
@@ -1008,6 +963,7 @@ function populateDirectoryFilters() {
   });
 }
 
+// Load the datasets and initialize the map, timetable, and directory UI.
 async function initializeCampusApp() {
   try {
     gpsStatus.textContent = "Loading campus data…";
@@ -1025,7 +981,7 @@ async function initializeCampusApp() {
     renderBuildingDirectory();
     updateRoute();
     gpsStatus.textContent =
-      `Loaded ${campusNodes.length} mapped points and ${campusLocations.length} directory locations.`;
+      `Loaded ${campusNodes.length} mapped points`;
   } catch (error) {
     console.error("Could not initialize campus data:", error);
     gpsStatus.textContent = `Could not load campus data: ${error.message}`;

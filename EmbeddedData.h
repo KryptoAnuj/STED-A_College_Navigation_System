@@ -3,6 +3,7 @@
 
 #include <string>
 
+// Return the build-embedded CSV resource identified by its repository path.
 std::string embeddedCsv(const std::string& path);
 
 #endif

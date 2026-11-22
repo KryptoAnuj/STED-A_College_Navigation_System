@@ -5,12 +5,14 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# Embed the resources needed by the standalone terminal application.
 set(EMBEDDED_CSV_FILES
   data/node_coordinates.csv
   data/campus_edges.csv
   data/timetable_examples.csv
   data/timetable_venue_nodes.csv
 )
+# Generate a lookup function so the executable does not depend on runtime CSV files.
 set(EMBEDDED_CSV_SOURCE "${CMAKE_CURRENT_BINARY_DIR}/embedded_csv_data.cpp")
 file(WRITE "${EMBEDDED_CSV_SOURCE}"
   "#include \"EmbeddedData.h\"\n"
