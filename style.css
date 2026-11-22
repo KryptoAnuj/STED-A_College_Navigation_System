@@ -173,13 +173,20 @@ main {
 }
 
 .hero-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 170px;
+  align-items: center;
+  gap: 28px;
   padding: 36px;
+}
+
+.hero-message {
+  min-width: 0;
 }
 
 .hero-title-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 28px;
 }
 
@@ -231,7 +238,7 @@ button:disabled {
   opacity: 0.55;
 }
 
-.hero-copy > p {
+.hero-message > p {
   margin: 5px 0 0;
   max-width: 62ch;
   color: var(--muted);
@@ -281,6 +288,7 @@ button:disabled {
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
@@ -550,6 +558,13 @@ button:disabled {
 }
 
 /* Campus map */
+.map-hint {
+  margin: -8px 0 14px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
 .section-head {
   display: flex;
   align-items: center;
@@ -651,6 +666,30 @@ button:disabled {
 }
 
 /* Timetable */
+.schedule-source {
+  margin: -4px 0 16px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.schedule-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.schedule-controls select {
+  min-width: 150px;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #111;
+  color: var(--text);
+}
+
 .schedule-list {
   display: grid;
   gap: 14px;
@@ -661,7 +700,7 @@ button:disabled {
 
 .schedule-list li {
   display: grid;
-  grid-template-columns: 62px 1fr;
+  grid-template-columns: minmax(150px, 0.35fr) minmax(0, 1fr);
   align-items: center;
   gap: 14px;
   padding: 12px 0;
@@ -696,6 +735,7 @@ button:disabled {
 
 .schedule-text span {
   color: var(--muted);
+  line-height: 1.5;
 }
 
 /* Room directory */
@@ -706,7 +746,7 @@ button:disabled {
 
 .directory-filters {
   display: grid;
-  grid-template-columns: minmax(180px, 1fr) minmax(180px, 0.45fr);
+  grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
   gap: 12px;
   margin-bottom: 16px;
 }
@@ -823,9 +863,13 @@ button:disabled {
     padding: 18px 16px;
   }
 
-  .hero-title-row {
-    align-items: center;
+  .hero-copy {
+    grid-template-columns: minmax(0, 1fr) 112px;
     gap: 14px;
+  }
+
+  .hero-title-row {
+    align-items: flex-start;
   }
 
   .hero-title-row h1 {
@@ -850,7 +894,7 @@ button:disabled {
     font-size: 0.68rem;
   }
 
-  .hero-copy > p {
+  .hero-message > p {
     margin-top: 20px;
   }
 
@@ -865,11 +909,61 @@ button:disabled {
   .directory-filters {
     grid-template-columns: 1fr;
   }
+
+  .schedule-list li {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .schedule-list .time {
+    justify-self: start;
+  }
+
+  .schedule-controls {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 360px) {
+  .hero-copy {
+    grid-template-columns: minmax(0, 1fr) 92px;
+    gap: 10px;
+  }
+
   .hero-title-row {
     align-items: flex-start;
     flex-direction: column-reverse;
+  }
+
+  .hero-message > p {
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+
+  .hero-actions {
+    gap: 8px;
+  }
+
+  .hero-actions .primary-button,
+  .hero-actions .ghost-button {
+    padding-inline: 0.8rem;
+  }
+
+  .live-clock {
+    width: 92px;
+    height: 92px;
+    min-width: 92px;
+    padding: 6px;
+    gap: 4px;
+    border-radius: 12px;
+  }
+
+  #liveClock {
+    font-size: 0.72rem;
+  }
+
+  #liveDate {
+    font-size: 0.6rem;
   }
 }

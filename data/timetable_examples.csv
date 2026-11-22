@@ -1,5 +1,39 @@
 record_type,section,semester,day,start_time,end_time,course_code,subject_name,faculty_name,subject_type,venue,group_scope,date,cancelled,reason,is_example
-class,DEMO,1,MON,09:00,10:00,EX101,Example Mathematics,Example Faculty A,THEORY,LT-12,BOTH,,,,true
-class,DEMO,1,MON,10:15,11:15,EX102,Example Computing,Example Faculty B,PRACTICAL,EC Lab-1,G1,,,,true
-class,DEMO,1,TUE,11:30,12:30,EX103,Example Physics,Example Faculty C,THEORY,CR-15,G2,,,,true
-class,DEMO,1,THU,13:00,14:00,EX104,Example Design,Example Faculty D,PRACTICAL,CR-16,BOTH,,,,true
+class,A,3,MON,08:00,08:55,TCS-302,Data Structures with C,Hon'ble President Sir / Mr. Akshay Rajput,THEORY,LT-5,BOTH,,,,false
+class,A,3,MON,09:00,09:55,XCS-301,Career Skills-I / PDCC (Verbal),Ms. Medhavi Vishnoi,THEORY,LT-1,BOTH,,,,false
+class,A,3,MON,09:55,12:05,PCS-302,Data Structures Lab,Mr. Upendra Aswal / Mr. Ram Ji Chauhan / Ms. Pallavi Kumari,PRACTICAL,Digital Lab-1,BOTH,,,,false
+class,A,3,MON,12:05,13:00,TCS-302,Data Structures with C,Hon'ble President Sir / Mr. Akshay Rajput,THEORY,GEHU-Audi (5th Floor),BOTH,,,,false
+class,A,3,MON,13:55,14:50,TCS-308,Logic Design and Computer Organization,Dr. Hemant Singh Pokhariya,THEORY,CR-7,BOTH,,,,false
+class,A,3,TUE,08:00,08:55,TCS-308,Logic Design and Computer Organization,Dr. Hemant Singh Pokhariya,THEORY,CR-12,BOTH,,,,false
+class,A,3,TUE,09:00,09:55,TCS-307,Object Oriented Programming with C++,Dr. Amit Kumar,THEORY,LT-1,BOTH,,,,false
+class,A,3,TUE,09:55,12:05,PCS-308,Logic Design and Computer Organization Lab,Dr. Niraj Kumar,PRACTICAL,B.Tech Block IInd Floor Lab-1,G1,,,,false
+class,A,3,TUE,12:05,13:00,TCS-302,Data Structures with C,Hon'ble President Sir / Mr. Akshay Rajput,THEORY,GEHU-Audi (5th Floor),BOTH,,,,false
+class,A,3,TUE,13:55,14:50,TMA-316,Discrete Structures and Combinatorics,Dr. Anand Chauhan,THEORY,LT-1,BOTH,,,,false
+class,A,3,TUE,15:10,16:05,UHV-301,UHV-II,Mr. Vijay Joshi,THEORY,Online,BOTH,,,,false
+class,A,3,TUE,16:05,17:00,TCS-392,Introduction to Cryptography,Dr. Upma Jain / Dr. Siddhant Thapliyal,THEORY,CR-4,G1,,,,false
+class,A,3,TUE,17:00,17:55,TCS-361,Joy of Computing using Python (Through SWAYAM),Through SWAYAM,THEORY,Online,BOTH,,,,false
+class,A,3,WED,08:00,08:55,TCS-302,Data Structures with C,Hon'ble President Sir / Mr. Akshay Rajput,THEORY,LT-1,BOTH,,,,false
+class,A,3,WED,09:00,09:55,TCS-307,Object Oriented Programming with C++,Dr. Amit Kumar,THEORY,LT-1,BOTH,,,,false
+class,A,3,WED,09:55,10:50,TCS-308,Logic Design and Computer Organization,Dr. Hemant Singh Pokhariya,THEORY,LT-1,BOTH,,,,false
+class,A,3,WED,12:05,13:00,TCS-302,Data Structures with C,Hon'ble President Sir / Mr. Akshay Rajput,THEORY,GEHU-Audi (5th Floor),BOTH,,,,false
+class,A,3,WED,13:55,14:50,TMA-316,Discrete Structures and Combinatorics,Dr. Anand Chauhan,THEORY,LT-1,BOTH,,,,false
+class,A,3,WED,15:10,16:05,TOC-301,Probability and Statistics (Audit Course),Dr. Teekam Singh,THEORY,LT-1,BOTH,,,,false
+class,A,3,WED,16:05,17:00,TCS-392,Introduction to Cryptography,Dr. Upma Jain / Dr. Siddhant Thapliyal,THEORY,CR-4,G1,,,,false
+class,A,3,WED,17:00,17:55,TCS-362,Statistical Learning for Reliability Analysis (Through SWAYAM),Through SWAYAM,THEORY,Online,BOTH,,,,false
+class,A,3,THU,08:00,08:55,TCS-302,Data Structures with C,Hon'ble President Sir / Mr. Akshay Rajput,THEORY,LT-1,BOTH,,,,false
+class,A,3,THU,09:00,09:55,XCS-301,Career Skills-I / PDCC (Soft Skills),Mr. Purnendu Agarwal,THEORY,LT-1,BOTH,,,,false
+class,A,3,THU,09:55,10:50,XCS-301,Career Skills-I / PDCC (QAR),Ms. Priyanka Agrawal,THEORY,LT-1,BOTH,,,,false
+class,A,3,THU,11:10,12:05,TCS-308,Logic Design and Computer Organization,Dr. Hemant Singh Pokhariya,THEORY,LT-1,BOTH,,,,false
+class,A,3,THU,12:05,13:00,TCS-302,Data Structures with C,Hon'ble President Sir / Mr. Akshay Rajput,THEORY,GEHU-Audi (5th Floor),BOTH,,,,false
+class,A,3,THU,15:10,16:05,TCS-362,Statistical Learning for Reliability Analysis (Through SWAYAM),Through SWAYAM,THEORY,Online,BOTH,,,,false
+class,A,3,THU,16:05,17:00,TCS-392,Introduction to Cryptography,Dr. Upma Jain / Dr. Siddhant Thapliyal,THEORY,CR-4,G1,,,,false
+class,A,3,THU,17:00,17:55,TCS-307,Object Oriented Programming with C++,Dr. Amit Kumar,THEORY,LT-2,BOTH,,,,false
+class,A,3,FRI,08:00,08:55,TCS-302,Data Structures with C,Hon'ble President Sir / Mr. Akshay Rajput,THEORY,LT-5,BOTH,,,,false
+class,A,3,FRI,09:00,09:55,TCS-307,Object Oriented Programming with C++,Dr. Amit Kumar,THEORY,LT-1,BOTH,,,,false
+class,A,3,FRI,09:55,12:05,PCS-302,Data Structures Lab,Mr. Upendra Aswal / Mr. Ram Ji Chauhan / Ms. Pallavi Kumari,PRACTICAL,Digital Lab-1,BOTH,,,,false
+class,A,3,FRI,12:05,13:00,TCS-302,Data Structures with C,Hon'ble President Sir / Mr. Akshay Rajput,THEORY,GEHU-Audi (5th Floor),BOTH,,,,false
+class,A,3,FRI,15:10,16:05,TMA-316,Discrete Structures and Combinatorics,Dr. Anand Chauhan,THEORY,CR-6,BOTH,,,,false
+class,A,3,FRI,16:05,17:55,PCS-307,OOPS with C++ Lab,Dr. Amit Kumar,PRACTICAL,Lab-2,G1,,,,false
+class,A,3,SAT,09:00,09:55,PCS-307,OOPS with C++ Lab,Dr. Amit Kumar,PRACTICAL,Lab-2,G1,,,,false
+class,A,3,SAT,09:55,10:50,TCS-307,Object Oriented Programming with C++,Dr. Amit Kumar,THEORY,LT-1,BOTH,,,,false
+class,A,3,SAT,11:10,12:05,TMA-316,Discrete Structures and Combinatorics,Dr. Anand Chauhan,THEORY,LT-1,BOTH,,,,false

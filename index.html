@@ -34,23 +34,25 @@
       <main>
           <section class="hero" id="overview" tabindex="-1">
             <div class="hero-copy">
-              <div class="hero-title-row">
-                <h1>Find your way around campus</h1>
+              <div class="hero-message">
+                <div class="hero-title-row">
+                  <h1>Find your way around campus</h1>
+                </div>
 
-                <div class="live-clock" aria-label="Current time">
-                  <span id="liveClock">00:00:00</span>
-                  <small id="liveDate"></small>
+                <p>
+                  Plan a route from the mapped campus data, follow step-by-step
+                  directions, and search the room and facility directory.
+                </p>
+
+                <div class="hero-actions">
+                  <a class="primary-button" href="#route-planner">Plan route</a>
+                  <a class="ghost-button" href="#building-directory">Explore rooms</a>
                 </div>
               </div>
 
-              <p>
-                Plan a route from the mapped campus data, follow step-by-step
-                directions, and search the room and facility directory.
-              </p>
-
-              <div class="hero-actions">
-                <a class="primary-button" href="#route-planner">Plan route</a>
-                <a class="ghost-button" href="#building-directory">Explore rooms</a>
+              <div class="live-clock" aria-label="Current time in India">
+                <span id="liveClock">00:00:00 AM</span>
+                <small id="liveDate"></small>
               </div>
             </div>
           </section>
@@ -94,6 +96,11 @@
             <div class="section-head">
               <h2>Campus map</h2>
             </div>
+            <p class="map-hint">
+              Tap a map node to set your starting point, then tap another for
+              your destination. If a start is already selected, a tap updates
+              the destination.
+            </p>
 
             <div
               class="campus-map"
@@ -147,11 +154,26 @@
         <section class="content-grid" id="schedule" tabindex="-1">
           <section class="card schedule-card" aria-label="Timetable">
             <div class="card-header">
-              <span class="eyebrow">Timetable</span>
-              <h2>Schedule</h2>
+              <div>
+                <span class="eyebrow">Timetable · Group 1</span>
+                <h2>Section A · Semester III</h2>
+              </div>
             </div>
 
-            <p id="scheduleStatus" role="status">No timetable CSV is available.</p>
+            <p class="schedule-source">
+              Academic year 2026-27 · effective 13 July 2026. Lunch, library,
+              and optional activity periods are not listed as classes.
+            </p>
+            <div class="schedule-controls">
+              <label for="scheduleDayFilter">Show day</label>
+              <select id="scheduleDayFilter">
+                <option value="">All days</option>
+              </select>
+            </div>
+            <p id="scheduleStatus" role="status" aria-live="polite">
+              Loading the verified timetable…
+            </p>
+            <ul class="schedule-list" id="scheduleList" aria-live="polite"></ul>
           </section>
         </section>
         <section class="content-grid" id="directory" tabindex="-1">
@@ -173,6 +195,12 @@
                   placeholder="Search rooms and facilities"
                   autocomplete="on"
                 />
+              </label>
+              <label>
+                <span class="sr-only">Filter by building</span>
+                <select id="buildingFilter" aria-label="Filter by building">
+                  <option value="">All buildings</option>
+                </select>
               </label>
               <label>
                 <span class="sr-only">Filter by floor</span>

@@ -1,0 +1,57 @@
+Block,Floor,Room Number,Room Name
+CSIT,Basement,CS Lab-I,IOT Lab
+CSIT,Basement,,Server Room
+CSIT,Basement,CS Lab-2,
+CSIT,Basement,,Server Room
+CSIT,Basement,CS Lab-3,
+CSIT,Basement (Opposite Side),,Central Evaluation Centre
+CSIT,Basement (Opposite Side),,Examination Cell
+CSIT,Basement (Opposite Side),,Fee Receipt Counter
+CSIT,Ground,,Open Audi
+CSIT,Ground,,Conference Hall
+CSIT,Ground,,Staffroom
+CSIT,Ground,CR-1,
+CSIT,Ground,LT-1,
+CSIT,Ground,,Seminar Hall
+CSIT,Ground,LT-2,
+CSIT,Ground,CR-2,
+CSIT,Ground,,Staff Room
+CSIT,Ground,CR-3,
+CSIT,Ground,,Male Washroom
+CSIT,Ground,,Female Washroom
+CSIT,First,CS Lab-4,
+CSIT,First,,Staff Room
+CSIT,First,CR-5,
+CSIT,First,CR-4,
+CSIT,First,LT-3,
+CSIT,First,LT-4,
+CSIT,First,LT-5,
+CSIT,First,CR-7,
+CSIT,First,CR-6,
+CSIT,First,,Staffroom
+CSIT,First,CS Lab-5,Data Analytic Lab
+CSIT,First,,Male Washroom
+CSIT,First,,Female Washroom
+CSIT,Second,,Library
+CSIT,Second,New Lab-I,
+CSIT,Second,New Lab-2,
+CSIT,Second,New Lab-3,
+CSIT,Second,LT-6,
+CSIT,Second,LT-7,
+CSIT,Second,LT-8,
+CSIT,Second,CR-8,
+CSIT,Second,CR-9,
+CSIT,Second,CR-10,
+CSIT,Second,,Male Washroom
+CSIT,Second,,Female Washroom
+CSIT,Third,CS Lab-6,
+CSIT,Third,CR-14,Inventorium TBI-GEU
+CSIT,Third,CS Lab-7,CEH Lab
+CSIT,Third,LT-9,
+CSIT,Third,LT-10,
+CSIT,Third,LT-11,
+CSIT,Third,CR-11,
+CSIT,Third,CR-12,
+CSIT,Third,,TBI Office
+CSIT,Third,,Male Washroom
+CSIT,Third,,Female Washroom

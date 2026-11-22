@@ -174,7 +174,7 @@ function updateClock() {
       hour12: true,
       timeZone: "Asia/Kolkata"
     }
-  );
+  ).toUpperCase();
   document.getElementById("liveDate").textContent = now.toLocaleDateString(
     "en-IN",
     {
@@ -234,18 +234,23 @@ const routeStatus = document.getElementById("routeStatus");
 const nextStop = document.getElementById("nextStop");
 const pathList = document.getElementById("pathList");
 const directorySearch = document.getElementById("directorySearch");
+const buildingFilter = document.getElementById("buildingFilter");
 const floorFilter = document.getElementById("floorFilter");
 const directoryList = document.getElementById("directoryList");
 const directoryCount = document.getElementById("directoryCount");
 const gpsStatus = document.getElementById("status");
 const gpsStartButton = document.getElementById("startGPSButton");
 const gpsStopButton = document.getElementById("stopGPSButton");
+const scheduleDayFilter = document.getElementById("scheduleDayFilter");
+const scheduleStatus = document.getElementById("scheduleStatus");
+const scheduleList = document.getElementById("scheduleList");
 
 const routeLayer = L.layerGroup().addTo(campusMap);
 const placeLayer = L.layerGroup().addTo(campusMap);
 let campusNodes = [];
 let campusNodeById = new Map();
 let campusLocations = [];
+let timetableEntries = [];
 let gpsWatchId = null;
 let currentPosition = null;
 let usingCurrentLocation = false;
@@ -256,6 +261,126 @@ let routeRequestController = null;
 let lastRoutedPosition = null;
 const walkingRouteEndpoint =
   "https://routing.openstreetmap.de/routed-foot/route/v1/driving";
+const timetableDays = {
+  MON: "Monday",
+  TUE: "Tuesday",
+  WED: "Wednesday",
+  THU: "Thursday",
+  FRI: "Friday",
+  SAT: "Saturday",
+  SUN: "Sunday"
+};
+const timetableDayOrder = Object.keys(timetableDays);
+const directorySources = [
+  { path: "data/BTECH.csv", hasHeader: false },
+  { path: "data/CSIT.csv", hasHeader: true },
+  { path: "data/KP Nautiyal.csv", hasHeader: true },
+  { path: "data/Mechanical.csv", hasHeader: true },
+  { path: "data/Paramedical.csv", hasHeader: true }
+];
+const buildingEntranceIds = {
+  BTech: "BTG",
+  CSIT: "CS-F",
+  "KP NAUTIYAL (College of Law)": "KP-B",
+  "Mechanical (Vishwakarma)": "MB-1",
+  Paramedical: "PM-L"
+};
+const campusAmenityNames = {
+  "Cafe between CSIT and Paramedical": "Tuck Shop 3"
+};
+
+function formatScheduleTime(value) {
+  const [hour, minute] = value.split(":").map(Number);
+  const period = hour < 12 ? "AM" : "PM";
+  return `${hour % 12 || 12}:${String(minute).padStart(2, "0")} ${period}`;
+}
+
+function renderTimetable() {
+  const selectedDay = scheduleDayFilter.value;
+  const visibleEntries = timetableEntries.filter(
+    (entry) => !selectedDay || entry.day === selectedDay
+  );
+  scheduleList.replaceChildren();
+
+  if (!visibleEntries.length) {
+    const emptyState = document.createElement("li");
+    emptyState.textContent = "No classes are listed for this day.";
+    scheduleList.appendChild(emptyState);
+  }
+
+  visibleEntries.forEach((entry) => {
+    const item = document.createElement("li");
+    const time = document.createElement("span");
+    time.className = "time";
+    time.textContent =
+      `${formatScheduleTime(entry.start_time)} - ${formatScheduleTime(entry.end_time)}`;
+
+    const details = document.createElement("div");
+    details.className = "schedule-text";
+    const title = document.createElement("strong");
+    title.textContent = `${entry.course_code} - ${entry.subject_name}`;
+    const metadata = document.createElement("span");
+    metadata.textContent = [
+      timetableDays[entry.day],
+      entry.subject_type === "PRACTICAL" ? "Lab" : "Class",
+      entry.venue,
+      entry.faculty_name
+    ].join(" · ");
+    details.append(title, metadata);
+    item.append(time, details);
+    scheduleList.appendChild(item);
+  });
+
+  const dayDescription = selectedDay
+    ? `${timetableDays[selectedDay]}`
+    : "the week";
+  scheduleStatus.textContent =
+    `${visibleEntries.length} Group 1 and shared class/lab periods shown for ${dayDescription}.`;
+}
+
+async function loadTimetable() {
+  const rows = await fetchCsv("data/timetable_examples.csv", true);
+  timetableEntries = rows
+    .filter(
+      (row) =>
+        row.record_type === "class" &&
+        row.section === "A" &&
+        row.semester === "3" &&
+        ["G1", "BOTH"].includes(row.group_scope) &&
+        row.is_example === "false"
+    )
+    .map((row, index) => {
+      if (
+        !timetableDays[row.day] ||
+        !row.start_time ||
+        !row.end_time ||
+        !row.course_code ||
+        !row.subject_name ||
+        !row.subject_type ||
+        !row.venue ||
+        !row.faculty_name
+      ) {
+        throw new Error(`Timetable class record ${index + 1} is incomplete.`);
+      }
+      return row;
+    })
+    .sort(
+      (left, right) =>
+        timetableDayOrder.indexOf(left.day) - timetableDayOrder.indexOf(right.day) ||
+        left.start_time.localeCompare(right.start_time)
+    );
+
+  if (!timetableEntries.length) {
+    throw new Error("No verified Section A, Semester III, Group 1 classes were found.");
+  }
+
+  const availableDays = [...new Set(timetableEntries.map((entry) => entry.day))];
+  scheduleDayFilter.replaceChildren(new Option("All days", ""));
+  availableDays.forEach((day) => {
+    scheduleDayFilter.appendChild(new Option(timetableDays[day], day));
+  });
+  renderTimetable();
+}
 
 function parseCsv(text, source, header) {
   const result = Papa.parse(text, {
@@ -336,9 +461,9 @@ async function fetchWalkingRoute(start, destination) {
 }
 
 async function loadCampusData() {
-  const [nodeRows, directoryRows] = await Promise.all([
+  const [nodeRows, ...directoryRowSets] = await Promise.all([
     fetchCsv("data/node_coordinates.csv", true),
-    fetchCsv("data/BTECH.csv", false)
+    ...directorySources.map((source) => fetchCsv(source.path, source.hasHeader))
   ]);
 
   campusNodes = nodeRows.map((row) => {
@@ -359,12 +484,42 @@ async function loadCampusData() {
     throw new Error("Campus coordinate data contains duplicate node IDs.");
   }
 
-  campusLocations = directoryRows.map((row, index) => {
-    if (row.length !== 5) {
-      throw new Error(`Campus directory row ${index + 1} must have five columns.`);
-    }
-    const [building, floor, room, description, side] = row;
-    return { building, floor, room, description, side };
+  campusLocations = directoryRowSets.flatMap((rows, sourceIndex) => {
+    const source = directorySources[sourceIndex];
+    return rows.map((row, rowIndex) => {
+      let location;
+      if (source.hasHeader) {
+        location = {
+          building: row.Block?.trim() || "",
+          floor: row.Floor?.trim() || "",
+          room: row["Room Number"]?.trim() || "",
+          description: row["Room Name"]?.trim() || "",
+          side: "",
+          notes: row.Notes?.trim() || ""
+        };
+        if (
+          !location.building &&
+          Object.prototype.hasOwnProperty.call(campusAmenityNames, location.notes)
+        ) {
+          location.building = "Campus amenities";
+          location.room = campusAmenityNames[location.notes];
+        }
+        if (!location.building) {
+          throw new Error(
+            `${source.path} has no building name at row ${rowIndex + 2}.`
+          );
+        }
+      } else {
+        if (row.length !== 5) {
+          throw new Error(
+            `${source.path} row ${rowIndex + 1} must have five columns.`
+          );
+        }
+        const [building, floor, room, description, side] = row;
+        location = { building, floor, room, description, side, notes: "" };
+      }
+      return location;
+    });
   });
 }
 
@@ -402,7 +557,12 @@ function renderPlaces() {
       })
         .bindTooltip(node.name)
         .on("click", () => {
-          destinationSelect.value = node.id;
+          if (!startSelect.value && !usingCurrentLocation) {
+            startSelect.value = node.id;
+            gpsFallbackStartId = node.id;
+          } else {
+            destinationSelect.value = node.id;
+          }
           updateRoute();
         })
         .addTo(placeLayer);
@@ -529,7 +689,13 @@ async function updateRoute() {
   const destination = campusNodeById.get(destinationSelect.value);
   if ((!selectedStart && !usingCurrentLocation) || !destination) {
     routeTitle.textContent = "Choose a route";
-    routeStatus.textContent = "Select a starting point and destination.";
+    routeStatus.textContent = !selectedStart && !usingCurrentLocation
+      ? destination
+        ? "Select a starting point to continue."
+        : "Select a starting point and destination."
+      : `Starting point set to ${
+          usingCurrentLocation ? "your location" : selectedStart.name
+        }. Select a destination.`;
     routeDuration.textContent = "--";
     routeDistance.textContent = "--";
     nextStop.textContent = "--";
@@ -737,32 +903,46 @@ function normalizeLocationName(value) {
 }
 
 function findDirectoryDestination(location) {
-  const candidateNames = [location.room, location.description].filter(Boolean);
+  const candidateNames = [
+    location.room,
+    location.description,
+    location.notes
+  ].filter(Boolean);
   for (const candidate of candidateNames) {
     const normalized = normalizeLocationName(candidate);
     const match = campusNodes.find(
       (node) => normalizeLocationName(node.name) === normalized
     );
-    if (match) return match;
+    if (match) return { node: match, isBuildingEntrance: false };
   }
-  return null;
+  const entranceId = buildingEntranceIds[location.building];
+  const entrance = entranceId ? campusNodeById.get(entranceId) : null;
+  return entrance ? { node: entrance, isBuildingEntrance: true } : null;
 }
 
 function renderBuildingDirectory() {
   const query = directorySearch.value.trim().toLocaleLowerCase();
+  const selectedBuilding = buildingFilter.value;
   const selectedFloor = floorFilter.value;
   const matchingLocations = campusLocations.filter((location) => {
+    const matchesBuilding =
+      !selectedBuilding || location.building === selectedBuilding;
     const matchesFloor = !selectedFloor || location.floor === selectedFloor;
     const searchableText = [
       location.building,
       location.floor,
       location.room,
       location.description,
-      location.side
+      location.side,
+      location.notes
     ]
       .join(" ")
       .toLocaleLowerCase();
-    return matchesFloor && searchableText.includes(query);
+    return (
+      matchesBuilding &&
+      matchesFloor &&
+      searchableText.includes(query)
+    );
   });
 
   directoryCount.textContent =
@@ -780,12 +960,14 @@ function renderBuildingDirectory() {
     const name = document.createElement("strong");
     const details = document.createElement("span");
     const destination = findDirectoryDestination(location);
-    name.textContent = location.room || location.description || location.building;
+    name.textContent =
+      location.room || location.description || location.building;
     details.textContent = [
       location.building,
       location.floor,
       location.side,
-      location.room && location.description ? location.description : ""
+      location.room && location.description ? location.description : "",
+      location.notes
     ]
       .filter(Boolean)
       .join(" · ");
@@ -794,9 +976,11 @@ function renderBuildingDirectory() {
       const routeButton = document.createElement("button");
       routeButton.className = "ghost-button small directory-route-button";
       routeButton.type = "button";
-      routeButton.textContent = "Plan route here";
+      routeButton.textContent = destination.isBuildingEntrance
+        ? `Route to ${location.building} entrance`
+        : `Route to ${destination.node.name}`;
       routeButton.addEventListener("click", () => {
-        destinationSelect.value = destination.id;
+        destinationSelect.value = destination.node.id;
         updateRoute();
         document.getElementById("routes").scrollIntoView({ behavior: "smooth" });
       });
@@ -806,7 +990,15 @@ function renderBuildingDirectory() {
   });
 }
 
-function populateFloors() {
+function populateDirectoryFilters() {
+  const buildings = [...new Set(
+    campusLocations.map((location) => location.building).filter(Boolean)
+  )].sort((a, b) => a.localeCompare(b));
+  buildingFilter.replaceChildren(new Option("All buildings", ""));
+  buildings.forEach((building) => {
+    buildingFilter.appendChild(new Option(building, building));
+  });
+
   const floors = [...new Set(
     campusLocations.map((location) => location.floor).filter(Boolean)
   )].sort((a, b) => a.localeCompare(b));
@@ -820,8 +1012,15 @@ async function initializeCampusApp() {
   try {
     gpsStatus.textContent = "Loading campus data…";
     await loadCampusData();
+    try {
+      await loadTimetable();
+    } catch (error) {
+      console.error("Could not load the timetable:", error);
+      scheduleStatus.textContent = `Could not load the timetable: ${error.message}`;
+      scheduleList.replaceChildren();
+    }
     populateRouteLocations();
-    populateFloors();
+    populateDirectoryFilters();
     renderPlaces();
     renderBuildingDirectory();
     updateRoute();
@@ -853,7 +1052,9 @@ startSelect.addEventListener("change", () => {
 });
 destinationSelect.addEventListener("change", () => void updateRoute());
 directorySearch.addEventListener("input", renderBuildingDirectory);
+buildingFilter.addEventListener("change", renderBuildingDirectory);
 floorFilter.addEventListener("change", renderBuildingDirectory);
+scheduleDayFilter.addEventListener("change", renderTimetable);
 gpsStartButton.addEventListener("click", startGPS);
 gpsStopButton.addEventListener("click", stopGPS);
 

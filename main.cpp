@@ -1,20 +1,21 @@
 #include <algorithm>
 #include <cctype>
 #include <cmath>
-#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <limits>
 #include <map>
 #include <queue>
 #include <stdexcept>
+#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
 
-#include "LiveClock.h"
-#include "User.h"
+#include "EmbeddedData.h"
+#include "TimeTable/LiveClock.h"
+#include "TimeTable/User.h"
 
 namespace {
 
@@ -134,7 +135,7 @@ private:
 
 public:
     void loadNodes(const std::string& filename) {
-        std::ifstream file(filename);
+        std::istringstream file(embeddedCsv(filename));
         if (!file) throw std::runtime_error("Could not open " + filename + ".");
 
         std::string line;
@@ -144,7 +145,11 @@ public:
         const auto headers = parseCsvRow(line);
         const std::size_t idColumn = findColumn(headers, "node_id", filename);
         const std::size_t nameColumn = findColumn(headers, "name", filename);
-        const std::size_t typeColumn = findColumn(headers, "node_type", filename);
+        const auto typeHeader = std::find(headers.begin(), headers.end(), "node_type");
+        const bool hasTypeColumn = typeHeader != headers.end();
+        const std::size_t typeColumn = hasTypeColumn
+            ? static_cast<std::size_t>(typeHeader - headers.begin())
+            : headers.size();
         const std::size_t latColumn = findColumn(headers, "lat", filename);
         const std::size_t lonColumn = findColumn(headers, "lon", filename);
 
@@ -156,7 +161,9 @@ public:
             CampusNode node{
                 fieldAt(fields, idColumn, filename, lineNumber),
                 fieldAt(fields, nameColumn, filename, lineNumber),
-                fieldAt(fields, typeColumn, filename, lineNumber),
+                hasTypeColumn
+                    ? fieldAt(fields, typeColumn, filename, lineNumber)
+                    : "circle node",
                 parseNumber(fieldAt(fields, latColumn, filename, lineNumber), filename, lineNumber),
                 parseNumber(fieldAt(fields, lonColumn, filename, lineNumber), filename, lineNumber)
             };
@@ -177,7 +184,7 @@ public:
     }
 
     void loadEdges(const std::string& filename) {
-        std::ifstream file(filename);
+        std::istringstream file(embeddedCsv(filename));
         if (!file) throw std::runtime_error("Could not open " + filename + ".");
 
         std::string line;
@@ -187,7 +194,33 @@ public:
         const auto headers = parseCsvRow(line);
         const std::size_t fromColumn = findColumn(headers, "node_from", filename);
         const std::size_t toColumn = findColumn(headers, "node_to", filename);
+        const std::size_t fromNameColumn =
+            findColumn(headers, "node_from_name", filename);
+        const std::size_t toNameColumn =
+            findColumn(headers, "node_to_name", filename);
         const std::size_t distanceColumn = findColumn(headers, "edge_cost_m", filename);
+        const auto ensureGraphNode = [this, &filename](
+            const std::string& id,
+            const std::string& name,
+            std::size_t lineNumber
+        ) {
+            const auto found = nodeIndexes.find(id);
+            if (found != nodeIndexes.end()) return found->second;
+            if (id.empty()) {
+                throw std::runtime_error(
+                    filename + " has an empty node ID at line " +
+                    std::to_string(lineNumber) + "."
+                );
+            }
+            const std::size_t index = nodes.size();
+            const std::string nodeName = name.empty() ? id : name;
+            // Intermediate graph nodes have no coordinate entry; routing only needs their IDs.
+            const double noCoordinate = std::numeric_limits<double>::quiet_NaN();
+            nodes.push_back({id, nodeName, "graph junction", noCoordinate, noCoordinate});
+            adjacency.emplace_back();
+            nodeIndexes.emplace(id, index);
+            return index;
+        };
 
         std::size_t lineNumber = 1;
         while (std::getline(file, line)) {
@@ -196,6 +229,10 @@ public:
             const auto fields = parseCsvRow(line);
             const std::string& fromId = fieldAt(fields, fromColumn, filename, lineNumber);
             const std::string& toId = fieldAt(fields, toColumn, filename, lineNumber);
+            const std::string& fromName =
+                fieldAt(fields, fromNameColumn, filename, lineNumber);
+            const std::string& toName =
+                fieldAt(fields, toNameColumn, filename, lineNumber);
             const double distance = parseNumber(
                 fieldAt(fields, distanceColumn, filename, lineNumber), filename, lineNumber
             );
@@ -205,8 +242,8 @@ public:
                     std::to_string(lineNumber) + "."
                 );
             }
-            const std::size_t from = findNode(fromId);
-            const std::size_t to = findNode(toId);
+            const std::size_t from = ensureGraphNode(fromId, fromName, lineNumber);
+            const std::size_t to = ensureGraphNode(toId, toName, lineNumber);
             adjacency[from].push_back({to, distance});
             adjacency[to].push_back({from, distance});
         }
@@ -439,7 +476,7 @@ bool loadTimetable(
     Section& section,
     Admin& admin
 ) {
-    std::ifstream file(filename);
+    std::istringstream file(embeddedCsv(filename));
     if (!file) throw std::runtime_error("Could not open " + filename + ".");
 
     std::string line;
@@ -608,7 +645,7 @@ struct VenueRoute {
 };
 
 std::map<std::string, VenueRoute> loadVenueRoutes(const std::string& filename) {
-    std::ifstream file(filename);
+    std::istringstream file(embeddedCsv(filename));
     if (!file) throw std::runtime_error("Could not open " + filename + ".");
     std::string line;
     if (!std::getline(file, line)) {
@@ -699,6 +736,12 @@ int routeToScheduledClass(
     if (currentClass.cancelled) {
         std::cout << currentClass.subjectName << " is cancelled for "
                   << date << "; no route is needed.\n";
+        return 0;
+    }
+    if (currentClass.venueName == "Online") {
+        std::cout << currentClass.subjectName << " with "
+                  << currentClass.facultyName
+                  << " is online; no walking route is needed.\n";
         return 0;
     }
 
@@ -929,8 +972,8 @@ int runMenu(CampusGraph& campus) {
             } else if (choice == "3") {
                 std::string sectionName;
                 int semester = 0;
-                if (!promptWithDefault("Section [DEMO]: ", "DEMO", sectionName) ||
-                    !promptPositiveIntWithDefault("Semester [1]: ", 1, semester)) {
+                if (!promptWithDefault("Section [A]: ", "A", sectionName) ||
+                    !promptPositiveIntWithDefault("Semester [3]: ", 3, semester)) {
                     std::cout << "\nGoodbye.\n";
                     return 0;
                 }
@@ -1032,10 +1075,10 @@ int runTimetableRoute(
 int main(int argc, char* argv[]) {
     try {
         CampusGraph campus;
-        campus.loadNodes("data/campus_node_coordinates.csv");
+        campus.loadNodes("data/node_coordinates.csv");
         campus.loadEdges("data/campus_edges.csv");
         std::cout << "Loaded " << campus.nodeCount()
-                  << " campus locations from CSV data.\n";
+                  << " campus graph nodes.\n";
 
         if (argc == 1) {
             return runMenu(campus);

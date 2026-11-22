@@ -8,7 +8,7 @@
 <!-- 1. Project's Title -->
 <div class="center">
   <h1>🧭 Sted — A College Navigation System</h1>
-  <p>A timetable-aware campus navigation system that helps students and faculty find the fastest route to their next lecture, with automatic rerouting when classrooms change.</p>
+  <p>Sted has two independent implementations: a static website for presenting campus navigation and the screenshot-based timetable, and a standalone C++ terminal program for academic demonstrations of graphs, routing, and timetable resolution.</p>
 </div>
 
 <!-- 2. Project Description -->
@@ -20,15 +20,16 @@ and room they're scheduled for, but they don't help with actually navigating the
 that gap by combining timetable management with shortest-path campus navigation — given a user's current
 location, it identifies their next lecture, computes the shortest route to that classroom, and automatically recalculates and notifies affected users whenever a classroom is changed.
 
-How to run:
+<h2>Run the terminal program</h2>
+<p>Build from the repository root with CMake and a C++ compiler. CMake compiles all C++ modules into one executable and embeds the graph and timetable CSV data, so the built executable runs without the repository or a separate data folder.</p>
+<pre><code>cmake -S . -B build/cpp
+cmake --build build/cpp --config Release</code></pre>
+<p>On Windows with a multi-configuration generator, run <code>build\cpp\Release\sted_graph.exe</code>; with a single-configuration generator, run <code>build\cpp\sted_graph.exe</code>.</p>
 
-cmake -S . -B build
-
-cmake --build build --config Release
-
-python -m http.server 8000 --bind 0.0.0.0
-
-goto http://127.0.0.1:8000 on your browser.
+<h2>Preview the website</h2>
+<p>The website loads its own static files and building directories from the repository. From the repository root, run:</p>
+<pre><code>python -m http.server 8000 --bind 127.0.0.1</code></pre>
+<p>Open <a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a>. The website and terminal program remain separate and do not call each other.</p>
 </p>
 
 <!-- 3. Credits -->
