@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cctype>
 #include <cmath>
+#include <ctime>
 #include <iomanip>
 #include <iostream>
 #include <limits>
@@ -829,6 +830,64 @@ bool readDate(const std::string& prompt, std::string& date) {
     }
 }
 
+bool readGroupScope(const std::string& prompt, GroupScope& scope) {
+    for (;;) {
+        std::string value;
+        if (!readRequired(prompt, value)) return false;
+        std::transform(value.begin(), value.end(), value.begin(),
+                       [](unsigned char character) {
+                           return static_cast<char>(std::toupper(character));
+                       });
+        if (value == "ALL" || value == "BOTH") {
+            scope = GroupScope::BOTH;
+            return true;
+        }
+        if (value == "G1") {
+            scope = GroupScope::G1;
+            return true;
+        }
+        if (value == "G2") {
+            scope = GroupScope::G2;
+            return true;
+        }
+        if (value == "NONE") {
+            scope = GroupScope::NONE;
+            return true;
+        }
+        std::cout << "Enter ALL, G1, G2, or NONE.\n";
+    }
+}
+
+bool readScheduleSlot(
+    const std::string& prompt,
+    std::string& day,
+    int& startHour,
+    int& startMinute,
+    int& endHour,
+    int& endMinute
+) {
+    if (!readDay(prompt + " day: ", day)) return false;
+    for (;;) {
+        if (!readTime(prompt + " start time (HH:MM): ", startHour, startMinute) ||
+            !readTime(prompt + " end time (HH:MM): ", endHour, endMinute)) {
+            return false;
+        }
+        if (endHour * 60 + endMinute > startHour * 60 + startMinute) return true;
+        std::cout << "The end time must be later than the start time.\n";
+    }
+}
+
+std::string currentTimestamp() {
+    const std::time_t now = std::time(nullptr);
+    const std::tm* localTime = std::localtime(&now);
+    if (localTime == nullptr) {
+        throw std::runtime_error("Could not read the local time for the audit log.");
+    }
+    std::ostringstream timestamp;
+    timestamp << std::put_time(localTime, "%Y-%m-%d %H:%M:%S");
+    return timestamp.str();
+}
+
 bool readStudentAndStart(
     std::string& section,
     int& semester,
@@ -906,9 +965,7 @@ void printTimetable(const Section& section, int semester, bool isExample) {
                       << slot.getStartMinute() << '-'
                       << std::setw(2) << slot.getEndHour() << ':'
                       << std::setw(2) << slot.getEndMinute()
-                      << "  " << subject->getCourseCode()
-                      << "  " << subject->getSubjectName()
-                      << "  [" << subject->getFacultyName() << "]"
+                      << "  " << subject->describe()
                       << "  @ " << entry.getVenue().getName()
                       << "  [" << groupScopeName(entry.getGroupScope()) << "]";
             if (isExample) std::cout << "  [EXAMPLE]";
@@ -916,6 +973,93 @@ void printTimetable(const Section& section, int semester, bool isExample) {
         }
     }
     if (!found) std::cout << "No classes are scheduled for that section/semester.\n";
+}
+
+int runTimetableAdminMenu() {
+    std::string sectionName;
+    int semester = 0;
+    if (!promptWithDefault("Section [A]: ", "A", sectionName) ||
+        !promptPositiveIntWithDefault("Semester [3]: ", 3, semester)) {
+        return 0;
+    }
+
+    Section section(
+        sectionName, "CLI", Venue("TBD"),
+        "Not configured", "Not configured", 20
+    );
+    Admin admin("CLI timetable administrator", "cli-admin");
+    if (!admin.createTimetableForSection(section, semester)) {
+        throw std::runtime_error("Could not initialize the timetable.");
+    }
+    const bool isExample = loadTimetable(
+        "data/timetable_examples.csv", sectionName, semester, section, admin
+    );
+    std::cout << "\nLoaded timetable for " << sectionName
+              << ", semester " << semester << ".\n"
+              << "Edits in this admin session are temporary and are not written "
+                 "back to the CSV data.\n";
+    if (isExample) {
+        std::cout << "NOTICE: this timetable contains example data.\n";
+    }
+
+    for (;;) {
+        std::cout << "\nTimetable administration\n"
+                  << "1. Edit a class venue\n"
+                  << "2. Delete a class entry\n"
+                  << "3. View the change log\n"
+                  << "4. View the current timetable\n"
+                  << "0. Return to the main menu\n"
+                  << "Choose an option: ";
+        std::string choice;
+        if (!std::getline(std::cin, choice)) return 0;
+        choice = trim(choice);
+        if (choice == "0") return 0;
+
+        if (choice == "1" || choice == "2") {
+            std::string day;
+            int startHour = 0;
+            int startMinute = 0;
+            int endHour = 0;
+            int endMinute = 0;
+            GroupScope scope = GroupScope::BOTH;
+            if (!readScheduleSlot(
+                    "Class", day, startHour, startMinute, endHour, endMinute
+                ) ||
+                !readGroupScope("Group (ALL, G1, G2, or NONE): ", scope)) {
+                return 0;
+            }
+
+            const TimeSlot slot(day, startHour, startMinute, endHour, endMinute);
+            const std::string timestamp = currentTimestamp();
+            if (choice == "1") {
+                std::string venue;
+                if (!readRequired("New venue: ", venue)) return 0;
+                if (admin.editClassVenue(
+                        section, semester, slot, scope, Venue(venue), timestamp
+                    )) {
+                    std::cout << "Class venue updated for this admin session.\n";
+                } else {
+                    std::cout << "No matching class was found; nothing changed.\n";
+                }
+            } else if (admin.deleteClassEntry(
+                           section, semester, slot, scope, timestamp
+                       )) {
+                std::cout << "Class entry deleted for this admin session.\n";
+            } else {
+                std::cout << "No matching class was found; nothing changed.\n";
+            }
+        } else if (choice == "3") {
+            const Timetable* timetable = section.getTimetable(semester);
+            if (timetable == nullptr) {
+                throw std::runtime_error("The requested timetable is unavailable.");
+            }
+            timetable->getChangeLog().printAll();
+        } else if (choice == "4") {
+            printTimetable(section, semester, isExample);
+        } else {
+            std::cout << "Invalid choice. Select 0, 1, 2, 3, or 4.\n";
+        }
+    }
 }
 
 void printMainMenu() {
@@ -927,6 +1071,7 @@ void printMainMenu() {
               << "3. View a section's weekly timetable\n"
               << "4. Find a walking route between campus locations\n"
               << "5. List campus locations and IDs\n"
+              << "6. Manage a timetable as an administrator\n"
               << "0. Exit\n"
               << "Choose an option: ";
 }
@@ -1015,8 +1160,10 @@ int runMenu(CampusGraph& campus) {
             } else if (choice == "5") {
                 std::cout << "\nCampus locations (use an ID as the start location):\n";
                 campus.listPlaces();
+            } else if (choice == "6") {
+                runTimetableAdminMenu();
             } else {
-                std::cout << "Invalid choice. Select 0, 1, 2, 3, 4, or 5.\n";
+                std::cout << "Invalid choice. Select 0, 1, 2, 3, 4, 5, or 6.\n";
             }
         } catch (const std::exception& error) {
             if (!std::cin) {
